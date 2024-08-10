@@ -1,10 +1,10 @@
-#ifndef __TETRIS_TIMER__
-#define __TETRIS_TIMER__
+#ifndef CPP3_BRICKGAME_V2_0_1_SRC_GUI_CLI_TIMER_TIMER_H_
+#define CPP3_BRICKGAME_V2_0_1_SRC_GUI_CLI_TIMER_TIMER_H_
 extern "C"
 {
 #include <stdlib.h>
 #include <sys/time.h>
 }
-long long getTimeInMS();
+long long GetTimeInMS();
 
 #endif

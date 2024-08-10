@@ -27,6 +27,6 @@ extern "C"
 
 GameInfo TetrisUpdateCurrentState(GameInfo game_info, GameState *state,
                               Signal signal, WINDOW **windows);
-Signal TetrisGetSignal(int userInput);
+Signal TetrisGetSignal(int UserInput);
 
 #endif

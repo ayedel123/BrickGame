@@ -9,7 +9,7 @@ void SnakeSetUp(GameInfo *game_info, int **field)
 int SnakeGameLoop(GameInfo *game_info, WINDOW **windows)
 {
 
-  long long startTime = getTimeInMS();
+  long long startTime = GetTimeInMS();
   long long endTime = 0;
   int is_end = 0;
   int keyVal = 0;
@@ -19,7 +19,7 @@ int SnakeGameLoop(GameInfo *game_info, WINDOW **windows)
   Signal last_move = kMoveDown;
   while (keyVal != 404 && state != kExitState)
   {
-    input = userInput();
+    input = UserInput();
     Signal signal = GetSignal(input);
     if (signal == kMoveDown || signal == kMoveUp || signal == kMoveLeft || signal == kMoveRight)
     {
@@ -29,12 +29,12 @@ int SnakeGameLoop(GameInfo *game_info, WINDOW **windows)
     *game_info =
         UpdateCurrentState(*game_info, body, &state, signal, windows);
 
-    endTime = getTimeInMS();
+    endTime = GetTimeInMS();
     if (state == kMoving &&
         endTime - startTime >=
             game_info->speed - game_info->level * game_info->acceleration)
     {
-      startTime = getTimeInMS();
+      startTime = GetTimeInMS();
       *game_info = UpdateCurrentState(*game_info, body, &state, last_move, windows);
     }
   }

@@ -1,11 +1,11 @@
 #include "window.h"
 
-WINDOW *createNewWin(int height, int width, int starty, int startx) {
-  WINDOW *localWin;
+WINDOW *CreateNewWin(int height, int width, int starty, int startx) {
+  WINDOW *local_win;
 
-  localWin = newwin(height, width, starty, startx);
-  box(localWin, 0, 0);
-  wrefresh(localWin);
+  local_win = newwin(height, width, starty, startx);
+  box(local_win, 0, 0);
+  wrefresh(local_win);
 
-  return localWin;
+  return local_win;
 }

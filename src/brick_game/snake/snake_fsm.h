@@ -13,7 +13,7 @@ extern "C"
 
 GameInfo UpdateCurrentState(GameInfo game_info, std::vector<Brick *> &body, GameState *state,
                               Signal signal, WINDOW **windows);
-Signal GetSignal(int userInput);
+Signal GetSignal(int UserInput);
 void GetMoveData(int signal, int *direction, int *angle);
 
 #endif

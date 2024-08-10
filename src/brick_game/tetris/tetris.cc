@@ -1,11 +1,11 @@
 
 #include "tetris.h"
 
-// void TetrisSetUp(WINDOW **windows, int winCount, GameInfo *game_info, int **field)
+// void TetrisSetUp(WINDOW **windows, int win_count, GameInfo *game_info, int **field)
 // {
 //   srand(time(0));
-//   cursesSetUp();
-//   setUpBrickGameWindows(windows, winCount);
+//   CursesSetUp();
+//   SetUpBrickGameWindows(windows, win_count);
 //   InitGameInfo(game_info, field, TETRIS_GAME_SPEED, TETRIS_GAME_ACCELERATION, RANDOM_BRICK);
 // }
 
@@ -17,7 +17,7 @@ void TetrisSetUp(GameInfo *game_info, int **field)
 int TetrisGameLoop(GameInfo *game_info, WINDOW **windows)
 {
 
-  long long startTime = getTimeInMS();
+  long long startTime = GetTimeInMS();
   long long endTime = 0;
   int is_end = 0;
   int keyVal = 0;
@@ -26,16 +26,16 @@ int TetrisGameLoop(GameInfo *game_info, WINDOW **windows)
 
   while (keyVal != 404 && state != kExitState)
   {
-    input = userInput();
+    input = UserInput();
     *game_info =
         TetrisUpdateCurrentState(*game_info, &state, TetrisGetSignal(input), windows);
 
-    endTime = getTimeInMS();
+    endTime = GetTimeInMS();
     if (state == kMoving &&
         endTime - startTime >=
             game_info->speed - game_info->level * game_info->acceleration)
     {
-      startTime = getTimeInMS();
+      startTime = GetTimeInMS();
       *game_info = TetrisUpdateCurrentState(*game_info, &state, kMoveDown, windows);
     }
   }

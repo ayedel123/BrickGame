@@ -60,7 +60,7 @@ void TetrisMovingHandler(GameInfo *game_info, GameState *state,
   else
     *state = kExitState;
 
-  drawField(windows[kGameWin], game_info);
+  DrawField(windows[kGameWin], game_info);
   if (*state == kOnPause)
   {
     printTetrisStats(windows[kInfoWin], game_info, 0);
@@ -74,7 +74,7 @@ void TetrisMovingHandler(GameInfo *game_info, GameState *state,
 void TetrisStartHandler(GameInfo *game_info, GameState *state,
                   Signal signal, WINDOW *gameWin)
 {
-  startMessage(gameWin, game_info->win_info.width, game_info->win_info.width);
+  StartMessage(gameWin, game_info->win_info.width, game_info->win_info.width);
 
   if (signal == kStartSig)
   {
@@ -92,7 +92,7 @@ void TetrisGameOverHandler(GameInfo *game_info, GameState *state,
                      Signal signal, WINDOW *gameWin)
 {
 
-  gameOverMessage(gameWin, game_info->win_info.width, game_info->win_info.width);
+  GameOverMessage(gameWin, game_info->win_info.width, game_info->win_info.width);
   if (signal != kNosig)
   {
     if (signal != kExit)
@@ -148,30 +148,30 @@ GameInfo TetrisUpdateCurrentState(GameInfo game_info, GameState *state,
   return game_info;
 }
 
-Signal TetrisGetSignal(int userInput)
+Signal TetrisGetSignal(int UserInput)
 {
   Signal rc = kNosig;
 
-  // if (userInput == KEY_UP)
+  // if (UserInput == KEY_UP)
   //   rc = kMoveUp;
   // else
-  if (userInput == KEY_DOWN)
+  if (UserInput == KEY_DOWN)
     rc = kMoveDown;
-  else if (userInput == KEY_LEFT)
+  else if (UserInput == KEY_LEFT)
     rc = kMoveLeft;
-  else if (userInput == KEY_RIGHT)
+  else if (UserInput == KEY_RIGHT)
     rc = kMoveRight;
-  else if (userInput == KEY_ROTATE_LEFT)
+  else if (UserInput == KEY_ROTATE_LEFT)
     rc = kRotateLeft;
-  else if (userInput == KEY_ROTATE_RIGHT)
+  else if (UserInput == KEY_ROTATE_RIGHT)
     rc = kRotateRight;
-  else if (userInput == KEY_PAUSE)
+  else if (UserInput == KEY_PAUSE)
     rc = kPause;
-  else if (userInput == ERR)
+  else if (UserInput == ERR)
     rc = kNosig;
-  else if (userInput == KEY_START)
+  else if (UserInput == KEY_START)
     rc = kStartSig;
-  else if (userInput == KEY_ESCAPE)
+  else if (UserInput == KEY_ESCAPE)
     rc = kExit;
 
   return rc;

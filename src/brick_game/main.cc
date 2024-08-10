@@ -3,61 +3,38 @@
 extern "C"
 {
 #include <ncurses.h>
-//#include <cstdlib> // или <stdlib.h>, если у вас C
 }
 #include "./tetris/tetris.h"
 #include "./snake/snake.h"
 
-//#include <list>
-//  #include "./tetris/snake.h"
 
-void SetUp(WINDOW **windows, int winCount, GameInfo *game_info, int **field)
+void SetUp(WINDOW **windows, int win_count, GameInfo *game_info, int **field)
 {
     srand(time(0));
-    cursesSetUp();
-    setUpBrickGameWindows(windows, winCount);
+    CursesSetUp();
+    SetUpBrickGameWindows(windows, win_count);
     InitGameInfo(game_info, field, TETRIS_GAME_SPEED, TETRIS_GAME_ACCELERATION, RANDOM_BRICK);
 }
-
-void print_menu(WINDOW *menu_win, int highlight, const char *choices[], int n_choices)
-{
-    int x, y, i;
-
-    x = 2;
-    y = 2;
-    for (i = 0; i < n_choices; ++i)
-    {
-        if (i == highlight)
-        {
-            wattron(menu_win, A_REVERSE);
-        }
-        mvwprintw(menu_win, y, x, "%s", choices[i]);
-        wattroff(menu_win, A_REVERSE);
-        y++;
-    }
-    wrefresh(menu_win);
-}
-
 int ChoseGame(WINDOW *win)
 {
     int height = 10, width = 30, start_y = 4, start_x = 4;
     int highlight = 0;
     int choice;
     const char *choices[] = {"Tetris", "Snake", "Exit"};
-    int n_choices = sizeof(choices) / sizeof(char *);
+    int choices_count = sizeof(choices) / sizeof(char *);
     while (1)
     {
-        choice = userInput(); // Получение ввода
+        choice = UserInput();
         switch (choice)
         {
         case KEY_UP:
-            highlight = (highlight == 0) ? n_choices - 1 : highlight - 1;
+            highlight = (highlight == 0) ? choices_count - 1 : highlight - 1;
             break;
         case KEY_DOWN:
-            highlight = (highlight + 1) % n_choices;
+            highlight = (highlight + 1) % choices_count;
             break;
-        case 10:                            // Enter key
-            if (highlight == n_choices - 1) // Если "Exit"
+        case 10:
+            if (highlight == choices_count - 1)
                 return -1;
             else
                 return highlight;
@@ -65,7 +42,7 @@ int ChoseGame(WINDOW *win)
         default:
             break;
         }
-        print_menu(win, highlight, choices, n_choices);
+        PrintMenu(win, highlight, choices, choices_count);
     }
     return 0;
 }
@@ -90,7 +67,6 @@ int main()
         SnakeSetUp(&game_info, field);
         SnakeGameLoop(&game_info, windows);
     }
-    //
     endwin();
     DeleteField(field, GAME_WINDOW_HEIGHT);
 

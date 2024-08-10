@@ -1,6 +1,6 @@
 #include "ui.h"
 
-void drawField(WINDOW *win, GameInfo *game_info)
+void DrawField(WINDOW *win, GameInfo *game_info)
 {
 
   for (int i = 0; i < game_info->win_info.height; i++)
@@ -23,23 +23,23 @@ void drawField(WINDOW *win, GameInfo *game_info)
   wrefresh(win);
 }
 
-WINDOW *setUpWindow(int winNumber)
+WINDOW *SetUpWindow(int win_number)
 {
 
   int height = GAME_WINDOW_HEIGHT + 2;
   int width = GAME_WINDOW_WIDTH + 2;
   int starty = (LINES - height) / 2;
-  int startx = 2 + width * winNumber;
+  int startx = 2 + width * win_number;
   refresh();
-  WINDOW *localWindow = createNewWin(height, width, starty, startx);
-  return localWindow;
+  WINDOW *local_win = CreateNewWin(height, width, starty, startx);
+  return local_win;
 }
 
-int *setUpBrickGameWindows(WINDOW **windows, int winCount)
+int *SetUpBrickGameWindows(WINDOW **windows, int win_count)
 {
-  for (int i = 0; i < winCount; i++)
+  for (int i = 0; i < win_count; i++)
   {
-    windows[i] = setUpWindow(i);
+    windows[i] = SetUpWindow(i);
   }
   return 0;
 }
@@ -59,7 +59,7 @@ void initColors()
   init_pair(7, COLOR_WHITE, 7);
 }
 
-void cursesSetUp()
+void CursesSetUp()
 {
   initscr();
   cbreak();
@@ -72,7 +72,7 @@ void cursesSetUp()
   timeout(0);
 }
 
-void gameOverMessage(WINDOW *win, int width, int height)
+void GameOverMessage(WINDOW *win, int width, int height)
 {
   mvwprintw(win, height / 2, 1, "game over");
   mvwprintw(win, height / 2 + 1, 1, "  press ");
@@ -84,7 +84,7 @@ void gameOverMessage(WINDOW *win, int width, int height)
   wrefresh(win);
 }
 
-void startMessage(WINDOW *win, int width, int height)
+void StartMessage(WINDOW *win, int width, int height)
 {
   mvwprintw(win, height / 2, 2, "  press ");
   mvwprintw(win, height / 2 + 1, 2, " any key ");
@@ -92,4 +92,23 @@ void startMessage(WINDOW *win, int width, int height)
   mvwprintw(win, height / 2 + 3, 2, "  or 0 ");
   mvwprintw(win, height / 2 + 4, 2, " to exit ");
   wrefresh(win);
+}
+
+void PrintMenu(WINDOW *menu_win, int highlight, const char *choices[], int choices_count)
+{
+  int x, y, i;
+
+  x = 2;
+  y = 2;
+  for (i = 0; i < choices_count; ++i)
+  {
+    if (i == highlight)
+    {
+      wattron(menu_win, A_REVERSE);
+    }
+    mvwprintw(menu_win, y, x, "%s", choices[i]);
+    wattroff(menu_win, A_REVERSE);
+    y++;
+  }
+  wrefresh(menu_win);
 }

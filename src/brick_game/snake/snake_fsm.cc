@@ -69,7 +69,7 @@ void movingHandler(GameInfo *game_info, std::vector<Brick *> &body, GameState *s
       *state = kGameOver;
   }
 
-  drawField(windows[kGameWin], game_info);
+  DrawField(windows[kGameWin], game_info);
 
   printTetrisStats(windows[kInfoWin], game_info, (*state == kOnPause) ? 0 : 1);
 }
@@ -93,7 +93,7 @@ void gameOverHandler(GameInfo *game_info, GameState *state,
                      Signal signal, WINDOW *gameWin)
 {
 
-  gameOverMessage(gameWin, game_info->win_info.width, game_info->win_info.width);
+  GameOverMessage(gameWin, game_info->win_info.width, game_info->win_info.width);
   if (signal != kNosig)
   {
     if (signal != kExit)
@@ -152,11 +152,11 @@ GameInfo UpdateCurrentState(GameInfo game_info, std::vector<Brick *> &body, Game
   return game_info;
 }
 
-Signal GetSignal(int userInput)
+Signal GetSignal(int UserInput)
 {
   Signal rc = kNosig;
 
-  switch (userInput)
+  switch (UserInput)
   {
   case KEY_UP:
     rc = kMoveUp;
