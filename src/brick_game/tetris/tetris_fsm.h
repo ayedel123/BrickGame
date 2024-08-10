@@ -25,7 +25,7 @@ extern "C"
 // } tetris_signals;
 
 
-GameInfo_t TetrisUpdateCurrentState(GameInfo_t gameInfo, GameState *state,
+GameInfo TetrisUpdateCurrentState(GameInfo game_info, GameState *state,
                               Signal signal, WINDOW **windows);
 Signal TetrisGetSignal(int userInput);
 

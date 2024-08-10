@@ -3,10 +3,10 @@
 
 #include "../../back/back.h"
 
-int fullLineHandler(GameInfo_t *gameInfo);
+int fullLineHandler(GameInfo *game_info);
 
-int isLineFull(GameInfo_t *gameInfo, int lineId);
-void dropLines(GameInfo_t *gameInfo, int lastLine, int linesCount);
-int resetBrick(GameInfo_t *gameInfo);
+int isLineFull(GameInfo *game_info, int lineId);
+void dropLines(GameInfo *game_info, int lastLine, int linesCount);
+int resetBrick(GameInfo *game_info);
 
 #endif

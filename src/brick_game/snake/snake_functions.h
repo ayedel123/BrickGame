@@ -14,12 +14,12 @@ extern "C"
 #include <iostream>
 #include <fstream>
 #include <string>
-int SnakeHandleCollision(GameInfo_t *gameInfo, int col, int dir);
+int SnakeHandleCollision(GameInfo *game_info, int col, int dir);
 void RandomFreeCell(int **field, int height, int width, int *y, int *x);
-int SpawnApple(GameInfo_t *gameInfo);
-int SpawnNode(GameInfo_t *gameInfo, std::vector<Brick *> &body);
-void redrawBody(GameInfo_t *gameInfo, std::vector<Brick *> &body);
-int MoveBody(GameInfo_t *gameInfo, std::vector<Brick *> &body, int direction, bool ignore_collision);
+int SpawnApple(GameInfo *game_info);
+int SpawnNode(GameInfo *game_info, std::vector<Brick *> &body);
+void redrawBody(GameInfo *game_info, std::vector<Brick *> &body);
+int MoveBody(GameInfo *game_info, std::vector<Brick *> &body, int direction, bool ignore_collision);
 
 
 #define SNAKE_GAME_SPEED 350

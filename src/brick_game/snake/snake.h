@@ -14,12 +14,12 @@ extern "C"
 
 // Временно
 
-int SnakeGameLoop(GameInfo_t *gameInfo, WINDOW **windows);
-// void setUp(WINDOW **windows, int winCount, GameInfo_t *gameInfo, int **field);
-//  int SnakeHandleCollision(GameInfo_t *gameInfo, int col, int dir);
-void SnakeSetUp(GameInfo_t *gameInfo, int **field);
+int SnakeGameLoop(GameInfo *game_info, WINDOW **windows);
+// void setUp(WINDOW **windows, int winCount, GameInfo *game_info, int **field);
+//  int SnakeHandleCollision(GameInfo *game_info, int col, int dir);
+void SnakeSetUp(GameInfo *game_info, int **field);
 // void RandomFreeCell(int **field, int height, int width, int *y, int *x);
-// int SpawnApple(GameInfo_t *gameInfo);
+// int SpawnApple(GameInfo *game_info);
 
 // #define SNAKE_GAME_SPEED 300
 // #define SNAKE_GAME_ACCELERATION 20

@@ -1,4 +1,4 @@
-#include "moveBrick.h"
+#include "move_brick.h"
 
 // доработка
 
@@ -43,18 +43,18 @@ void moveBrickInField(int **field, Brick *brick)
   }
 }
 
-int TryToMove(GameInfo_t *gameInfo, Brick *oldBrick, int direction, int angle)
+int TryToMove(GameInfo *game_info, Brick *oldBrick, int direction, int angle)
 {
 
   int result = COL_STATE_NO;
   for (int i = 0; i < 4 && result == COL_STATE_NO; i++)
   {
-    result = checkOutOfBounds(oldBrick, i, gameInfo->winInfo.width,
-                              gameInfo->winInfo.height, kDirState);
+    result = CheckOutOfBounds(oldBrick, i, game_info->win_info.width,
+                              game_info->win_info.height, kDirState);
   }
   if (result == COL_STATE_NO)
   {
-    deleteFromField(gameInfo->field, oldBrick);
+    deleteFromField(game_info->field, oldBrick);
 
     if (direction != kDirState)
     {
@@ -65,29 +65,29 @@ int TryToMove(GameInfo_t *gameInfo, Brick *oldBrick, int direction, int angle)
       rotateBrickCords(oldBrick, angle);
     }
 
-    result = checkCollision(gameInfo, oldBrick, direction);
+    result = CheckCollision(game_info, oldBrick, direction);
   }
   return result;
 }
 
-int moveBrick(GameInfo_t *gameInfo, Brick *oldBrick, int direction, int angle)
+int moveBrick(GameInfo *game_info, Brick *oldBrick, int direction, int angle)
 {
   Brick newBrick = *oldBrick;
   int result = COL_STATE_NO;
-  result = TryToMove(gameInfo, &newBrick, direction, angle);
+  result = TryToMove(game_info, &newBrick, direction, angle);
 
   if (result == COL_STATE_NO)
   {
     *oldBrick = newBrick;
   }
-  moveBrickInField(gameInfo->field, oldBrick);
+  moveBrickInField(game_info->field, oldBrick);
   return result;
 }
 
-int ForceMoveBrick(GameInfo_t *gameInfo, Brick *oldBrick, int direction, int angle)
+int ForceMoveBrick(GameInfo *game_info, Brick *oldBrick, int direction, int angle)
 {
-  deleteFromField(gameInfo->field, oldBrick);
+  deleteFromField(game_info->field, oldBrick);
   moveBrickCords(oldBrick, direction);
-  moveBrickInField(gameInfo->field, oldBrick);
+  moveBrickInField(game_info->field, oldBrick);
   return 0;
 }

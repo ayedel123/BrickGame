@@ -10,7 +10,7 @@ extern "C"
 #include <stdlib.h>
 #include <time.h>
 }
-void drawField(WINDOW *win, GameInfo_t *gameManager);
+void drawField(WINDOW *win, GameInfo *gameManager);
 WINDOW *setUpWindow(int winNumber);
 int *setUpBrickGameWindows(WINDOW **windows, int winCount);
 void cursesSetUp();

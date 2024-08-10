@@ -9,6 +9,6 @@ extern "C"
 {
 #include <ncurses.h>
 }
-void printTetrisStats(WINDOW *menuWin, GameInfo_t *gameInfo, int isOnPause);
+void printTetrisStats(WINDOW *menuWin, GameInfo *game_info, int isOnPause);
 
 #endif

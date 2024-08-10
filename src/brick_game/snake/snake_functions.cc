@@ -1,11 +1,11 @@
 
 #include "snake_functions.h"
 
-// void setUp(WINDOW **windows, int winCount, GameInfo_t *gameInfo, int **field) {
+// void setUp(WINDOW **windows, int winCount, GameInfo *game_info, int **field) {
 //   srand(time(0));
 //   cursesSetUp();
 //   setUpBrickGameWindows(windows, winCount);
-//   initGameInfo(gameInfo, field, GAME_SPEED, GMAE_ACCELERATION,3);
+//   InitGameInfo(game_info, field, GAME_SPEED, GMAE_ACCELERATION,3);
 // }
 
 void RandomFreeCell(int **field, int height, int width, int *y, int *x)
@@ -40,50 +40,50 @@ void RandomFreeCell(int **field, int height, int width, int *y, int *x)
     }
 }
 
-int SpawnApple(GameInfo_t *gameInfo)
+int SpawnApple(GameInfo *game_info)
 {
     int x = -1, y = -1;
-    RandomFreeCell(gameInfo->field, gameInfo->winInfo.height, gameInfo->winInfo.width, &y, &x);
+    RandomFreeCell(game_info->field, game_info->win_info.height, game_info->win_info.width, &y, &x);
     if (x == -1 && y == -1)
     {
         return 1;
     }
-    gameInfo->nextBrick.x = x;
-    gameInfo->nextBrick.y = y;
-    moveBrickInField(gameInfo->field, &(gameInfo->nextBrick));
+    game_info->next_Brick.x = x;
+    game_info->next_Brick.y = y;
+    moveBrickInField(game_info->field, &(game_info->next_Brick));
 
     return 0;
 }
 
-void redrawBody(GameInfo_t *gameInfo, std::vector<Brick *> &body)
+void redrawBody(GameInfo *game_info, std::vector<Brick *> &body)
 {
     for (auto it = body.begin(); it != body.cend(); ++it)
     {
-        // deleteFromField(gameInfo->field, *it);
-        moveBrickInField(gameInfo->field, *it);
+        // deleteFromField(game_info->field, *it);
+        moveBrickInField(game_info->field, *it);
     }
 }
 
-int SpawnNode(GameInfo_t *gameInfo, std::vector<Brick *> &body)
+int SpawnNode(GameInfo *game_info, std::vector<Brick *> &body)
 {
     Brick local_brick = Brick{*(body.back())};
     // moveBrickCords(&local_brick, -direction);
 
     // moveBrickCords(&local_brick, direction);
     body.push_back(new Brick{local_brick});
-    // moveBrickInField(gameInfo->field, &local_brick);
+    // moveBrickInField(game_info->field, &local_brick);
 
     return 0;
 }
 
-int SnakeHandleCollision(GameInfo_t *gameInfo, int col, int dir)
+int SnakeHandleCollision(GameInfo *game_info, int col, int dir)
 {
 
-    if (col == gameInfo->nextBrick.color)
+    if (col == game_info->next_Brick.color)
     {
         col = COL_STATE_CRIT;
     }
-    else if (col == COLLIDE_WITH_BORDER || col == gameInfo->currentBrick.color)
+    else if (col == COLLIDE_WITH_BORDER || col == game_info->current_brick.color)
     {
         col = COL_STATE_END;
     }
@@ -91,7 +91,7 @@ int SnakeHandleCollision(GameInfo_t *gameInfo, int col, int dir)
     return col;
 }
 
-int MoveBody(GameInfo_t *gameInfo, std::vector<Brick *> &body, int direction, bool ignore_collision)
+int MoveBody(GameInfo *game_info, std::vector<Brick *> &body, int direction, bool ignore_collision)
 {
     if (body.empty())
         return COL_STATE_NO;
@@ -99,13 +99,13 @@ int MoveBody(GameInfo_t *gameInfo, std::vector<Brick *> &body, int direction, bo
     Brick *head = body.front();
     Brick old_brick = *head;
 
-    int col = moveBrick(gameInfo, head, direction, 0);
+    int col = moveBrick(game_info, head, direction, 0);
 
     if (col != COL_STATE_NO)
     {
         if (ignore_collision)
         {
-            ForceMoveBrick(gameInfo, head, direction, 0);
+            ForceMoveBrick(game_info, head, direction, 0);
         }
         else
             return col;
@@ -123,8 +123,8 @@ int MoveBody(GameInfo_t *gameInfo, std::vector<Brick *> &body, int direction, bo
         current->y = old_brick.y;
 
         old_brick = tmp_brick;
-        deleteFromField(gameInfo->field, &old_brick);
-        moveBrickInField(gameInfo->field, current);
+        deleteFromField(game_info->field, &old_brick);
+        moveBrickInField(game_info->field, current);
     }
 
     return col;
@@ -132,14 +132,14 @@ int MoveBody(GameInfo_t *gameInfo, std::vector<Brick *> &body, int direction, bo
 
 // int main() {
 //   WINDOW *windows[3];
-//   GameInfo_t gameInfo;
+//   GameInfo game_info;
 //   int **field = NULL;
-//   initField(&field, GAME_WINDOW_HEIGHT, GAME_WINDOW_WIDTH);
-//   clearField(field, GAME_WINDOW_HEIGHT, GAME_WINDOW_WIDTH);
-//   setUp(windows, 2, &gameInfo, field);
-//   gameLoop(&gameInfo, windows);
+//   InitField(&field, GAME_WINDOW_HEIGHT, GAME_WINDOW_WIDTH);
+//   ClearField(field, GAME_WINDOW_HEIGHT, GAME_WINDOW_WIDTH);
+//   setUp(windows, 2, &game_info, field);
+//   gameLoop(&game_info, windows);
 //   endwin();
-//   deleteField(field, GAME_WINDOW_HEIGHT);
+//   DeleteField(field, GAME_WINDOW_HEIGHT);
 
 //   return 0;
 // }

@@ -11,12 +11,12 @@ extern "C"
 //#include <list>
 //  #include "./tetris/snake.h"
 
-void SetUp(WINDOW **windows, int winCount, GameInfo_t *gameInfo, int **field)
+void SetUp(WINDOW **windows, int winCount, GameInfo *game_info, int **field)
 {
     srand(time(0));
     cursesSetUp();
     setUpBrickGameWindows(windows, winCount);
-    initGameInfo(gameInfo, field, GAME_SPEED, GMAE_ACCELERATION, RANDOM_BRICK);
+    InitGameInfo(game_info, field, GAME_SPEED, GMAE_ACCELERATION, RANDOM_BRICK);
 }
 
 void print_menu(WINDOW *menu_win, int highlight, const char *choices[], int n_choices)
@@ -73,26 +73,26 @@ int ChoseGame(WINDOW *win)
 int main()
 {
     WINDOW *windows[3];
-    GameInfo_t gameInfo;
+    GameInfo game_info;
     int **field = NULL;
-    initField(&field, GAME_WINDOW_HEIGHT, GAME_WINDOW_WIDTH);
-    clearField(field, GAME_WINDOW_HEIGHT, GAME_WINDOW_WIDTH);
-    SetUp(windows, 2, &gameInfo, field);
+    InitField(&field, GAME_WINDOW_HEIGHT, GAME_WINDOW_WIDTH);
+    ClearField(field, GAME_WINDOW_HEIGHT, GAME_WINDOW_WIDTH);
+    SetUp(windows, 2, &game_info, field);
 
     int game = ChoseGame(windows[0]);
     if (game == 0)
     {
-        TetrisSetUp(&gameInfo, field);
-        TetrisGameLoop(&gameInfo, windows);
+        TetrisSetUp(&game_info, field);
+        TetrisGameLoop(&game_info, windows);
     }
     else if (game == 1)
     {
-        SnakeSetUp(&gameInfo, field);
-        SnakeGameLoop(&gameInfo, windows);
+        SnakeSetUp(&game_info, field);
+        SnakeGameLoop(&game_info, windows);
     }
     //
     endwin();
-    deleteField(field, GAME_WINDOW_HEIGHT);
+    DeleteField(field, GAME_WINDOW_HEIGHT);
 
     putchar('0' + game);
 

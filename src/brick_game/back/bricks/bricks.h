@@ -1,5 +1,5 @@
-#ifndef __BRICK__
-#define __BRICK__
+#ifndef CPP3_BRICKGAME_V2_0_1_SRC_BRICK_GAME_BACK_BRICKS_BRICKS_H_
+#define CPP3_BRICKGAME_V2_0_1_SRC_BRICK_GAME_BACK_BRICKS_BRICKS_H_
 
 extern "C"
 {
@@ -29,6 +29,6 @@ typedef struct
 
 extern const Brick BRICKS_TYPES[BRICK_TYPES_COUNT + 1];
 
-void bornBrick(Brick *brick, int x, int y, int brickType, int colorCount);
+void BornBrick(Brick *brick, int x, int y, int brick_type, int color_count);
 
 #endif

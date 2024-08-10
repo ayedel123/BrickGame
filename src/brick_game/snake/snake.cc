@@ -1,19 +1,19 @@
 
 #include "snake.h"
 
-// void setUp(WINDOW **windows, int winCount, GameInfo_t *gameInfo, int **field) {
+// void setUp(WINDOW **windows, int winCount, GameInfo *game_info, int **field) {
 //   srand(time(0));
 //   cursesSetUp();
 //   setUpBrickGameWindows(windows, winCount);
-//   initGameInfo(gameInfo, field, GAME_SPEED, GMAE_ACCELERATION,3);
+//   InitGameInfo(game_info, field, GAME_SPEED, GMAE_ACCELERATION,3);
 // }
 
-void SnakeSetUp(GameInfo_t *gameInfo, int **field)
+void SnakeSetUp(GameInfo *game_info, int **field)
 {
-  initGameInfo(gameInfo, field, SNAKE_GAME_SPEED, SNAKE_GAME_ACCELERATION, BRICK_TYPES_COUNT);
+  InitGameInfo(game_info, field, SNAKE_GAME_SPEED, SNAKE_GAME_ACCELERATION, BRICK_TYPES_COUNT);
 }
 
-int SnakeGameLoop(GameInfo_t *gameInfo, WINDOW **windows)
+int SnakeGameLoop(GameInfo *game_info, WINDOW **windows)
 {
 
   long long startTime = getTimeInMS();
@@ -33,16 +33,16 @@ int SnakeGameLoop(GameInfo_t *gameInfo, WINDOW **windows)
       last_move = signal;
     }
 
-    *gameInfo =
-        updateCurrentState(*gameInfo, body, &state, signal, windows);
+    *game_info =
+        updateCurrentState(*game_info, body, &state, signal, windows);
 
     endTime = getTimeInMS();
     if (state == kMoving &&
         endTime - startTime >=
-            gameInfo->speed - gameInfo->level * gameInfo->acceleration)
+            game_info->speed - game_info->level * game_info->acceleration)
     {
       startTime = getTimeInMS();
-      *gameInfo = updateCurrentState(*gameInfo, body, &state, last_move, windows);
+      *game_info = updateCurrentState(*game_info, body, &state, last_move, windows);
     }
   }
   body.clear();
@@ -82,27 +82,27 @@ int SnakeGameLoop(GameInfo_t *gameInfo, WINDOW **windows)
 //   }
 // }
 
-// int SpawnApple(GameInfo_t *gameInfo)
+// int SpawnApple(GameInfo *game_info)
 // {
 //   int x = -1, y = -1;
-//   RandomFreeCell(gameInfo->field, gameInfo->winInfo.height, gameInfo->winInfo.width, &y, &x);
+//   RandomFreeCell(game_info->field, game_info->win_info.height, game_info->win_info.width, &y, &x);
 //   if (x == -1 && y == -1)
 //   {
 //     return 1;
 //   }
-//   gameInfo->nextBrick.x = x;
-//   gameInfo->nextBrick.y = y;
-//   moveBrickInField(gameInfo->field, &(gameInfo->nextBrick));
+//   game_info->next_Brick.x = x;
+//   game_info->next_Brick.y = y;
+//   moveBrickInField(game_info->field, &(game_info->next_Brick));
 
 //   return 0;
 // }
 
-// int SnakeHandleCollision(GameInfo_t *gameInfo, int col, int dir)
+// int SnakeHandleCollision(GameInfo *game_info, int col, int dir)
 // {
 
 //   if (col != COLLIDE_WITH_BORDER && col != COL_STATE_NO)
 //   {
-//     ForceMoveBrick(gameInfo, &gameInfo->currentBrick, dir, 0);
+//     ForceMoveBrick(game_info, &game_info->current_brick, dir, 0);
 //     return COL_STATE_CRIT;
 //   }
 
@@ -111,14 +111,14 @@ int SnakeGameLoop(GameInfo_t *gameInfo, WINDOW **windows)
 
 // int main() {
 //   WINDOW *windows[3];
-//   GameInfo_t gameInfo;
+//   GameInfo game_info;
 //   int **field = NULL;
-//   initField(&field, GAME_WINDOW_HEIGHT, GAME_WINDOW_WIDTH);
-//   clearField(field, GAME_WINDOW_HEIGHT, GAME_WINDOW_WIDTH);
-//   setUp(windows, 2, &gameInfo, field);
-//   gameLoop(&gameInfo, windows);
+//   InitField(&field, GAME_WINDOW_HEIGHT, GAME_WINDOW_WIDTH);
+//   ClearField(field, GAME_WINDOW_HEIGHT, GAME_WINDOW_WIDTH);
+//   setUp(windows, 2, &game_info, field);
+//   gameLoop(&game_info, windows);
 //   endwin();
-//   deleteField(field, GAME_WINDOW_HEIGHT);
+//   DeleteField(field, GAME_WINDOW_HEIGHT);
 
 //   return 0;
 // }

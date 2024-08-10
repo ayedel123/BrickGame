@@ -1,19 +1,19 @@
 #include "ui.h"
 
-void drawField(WINDOW *win, GameInfo_t *gameInfo)
+void drawField(WINDOW *win, GameInfo *game_info)
 {
 
-  for (int i = 0; i < gameInfo->winInfo.height; i++)
+  for (int i = 0; i < game_info->win_info.height; i++)
   {
-    for (int j = 0; j < gameInfo->winInfo.width; j++)
+    for (int j = 0; j < game_info->win_info.width; j++)
     {
 
-      if (gameInfo->field[i][j] != 0)
+      if (game_info->field[i][j] != 0)
       {
         wrefresh(win);
-        wattron(win, COLOR_PAIR(gameInfo->field[i][j]));
+        wattron(win, COLOR_PAIR(game_info->field[i][j]));
         mvwprintw(win, i + 1, j + 1, "0");
-        wattroff(win, COLOR_PAIR(gameInfo->field[i][j]));
+        wattroff(win, COLOR_PAIR(game_info->field[i][j]));
       }
       else
         mvwprintw(win, i + 1, j + 1, " ");

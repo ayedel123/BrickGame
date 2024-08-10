@@ -11,10 +11,10 @@ extern "C"
 #include <ncurses.h>
 #include <stdlib.h>
 }
-int TetrisGameLoop(GameInfo_t *gameInfo, WINDOW **windows);
-// void TetrisSetUp(WINDOW **windows, int winCount, GameInfo_t *gameInfo, int **field);
+int TetrisGameLoop(GameInfo *game_info, WINDOW **windows);
+// void TetrisSetUp(WINDOW **windows, int winCount, GameInfo *game_info, int **field);
 int TetrisHandleCollision(int col, int dir);
-void TetrisSetUp(GameInfo_t *gameInfo, int **field);
+void TetrisSetUp(GameInfo *game_info, int **field);
 
 #define GAME_SPEED 300
 #define GMAE_ACCELERATION 20

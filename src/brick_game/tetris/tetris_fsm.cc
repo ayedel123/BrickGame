@@ -1,10 +1,10 @@
 #include "tetris_fsm.h"
 
 
-void TetrisSpawHandler(GameInfo_t *gameInfo, GameState *state)
+void TetrisSpawHandler(GameInfo *game_info, GameState *state)
 {
-  addPoints(gameInfo, fullLineHandler(gameInfo));
-  if (resetBrick(gameInfo) != COL_STATE_NO)
+  AddPoints(game_info, fullLineHandler(game_info));
+  if (resetBrick(game_info) != COL_STATE_NO)
     *state = kGameOver;
   else
     *state = kMoving;
@@ -37,7 +37,7 @@ void TetrisGetMoveData(int signal, int *direction, int *angle)
   };
 }
 
-void TetrisMovingHandler(GameInfo_t *gameInfo, GameState *state,
+void TetrisMovingHandler(GameInfo *game_info, GameState *state,
                    Signal signal, WINDOW **windows)
 {
 
@@ -50,7 +50,7 @@ void TetrisMovingHandler(GameInfo_t *gameInfo, GameState *state,
     int direction = kDirState;
     int angle = 0;
     TetrisGetMoveData(signal, &direction, &angle);
-    int col = moveBrick(gameInfo, &gameInfo->currentBrick, direction, angle);
+    int col = moveBrick(game_info, &game_info->current_brick, direction, angle);
     col = TetrisHandleCollision(col, direction);
     if (col == COL_STATE_CRIT)
     {
@@ -60,26 +60,26 @@ void TetrisMovingHandler(GameInfo_t *gameInfo, GameState *state,
   else
     *state = kExitState;
 
-  drawField(windows[kGameWin], gameInfo);
+  drawField(windows[kGameWin], game_info);
   if (*state == kOnPause)
   {
-    printTetrisStats(windows[kInfoWin], gameInfo, 0);
+    printTetrisStats(windows[kInfoWin], game_info, 0);
   }
   else
   {
-    printTetrisStats(windows[kInfoWin], gameInfo, 1);
+    printTetrisStats(windows[kInfoWin], game_info, 1);
   }
 }
 
-void TetrisStartHandler(GameInfo_t *gameInfo, GameState *state,
+void TetrisStartHandler(GameInfo *game_info, GameState *state,
                   Signal signal, WINDOW *gameWin)
 {
-  startMessage(gameWin, gameInfo->winInfo.width, gameInfo->winInfo.width);
+  startMessage(gameWin, game_info->win_info.width, game_info->win_info.width);
 
   if (signal == kStartSig)
   {
-    clearField(gameInfo->field, gameInfo->winInfo.height,
-               gameInfo->winInfo.width);
+    ClearField(game_info->field, game_info->win_info.height,
+               game_info->win_info.width);
     *state = kSpawn;
   }
   else if (signal == kExit)
@@ -88,11 +88,11 @@ void TetrisStartHandler(GameInfo_t *gameInfo, GameState *state,
   }
 }
 
-void TetrisGameOverHandler(GameInfo_t *gameInfo, GameState *state,
+void TetrisGameOverHandler(GameInfo *game_info, GameState *state,
                      Signal signal, WINDOW *gameWin)
 {
 
-  gameOverMessage(gameWin, gameInfo->winInfo.width, gameInfo->winInfo.width);
+  gameOverMessage(gameWin, game_info->win_info.width, game_info->win_info.width);
   if (signal != kNosig)
   {
     if (signal != kExit)
@@ -118,7 +118,7 @@ void TetrisPauseHandler(GameState *state, Signal signal)
   }
 }
 
-GameInfo_t TetrisUpdateCurrentState(GameInfo_t gameInfo, GameState *state,
+GameInfo TetrisUpdateCurrentState(GameInfo game_info, GameState *state,
                               Signal signal, WINDOW **windows)
 {
 
@@ -126,17 +126,17 @@ GameInfo_t TetrisUpdateCurrentState(GameInfo_t gameInfo, GameState *state,
   {
 
   case kStart:
-    TetrisStartHandler(&gameInfo, state, signal, windows[kGameWin]);
+    TetrisStartHandler(&game_info, state, signal, windows[kGameWin]);
     break;
   case kSpawn:
-    TetrisSpawHandler(&gameInfo, state);
+    TetrisSpawHandler(&game_info, state);
     break;
   case kMoving:
-    TetrisMovingHandler(&gameInfo, state, signal, windows);
+    TetrisMovingHandler(&game_info, state, signal, windows);
     break;
     break;
   case kGameOver:
-    TetrisGameOverHandler(&gameInfo, state, signal, windows[kGameWin]);
+    TetrisGameOverHandler(&game_info, state, signal, windows[kGameWin]);
     break;
   case kOnPause:
     TetrisPauseHandler(state, signal);
@@ -145,7 +145,7 @@ GameInfo_t TetrisUpdateCurrentState(GameInfo_t gameInfo, GameState *state,
     TetrisExitHandler(state);
     break;
   }
-  return gameInfo;
+  return game_info;
 }
 
 Signal TetrisGetSignal(int userInput)

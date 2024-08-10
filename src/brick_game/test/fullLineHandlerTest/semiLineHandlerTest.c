@@ -4,25 +4,25 @@ START_TEST(drop_lines_case_1) {
   int width = 4;
   int height = 4;
   int **field;
-  initField(&field, width, height);
-  GameInfo_t gameInfo;
-  gameInfo.field = field;
-  gameInfo.winInfo.height = height;
-  gameInfo.winInfo.width = width;
+  InitField(&field, width, height);
+  GameInfo game_info;
+  game_info.field = field;
+  game_info.win_info.height = height;
+  game_info.win_info.width = width;
 
-  gameInfo.field[0][0] = 1;
-  gameInfo.field[1][0] = 2;
-  gameInfo.field[2][0] = 3;
-  gameInfo.field[3][0] = 4;
+  game_info.field[0][0] = 1;
+  game_info.field[1][0] = 2;
+  game_info.field[2][0] = 3;
+  game_info.field[3][0] = 4;
 
-  dropLines(&gameInfo, 3, 1);
+  dropLines(&game_info, 3, 1);
 
-  ck_assert_int_eq(gameInfo.field[0][0], 0);
-  ck_assert_int_eq(gameInfo.field[1][0], 1);
-  ck_assert_int_eq(gameInfo.field[2][0], 2);
-  ck_assert_int_eq(gameInfo.field[3][0], 3);
+  ck_assert_int_eq(game_info.field[0][0], 0);
+  ck_assert_int_eq(game_info.field[1][0], 1);
+  ck_assert_int_eq(game_info.field[2][0], 2);
+  ck_assert_int_eq(game_info.field[3][0], 3);
 
-  deleteField(gameInfo.field, height);
+  DeleteField(game_info.field, height);
 }
 END_TEST
 
@@ -30,23 +30,23 @@ START_TEST(is_line_full_case_1) {
   int width = 4;
   int height = 4;
   int **field;
-  initField(&field, width, height);
-  GameInfo_t gameInfo;
-  gameInfo.field = field;
-  gameInfo.winInfo.height = height;
-  gameInfo.winInfo.width = width;
+  InitField(&field, width, height);
+  GameInfo game_info;
+  game_info.field = field;
+  game_info.win_info.height = height;
+  game_info.win_info.width = width;
 
-  gameInfo.field[1][0] = 2;
-  gameInfo.field[1][1] = 3;
-  gameInfo.field[1][2] = 4;
-  gameInfo.field[1][3] = 5;
+  game_info.field[1][0] = 2;
+  game_info.field[1][1] = 3;
+  game_info.field[1][2] = 4;
+  game_info.field[1][3] = 5;
 
   int lineId = 1;
-  int isFull = isLineFull(&gameInfo, lineId);
+  int isFull = isLineFull(&game_info, lineId);
 
   ck_assert_int_eq(isFull, 1);
 
-  deleteField(gameInfo.field, height);
+  DeleteField(game_info.field, height);
 }
 END_TEST
 
@@ -54,26 +54,26 @@ START_TEST(reset_brick_case_1) {
   int width = 10;
   int height = 10;
   int **field;
-  initField(&field, width, height);
-  GameInfo_t gameInfo;
-  initGameInfo(&gameInfo, field, 10, 10);
-  gameInfo.winInfo.height = height;
-  gameInfo.winInfo.width = width;
-  Brick secondBrick = gameInfo.nextBrick;
+  InitField(&field, width, height);
+  GameInfo game_info;
+  InitGameInfo(&game_info, field, 10, 10);
+  game_info.win_info.height = height;
+  game_info.win_info.width = width;
+  Brick secondBrick = game_info.next_Brick;
 
-  int status = resetBrick(&gameInfo);
-  ck_assert_int_eq(gameInfo.currentBrick.x, secondBrick.x);
-  ck_assert_int_eq(gameInfo.currentBrick.y, secondBrick.y);
-  ck_assert_int_eq(gameInfo.currentBrick.color, secondBrick.color);
+  int status = resetBrick(&game_info);
+  ck_assert_int_eq(game_info.current_brick.x, secondBrick.x);
+  ck_assert_int_eq(game_info.current_brick.y, secondBrick.y);
+  ck_assert_int_eq(game_info.current_brick.color, secondBrick.color);
   for (int i = 0; i < 4; i++) {
-    ck_assert_int_eq(gameInfo.currentBrick.cords[i][0],
+    ck_assert_int_eq(game_info.current_brick.cords[i][0],
                      secondBrick.cords[i][0]);
-    ck_assert_int_eq(gameInfo.currentBrick.cords[i][1],
+    ck_assert_int_eq(game_info.current_brick.cords[i][1],
                      secondBrick.cords[i][1]);
   }
   ck_assert_int_eq(status, 0);
 
-  deleteField(gameInfo.field, height);
+  DeleteField(game_info.field, height);
 }
 END_TEST
 

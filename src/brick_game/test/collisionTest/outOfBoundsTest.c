@@ -5,11 +5,11 @@ START_TEST(case_1) {
   int width = 20;
   int height = 20;
   Brick brick = BRICKS_TYPES[0];
-  bornBrick(&brick, 1, 0, 0, 7);
+  BornBrick(&brick, 1, 0, 0, 7);
   int status = 0;
   for (int i = 0; i < 4; i++) {
     status = (status == 0)
-                 ? checkOutOfBounds(&brick, i, width, height, kDirRight)
+                 ? CheckOutOfBounds(&brick, i, width, height, kDirRight)
                  : status;
   }
   ck_assert_int_eq(status, COL_STATE_NO);
@@ -21,11 +21,11 @@ START_TEST(case_2) {
   int width = 4;
   int height = 3;
   Brick brick = BRICKS_TYPES[0];
-  bornBrick(&brick, 1, 0, 0, 7);
+  BornBrick(&brick, 1, 0, 0, 7);
   int status = 0;
   for (int i = 0; i < 4; i++) {
     status = (status == 0)
-                 ? checkOutOfBounds(&brick, i, width, height, kDirRight)
+                 ? CheckOutOfBounds(&brick, i, width, height, kDirRight)
                  : status;
   }
   ck_assert_int_eq(status, COL_STATE_COL);
@@ -37,11 +37,11 @@ START_TEST(case_3) {
   int width = 4;
   int height = 1;
   Brick brick = BRICKS_TYPES[0];
-  bornBrick(&brick, 1, 0, 4, 7);
+  BornBrick(&brick, 1, 0, 4, 7);
   int status = 0;
   for (int i = 0; i < 4; i++) {
     status = (status == 0)
-                 ? checkOutOfBounds(&brick, i, width, height, kDirDown)
+                 ? CheckOutOfBounds(&brick, i, width, height, kDirDown)
                  : status;
   }
   ck_assert_int_eq(status, COL_STATE_CRIT);
@@ -53,11 +53,11 @@ START_TEST(case_4) {
   int width = 4;
   int height = 3;
   Brick brick = BRICKS_TYPES[0];
-  bornBrick(&brick, -1, 0, 0, 7);
+  BornBrick(&brick, -1, 0, 0, 7);
   int status = 0;
   for (int i = 0; i < 4; i++) {
     status = (status == 0)
-                 ? checkOutOfBounds(&brick, i, width, height, kDirDown)
+                 ? CheckOutOfBounds(&brick, i, width, height, kDirDown)
                  : status;
   }
   ck_assert_int_eq(status, COL_STATE_COL);
@@ -68,12 +68,12 @@ START_TEST(case_5) {
   int width = 4;
   int height = 5;
   int **field;
-  initField(&field, height, width);
+  InitField(&field, height, width);
   Brick brick = BRICKS_TYPES[0];
-  bornBrick(&brick, 1, 0, 0, 7);
+  BornBrick(&brick, 1, 0, 0, 7);
   int status = 0;
   for (int i = 0; i < 4; i++) {
-    status = checkOutOfBounds(&brick, i, width, height, kDirDown);
+    status = CheckOutOfBounds(&brick, i, width, height, kDirDown);
   }
   ck_assert_int_eq(status, COL_STATE_COL);
   // for (int i = 0; i < 4; i++) {
@@ -83,7 +83,7 @@ START_TEST(case_5) {
   //   ck_assert_int_eq(brick.cords[i][0], brick2.cords[i][0]);
   //   ck_assert_int_eq(brick.cords[i][1], brick2.cords[i][1]);
   // }
-  deleteField(field, height);
+  DeleteField(field, height);
 }
 END_TEST
 

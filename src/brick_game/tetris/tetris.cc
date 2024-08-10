@@ -1,20 +1,20 @@
 
 #include "tetris.h"
 
-// void TetrisSetUp(WINDOW **windows, int winCount, GameInfo_t *gameInfo, int **field)
+// void TetrisSetUp(WINDOW **windows, int winCount, GameInfo *game_info, int **field)
 // {
 //   srand(time(0));
 //   cursesSetUp();
 //   setUpBrickGameWindows(windows, winCount);
-//   initGameInfo(gameInfo, field, GAME_SPEED, GMAE_ACCELERATION, RANDOM_BRICK);
+//   InitGameInfo(game_info, field, GAME_SPEED, GMAE_ACCELERATION, RANDOM_BRICK);
 // }
 
-void TetrisSetUp(GameInfo_t *gameInfo, int **field)
+void TetrisSetUp(GameInfo *game_info, int **field)
 {
-  initGameInfo(gameInfo, field, GAME_SPEED, GMAE_ACCELERATION, RANDOM_BRICK);
+  InitGameInfo(game_info, field, GAME_SPEED, GMAE_ACCELERATION, RANDOM_BRICK);
 }
 
-int TetrisGameLoop(GameInfo_t *gameInfo, WINDOW **windows)
+int TetrisGameLoop(GameInfo *game_info, WINDOW **windows)
 {
 
   long long startTime = getTimeInMS();
@@ -27,16 +27,16 @@ int TetrisGameLoop(GameInfo_t *gameInfo, WINDOW **windows)
   while (keyVal != 404 && state != kExitState)
   {
     input = userInput();
-    *gameInfo =
-        TetrisUpdateCurrentState(*gameInfo, &state, TetrisGetSignal(input), windows);
+    *game_info =
+        TetrisUpdateCurrentState(*game_info, &state, TetrisGetSignal(input), windows);
 
     endTime = getTimeInMS();
     if (state == kMoving &&
         endTime - startTime >=
-            gameInfo->speed - gameInfo->level * gameInfo->acceleration)
+            game_info->speed - game_info->level * game_info->acceleration)
     {
       startTime = getTimeInMS();
-      *gameInfo = TetrisUpdateCurrentState(*gameInfo, &state, kMoveDown, windows);
+      *game_info = TetrisUpdateCurrentState(*game_info, &state, kMoveDown, windows);
     }
   }
 
@@ -58,14 +58,14 @@ int TetrisHandleCollision(int col, int dir)
 // int main()
 // {
 //   WINDOW *windows[3];
-//   GameInfo_t gameInfo;
+//   GameInfo game_info;
 //   int **field = NULL;
-//   initField(&field, GAME_WINDOW_HEIGHT, GAME_WINDOW_WIDTH);
-//   clearField(field, GAME_WINDOW_HEIGHT, GAME_WINDOW_WIDTH);
-//   setUp(windows, 2, &gameInfo, field);
-//   gameLoop(&gameInfo, windows);
+//   InitField(&field, GAME_WINDOW_HEIGHT, GAME_WINDOW_WIDTH);
+//   ClearField(field, GAME_WINDOW_HEIGHT, GAME_WINDOW_WIDTH);
+//   setUp(windows, 2, &game_info, field);
+//   gameLoop(&game_info, windows);
 //   endwin();
-//   deleteField(field, GAME_WINDOW_HEIGHT);
+//   DeleteField(field, GAME_WINDOW_HEIGHT);
 
 //   return 0;
 // }

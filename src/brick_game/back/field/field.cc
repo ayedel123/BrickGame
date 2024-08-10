@@ -1,6 +1,6 @@
 #include "field.h"
 
-void clearField(int **field, int rows, int cols) {
+void ClearField(int **field, int rows, int cols) {
 
   for (int i = 0; i < rows; i++) {
     for (int j = 0; j < cols; j++) {
@@ -9,7 +9,7 @@ void clearField(int **field, int rows, int cols) {
   }
 }
 
-int deleteField(int **field, int rows) {
+int DeleteField(int **field, int rows) {
   if (field == NULL) {
     return 1;
   }
@@ -21,7 +21,7 @@ int deleteField(int **field, int rows) {
   return 0;
 }
 
-int initField(int ***field, int rows, int cols) {
+int InitField(int ***field, int rows, int cols) {
   *field = (int **)calloc(rows, sizeof(int *));
   for (int i = 0; i < rows; i++) {
     (*field)[i] = (int *)calloc(cols, sizeof(int));

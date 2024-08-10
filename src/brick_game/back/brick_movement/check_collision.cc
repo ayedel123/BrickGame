@@ -1,19 +1,15 @@
-#include "checkCollision.h"
+#include "check_collision.h"
 
-int checkCollisionBrick(int **field, Brick *brick, int cordI, int direction)
+int CheckCollisionBrick(int **field, Brick *brick, int cordI, int direction)
 {
 
   int result = field[brick->y + brick->cords[cordI][1]]
                     [brick->x + brick->cords[cordI][0]];
 
-  // if (result != COL_STATE_NO && direction == kDirDown)
-  // {
-  //   result = COL_STATE_COL;
-  // }
   return result;
 }
 
-int checkOutOfBounds(Brick *brick, int cordI, int width, int height,
+int CheckOutOfBounds(Brick *brick, int cordI, int width, int height,
                      int direction)
 {
   int brickX = brick->x + brick->cords[cordI][0];
@@ -27,16 +23,16 @@ int checkOutOfBounds(Brick *brick, int cordI, int width, int height,
   return result;
 }
 
-int checkCollision(GameInfo_t *gameInfo, Brick *brick, int direction)
+int CheckCollision(GameInfo *game_info, Brick *brick, int direction)
 {
   int result = 0;
   for (int i = 0; i < 4 && result == COL_STATE_NO; i++)
   {
-    result = checkOutOfBounds(brick, i, gameInfo->winInfo.width,
-                              gameInfo->winInfo.height, direction);
+    result = CheckOutOfBounds(brick, i, game_info->win_info.width,
+                              game_info->win_info.height, direction);
     if (result == COL_STATE_NO)
     {
-      result = checkCollisionBrick(gameInfo->field, brick, i, direction);
+      result = CheckCollisionBrick(game_info->field, brick, i, direction);
     }
   }
 

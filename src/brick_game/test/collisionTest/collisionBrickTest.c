@@ -4,17 +4,17 @@ START_TEST(case_1) {
   int width = 10;
   int height = 10;
   int **field;
-  initField(&field, width, height);
+  InitField(&field, width, height);
   Brick brick1 = BRICKS_TYPES[0];
-  bornBrick(&brick1, 1, 0, 0, 7);
+  BornBrick(&brick1, 1, 0, 0, 7);
   field[0][4] = 1;
   int status = 0;
   for (int i = 0; i < 4; i++) {
-    status = (status == 0) ? checkCollisionBrick(field, &brick1, i, kDirRight)
+    status = (status == 0) ? CheckCollisionBrick(field, &brick1, i, kDirRight)
                            : status;
   }
   ck_assert_int_eq(status, COL_STATE_COL);
-  deleteField(field, height);
+  DeleteField(field, height);
 }
 END_TEST
 
@@ -22,17 +22,17 @@ START_TEST(case_2) {
   int width = 10;
   int height = 10;
   int **field;
-  initField(&field, width, height);
+  InitField(&field, width, height);
   Brick brick1 = BRICKS_TYPES[0];
-  bornBrick(&brick1, 1, 1, 0, 7);
+  BornBrick(&brick1, 1, 1, 0, 7);
   field[1][4] = 1;
   int status = 0;
   for (int i = 0; i < 4; i++) {
-    status = (status == 0) ? checkCollisionBrick(field, &brick1, i, kDirDown)
+    status = (status == 0) ? CheckCollisionBrick(field, &brick1, i, kDirDown)
                            : status;
   }
   ck_assert_int_eq(status, COL_STATE_CRIT);
-  deleteField(field, height);
+  DeleteField(field, height);
 }
 END_TEST
 
@@ -40,17 +40,17 @@ START_TEST(case_3) {
   int width = 10;
   int height = 10;
   int **field;
-  initField(&field, width, height);
+  InitField(&field, width, height);
   Brick brick1 = BRICKS_TYPES[0];
-  bornBrick(&brick1, 1, 0, 0, 7);
+  BornBrick(&brick1, 1, 0, 0, 7);
   field[0][4] = 1;
   int status = 0;
   for (int i = 0; i < 4; i++) {
-    status = (status == 0) ? checkCollisionBrick(field, &brick1, i, kDirTop)
+    status = (status == 0) ? CheckCollisionBrick(field, &brick1, i, kDirTop)
                            : status;
   }
   ck_assert_int_eq(status, COL_STATE_COL);
-  deleteField(field, height);
+  DeleteField(field, height);
 }
 END_TEST
 
@@ -58,18 +58,18 @@ START_TEST(case_4) {
   int width = 10;
   int height = 10;
   int **field;
-  initField(&field, width, height);
+  InitField(&field, width, height);
   Brick brick1 = BRICKS_TYPES[0];
-  bornBrick(&brick1, 1, 0, 0, 7);
+  BornBrick(&brick1, 1, 0, 0, 7);
   field[0][1] = 1;
   int status = 0;
   status = 0;
   for (int i = 0; i < 4; i++) {
-    status = (status == 0) ? checkCollisionBrick(field, &brick1, i, kDirLeft)
+    status = (status == 0) ? CheckCollisionBrick(field, &brick1, i, kDirLeft)
                            : status;
   }
   ck_assert_int_eq(status, COL_STATE_COL);
-  deleteField(field, height);
+  DeleteField(field, height);
 }
 END_TEST
 

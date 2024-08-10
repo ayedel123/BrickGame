@@ -4,15 +4,15 @@ START_TEST(case_1) {
   int width = 10;
   int height = 2;
   int **field;
-  initField(&field, width, height);
-  GameInfo_t gameInfo;
-  initGameInfo(&gameInfo, field, 10, 10);
-  gameInfo.winInfo.height = height;
-  gameInfo.winInfo.width = width;
-  addPoints(&gameInfo, 4);
-  ck_assert_int_eq(gameInfo.points, 1500);
-  ck_assert_int_eq(gameInfo.level, 3);
-  deleteField(gameInfo.field, height);
+  InitField(&field, width, height);
+  GameInfo game_info;
+  InitGameInfo(&game_info, field, 10, 10);
+  game_info.win_info.height = height;
+  game_info.win_info.width = width;
+  AddPoints(&game_info, 4);
+  ck_assert_int_eq(game_info.points, 1500);
+  ck_assert_int_eq(game_info.level, 3);
+  DeleteField(game_info.field, height);
 }
 END_TEST
 
@@ -20,15 +20,15 @@ START_TEST(case_2) {
   int width = 10;
   int height = 2;
   int **field;
-  initField(&field, width, height);
-  GameInfo_t gameInfo;
-  initGameInfo(&gameInfo, field, 10, 10);
-  gameInfo.winInfo.height = height;
-  gameInfo.winInfo.width = width;
-  addPoints(&gameInfo, 0);
-  ck_assert_int_eq(gameInfo.points, 0);
-  ck_assert_int_eq(gameInfo.level, 1);
-  deleteField(gameInfo.field, height);
+  InitField(&field, width, height);
+  GameInfo game_info;
+  InitGameInfo(&game_info, field, 10, 10);
+  game_info.win_info.height = height;
+  game_info.win_info.width = width;
+  AddPoints(&game_info, 0);
+  ck_assert_int_eq(game_info.points, 0);
+  ck_assert_int_eq(game_info.level, 1);
+  DeleteField(game_info.field, height);
 }
 END_TEST
 
@@ -36,15 +36,15 @@ START_TEST(case_3) {
   int width = 10;
   int height = 2;
   int **field;
-  initField(&field, width, height);
-  GameInfo_t gameInfo;
-  initGameInfo(&gameInfo, field, 10, 10);
-  gameInfo.winInfo.height = height;
-  gameInfo.winInfo.width = width;
-  addPoints(&gameInfo, 1);
-  ck_assert_int_eq(gameInfo.points, 100);
-  ck_assert_int_eq(gameInfo.level, 1);
-  deleteField(gameInfo.field, height);
+  InitField(&field, width, height);
+  GameInfo game_info;
+  InitGameInfo(&game_info, field, 10, 10);
+  game_info.win_info.height = height;
+  game_info.win_info.width = width;
+  AddPoints(&game_info, 1);
+  ck_assert_int_eq(game_info.points, 100);
+  ck_assert_int_eq(game_info.level, 1);
+  DeleteField(game_info.field, height);
 }
 END_TEST
 
@@ -52,16 +52,16 @@ START_TEST(case_4) {
   int width = 10;
   int height = 2;
   int **field;
-  initField(&field, width, height);
-  GameInfo_t gameInfo;
-  initGameInfo(&gameInfo, field, 10, 10);
-  gameInfo.winInfo.height = height;
-  gameInfo.winInfo.width = width;
-  gameInfo.points = 300;
-  addPoints(&gameInfo, 2);
-  ck_assert_int_eq(gameInfo.points, 600);
-  ck_assert_int_eq(gameInfo.level, 2);
-  deleteField(gameInfo.field, height);
+  InitField(&field, width, height);
+  GameInfo game_info;
+  InitGameInfo(&game_info, field, 10, 10);
+  game_info.win_info.height = height;
+  game_info.win_info.width = width;
+  game_info.points = 300;
+  AddPoints(&game_info, 2);
+  ck_assert_int_eq(game_info.points, 600);
+  ck_assert_int_eq(game_info.level, 2);
+  DeleteField(game_info.field, height);
 }
 END_TEST
 
@@ -69,15 +69,15 @@ START_TEST(case_5) {
   int width = 10;
   int height = 2;
   int **field;
-  initField(&field, width, height);
-  GameInfo_t gameInfo;
-  initGameInfo(&gameInfo, field, 10, 10);
-  gameInfo.winInfo.height = height;
-  gameInfo.winInfo.width = width;
-  addPoints(&gameInfo, 1500);
-  ck_assert_int_eq(gameInfo.points, 1500);
-  ck_assert_int_eq(gameInfo.level, 3);
-  deleteField(gameInfo.field, height);
+  InitField(&field, width, height);
+  GameInfo game_info;
+  InitGameInfo(&game_info, field, 10, 10);
+  game_info.win_info.height = height;
+  game_info.win_info.width = width;
+  AddPoints(&game_info, 1500);
+  ck_assert_int_eq(game_info.points, 1500);
+  ck_assert_int_eq(game_info.level, 3);
+  DeleteField(game_info.field, height);
 }
 END_TEST
 

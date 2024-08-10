@@ -27,15 +27,15 @@ const Brick BRICKS_TYPES[BRICK_TYPES_COUNT + 1] = {
       000       00
 */
 
-void bornBrick(Brick *brick, int x, int y, int brickType, int colorCount)
+void BornBrick(Brick *brick, int x, int y, int brick_type, int color_count)
 {
 
-  brickType = (brickType < 0 || brickType > BRICK_TYPES_COUNT)
-                  ? rand() % BRICK_TYPES_COUNT
-                  : brickType;
+  brick_type = (brick_type < 0 || brick_type > BRICK_TYPES_COUNT)
+                   ? rand() % BRICK_TYPES_COUNT
+                   : brick_type;
 
-  *brick = BRICKS_TYPES[brickType];
+  *brick = BRICKS_TYPES[brick_type];
   brick->x = x;
   brick->y = y;
-  brick->color = (COLOR_COUNT == colorCount) ? (rand() % colorCount) + 1 : colorCount;
+  brick->color = (COLOR_COUNT == color_count) ? (rand() % color_count) + 1 : color_count;
 }
