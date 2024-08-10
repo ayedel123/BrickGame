@@ -1,5 +1,6 @@
-#ifndef __DEFINES__
-#define __DEFINES__
+#ifndef CPP3_BRICKGAME_V2_0_1_SRC_COMMON_DEFINES_H
+
+#define CPP3_BRICKGAME_V2_0_1_SRC_COMMON_DEFINES_H
 
 typedef enum { kGameWin, kInfoWin, kDebugWIn } WindowsEnum;
 
