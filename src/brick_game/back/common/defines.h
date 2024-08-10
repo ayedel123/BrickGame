@@ -47,6 +47,7 @@ typedef enum
   COLLIDE,
   GAMEOVER,
   ONPAUSE,
+  SPAWN_APPLE,
   EXIT_STATE
 } game_states;
 
@@ -72,6 +73,6 @@ typedef enum
 
 #define COLOR_COUNT 7
 
-#define bool int
+//#define bool int
 
 #endif

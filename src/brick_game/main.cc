@@ -82,8 +82,8 @@ int main()
     int game = ChoseGame(windows[0]);
     if (game == 0)
     {
-        //TetrisSetUp(&gameInfo, field);
-        //TetrisGameLoop(&gameInfo, windows);
+        TetrisSetUp(&gameInfo, field);
+        TetrisGameLoop(&gameInfo, windows);
     }
     else if (game == 1)
     {

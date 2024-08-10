@@ -9,6 +9,7 @@ extern "C"
 #include <curses.h>
 }
 #include "snake_functions.h"
+#include <vector>
 
 // typedef enum {
 //   S_START = 0,
@@ -27,8 +28,9 @@ extern "C"
 // #define KEY_PAUSE ' '
 // #define KEY_START '\n'
 
-GameInfo_t updateCurrentState(GameInfo_t gameInfo, game_states *state,
+GameInfo_t updateCurrentState(GameInfo_t gameInfo, std::vector<Brick *> &body, game_states *state,
                               signals signal, WINDOW **windows);
 signals getSignal(int userInput);
+void getMoveData(int signal, int *direction, int *angle);
 
 #endif

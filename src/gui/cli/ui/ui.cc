@@ -1,16 +1,21 @@
 #include "ui.h"
 
-void drawField(WINDOW *win, GameInfo_t *gameInfo) {
+void drawField(WINDOW *win, GameInfo_t *gameInfo)
+{
 
-  for (int i = 0; i < gameInfo->winInfo.height; i++) {
-    for (int j = 0; j < gameInfo->winInfo.width; j++) {
+  for (int i = 0; i < gameInfo->winInfo.height; i++)
+  {
+    for (int j = 0; j < gameInfo->winInfo.width; j++)
+    {
 
-      if (gameInfo->field[i][j] != 0) {
+      if (gameInfo->field[i][j] != 0)
+      {
         wrefresh(win);
         wattron(win, COLOR_PAIR(gameInfo->field[i][j]));
         mvwprintw(win, i + 1, j + 1, "0");
         wattroff(win, COLOR_PAIR(gameInfo->field[i][j]));
-      } else
+      }
+      else
         mvwprintw(win, i + 1, j + 1, " ");
     }
   }
@@ -18,7 +23,8 @@ void drawField(WINDOW *win, GameInfo_t *gameInfo) {
   wrefresh(win);
 }
 
-WINDOW *setUpWindow(int winNumber) {
+WINDOW *setUpWindow(int winNumber)
+{
 
   int height = GAME_WINDOW_HEIGHT + 2;
   int width = GAME_WINDOW_WIDTH + 2;
@@ -29,14 +35,17 @@ WINDOW *setUpWindow(int winNumber) {
   return localWindow;
 }
 
-int *setUpBrickGameWindows(WINDOW **windows, int winCount) {
-  for (int i = 0; i < winCount; i++) {
+int *setUpBrickGameWindows(WINDOW **windows, int winCount)
+{
+  for (int i = 0; i < winCount; i++)
+  {
     windows[i] = setUpWindow(i);
   }
   return 0;
 }
 
-void initColors() {
+void initColors()
+{
   init_color(2, 0, 1000, 0);
   init_color(7, 1000, 400, 0);
   init_color(4, 200, 200, 1000);
@@ -50,7 +59,8 @@ void initColors() {
   init_pair(7, COLOR_WHITE, 7);
 }
 
-void cursesSetUp() {
+void cursesSetUp()
+{
   initscr();
   cbreak();
   noecho();
@@ -62,7 +72,8 @@ void cursesSetUp() {
   timeout(0);
 }
 
-void gameOverMessage(WINDOW *win, int width, int height) {
+void gameOverMessage(WINDOW *win, int width, int height)
+{
   mvwprintw(win, height / 2, 1, "game over");
   mvwprintw(win, height / 2 + 1, 1, "  press ");
   mvwprintw(win, height / 2 + 2, 1, " any key ");
@@ -73,7 +84,8 @@ void gameOverMessage(WINDOW *win, int width, int height) {
   wrefresh(win);
 }
 
-void startMessage(WINDOW *win, int width, int height) {
+void startMessage(WINDOW *win, int width, int height)
+{
   mvwprintw(win, height / 2, 2, "  press ");
   mvwprintw(win, height / 2 + 1, 2, " any key ");
   mvwprintw(win, height / 2 + 2, 2, "to start ");

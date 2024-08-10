@@ -6,7 +6,6 @@
 #include "brickMovement/moveBrick.h"
 #include "bricks/bricks.h"
 #include "field/field.h"
-//#include "fullLineHandler/fullLineHandler.h"
 #include "gameInfo/gameInfo.h"
 
 #endif

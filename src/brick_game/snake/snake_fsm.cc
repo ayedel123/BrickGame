@@ -1,8 +1,8 @@
 #include "snake_fsm.h"
 
-void spawHandler(GameInfo_t *gameInfo, game_states *state)
+void spawnAppleHandler(GameInfo_t *gameInfo, game_states *state)
 {
-  addPoints(gameInfo, fullLineHandler(gameInfo));
+  addPoints(gameInfo, 1);
   // if (resetBrick(gameInfo) != COL_STATE_NO)
   //   *state = GAMEOVER;
   // else
@@ -39,56 +39,58 @@ void getMoveData(int signal, int *direction, int *angle)
   };
 }
 
-void movingHandler(GameInfo_t *gameInfo, game_states *state,
+void movingHandler(GameInfo_t *gameInfo, std::vector<Brick *> &body, game_states *state,
                    signals signal, WINDOW **windows)
 {
-
-  if (signal == PAUSE)
+  if (signal == EXIT)
+  {
+    *state = EXIT_STATE;
+  }
+  else if (signal == PAUSE)
   {
     *state = ONPAUSE;
   }
-  else if (signal != EXIT)
+  else
   {
     int direction = DIR_STATE;
     int angle = 0;
     getMoveData(signal, &direction, &angle);
-    int col = moveBrick(gameInfo, &gameInfo->currentBrick, direction, angle);
-
+    int col = 0;
+    if (signal != NOSIG)
+      col = MoveBody(gameInfo, body, direction, false);
+    gameInfo->currentBrick = **body.begin();
     col = SnakeHandleCollision(gameInfo, col, direction);
+
     if (col == COL_STATE_CRIT)
     {
-      *state = SPAWN;
+      SpawnNode(gameInfo, body);
+      if (signal != NOSIG)
+        MoveBody(gameInfo, body, direction, true);
+
+      *state = SPAWN_APPLE;
     }
+    else if (col == COL_STATE_END)
+      *state = GAMEOVER;
   }
-  else
-    *state = EXIT_STATE;
 
   drawField(windows[GAME_WIN], gameInfo);
-  if (*state == ONPAUSE)
-  {
-    printTetrisStats(windows[INFO_WIN], gameInfo, 0);
-  }
-  else
-  {
-    printTetrisStats(windows[INFO_WIN], gameInfo, 1);
-  }
+
+  printTetrisStats(windows[INFO_WIN], gameInfo, (*state == ONPAUSE) ? 0 : 1);
 }
 
-void startHandler(GameInfo_t *gameInfo, game_states *state,
+void startHandler(GameInfo_t *gameInfo, std::vector<Brick *> &body, game_states *state,
                   signals signal, WINDOW *gameWin)
 {
-  startMessage(gameWin, gameInfo->winInfo.width, gameInfo->winInfo.width);
-
-  if (signal == START_SIG)
-  {
-    clearField(gameInfo->field, gameInfo->winInfo.height,
-               gameInfo->winInfo.width);
-    *state = SPAWN;
-  }
-  else if (signal == EXIT)
-  {
-    *state = EXIT_STATE;
-  }
+  gameInfo->currentBrick.x = gameInfo->winInfo.width / 2;
+  gameInfo->currentBrick.y = gameInfo->winInfo.height / 2;
+  gameInfo->currentBrick.color = 1;
+  gameInfo->nextBrick.color = 2;
+  clearField(gameInfo->field, gameInfo->winInfo.height,
+             gameInfo->winInfo.width);
+  moveBrickInField(gameInfo->field, &gameInfo->currentBrick);
+  *state = SPAWN_APPLE;
+  body.clear();
+  body.insert(body.begin(), new Brick{gameInfo->currentBrick});
 }
 
 void gameOverHandler(GameInfo_t *gameInfo, game_states *state,
@@ -96,6 +98,7 @@ void gameOverHandler(GameInfo_t *gameInfo, game_states *state,
 {
 
   gameOverMessage(gameWin, gameInfo->winInfo.width, gameInfo->winInfo.width);
+  // signal = getSignal(userInput());
   if (signal != NOSIG)
   {
     if (signal != EXIT)
@@ -107,7 +110,10 @@ void gameOverHandler(GameInfo_t *gameInfo, game_states *state,
   }
 }
 
-void exitHandler(game_states *state) { *state = static_cast<game_states>(EXIT); }
+void exitHandler(game_states *state)
+{
+  *state = static_cast<game_states>(EXIT);
+}
 
 void pauseHandler(game_states *state, signals signal)
 {
@@ -121,7 +127,7 @@ void pauseHandler(game_states *state, signals signal)
   }
 }
 
-GameInfo_t updateCurrentState(GameInfo_t gameInfo, game_states *state,
+GameInfo_t updateCurrentState(GameInfo_t gameInfo, std::vector<Brick *> &body, game_states *state,
                               signals signal, WINDOW **windows)
 {
 
@@ -129,13 +135,13 @@ GameInfo_t updateCurrentState(GameInfo_t gameInfo, game_states *state,
   {
 
   case START:
-    startHandler(&gameInfo, state, signal, windows[GAME_WIN]);
+    startHandler(&gameInfo, body, state, signal, windows[GAME_WIN]);
     break;
-  case SPAWN:
-    spawHandler(&gameInfo, state);
+  case SPAWN_APPLE:
+    spawnAppleHandler(&gameInfo, state);
     break;
   case MOVING:
-    movingHandler(&gameInfo, state, signal, windows);
+    movingHandler(&gameInfo, body, state, signal, windows);
     break;
     break;
   case GAMEOVER:
@@ -155,29 +161,42 @@ signals getSignal(int userInput)
 {
   signals rc = NOSIG;
 
-  // if (userInput == KEY_UP)
-  //   rc = MOVE_UP;
-  // else
-  if (userInput == KEY_DOWN)
-    rc = MOVE_DOWN;
-  else if (userInput == KEY_LEFT)
-    rc = MOVE_LEFT;
-  else if (userInput == KEY_UP)
+  switch (userInput)
+  {
+  case KEY_UP:
     rc = MOVE_UP;
-  else if (userInput == KEY_RIGHT)
+    break;
+  case KEY_DOWN:
+    rc = MOVE_DOWN;
+    break;
+  case KEY_LEFT:
+    rc = MOVE_LEFT;
+    break;
+  case KEY_RIGHT:
     rc = MOVE_RIGHT;
-  else if (userInput == KEY_ROTATE_LEFT)
+    break;
+  case KEY_ROTATE_LEFT:
     rc = ROTATE_LEFT;
-  else if (userInput == KEY_ROTATE_RIGHT)
+    break;
+  case KEY_ROTATE_RIGHT:
     rc = ROTATE_RIGHT;
-  else if (userInput == KEY_PAUSE)
+    break;
+  case KEY_PAUSE:
     rc = PAUSE;
-  else if (userInput == ERR)
+    break;
+  case ERR:
     rc = NOSIG;
-  else if (userInput == KEY_START)
+    break;
+  case KEY_START:
     rc = START_SIG;
-  else if (userInput == KEY_ESCAPE)
+    break;
+  case KEY_ESCAPE:
     rc = EXIT;
+    break;
+  default:
+    rc = NOSIG;
+    break;
+  }
 
   return rc;
 }

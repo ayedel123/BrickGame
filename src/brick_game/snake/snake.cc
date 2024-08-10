@@ -11,10 +11,6 @@
 void SnakeSetUp(GameInfo_t *gameInfo, int **field)
 {
   initGameInfo(gameInfo, field, SNAKE_GAME_SPEED, SNAKE_GAME_ACCELERATION, BRICK_TYPES_COUNT);
-  gameInfo->currentBrick.x = gameInfo->winInfo.width / 2;
-  gameInfo->currentBrick.y = gameInfo->winInfo.height / 2;
-  gameInfo->currentBrick.color = 1;
-  gameInfo->nextBrick.color = 2;
 }
 
 int SnakeGameLoop(GameInfo_t *gameInfo, WINDOW **windows)
@@ -26,12 +22,19 @@ int SnakeGameLoop(GameInfo_t *gameInfo, WINDOW **windows)
   int keyVal = 0;
   int input = 0;
   game_states state = START;
-
+  std::vector<Brick *> body = std::vector<Brick *>();
+  signals last_move = MOVE_DOWN;
   while (keyVal != 404 && state != EXIT_STATE)
   {
     input = userInput();
+    signals signal = getSignal(input);
+    if (signal == MOVE_DOWN || signal == MOVE_UP || signal == MOVE_LEFT || signal == MOVE_RIGHT)
+    {
+      last_move = signal;
+    }
+
     *gameInfo =
-        updateCurrentState(*gameInfo, &state, getSignal(input), windows);
+        updateCurrentState(*gameInfo, body, &state, signal, windows);
 
     endTime = getTimeInMS();
     if (state == MOVING &&
@@ -39,9 +42,10 @@ int SnakeGameLoop(GameInfo_t *gameInfo, WINDOW **windows)
             gameInfo->speed - gameInfo->level * gameInfo->acceleration)
     {
       startTime = getTimeInMS();
-      // *gameInfo = updateCurrentState(*gameInfo, &state, MOVE_DOWN, windows);
+      *gameInfo = updateCurrentState(*gameInfo, body, &state, last_move, windows);
     }
   }
+  body.clear();
 
   return 0;
 }
