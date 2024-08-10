@@ -28,9 +28,9 @@ extern "C"
 // #define KEY_PAUSE ' '
 // #define KEY_START '\n'
 
-GameInfo_t updateCurrentState(GameInfo_t gameInfo, std::vector<Brick *> &body, game_states *state,
-                              signals signal, WINDOW **windows);
-signals getSignal(int userInput);
+GameInfo_t updateCurrentState(GameInfo_t gameInfo, std::vector<Brick *> &body, GameState *state,
+                              Signal signal, WINDOW **windows);
+Signal getSignal(int userInput);
 void getMoveData(int signal, int *direction, int *angle);
 
 #endif

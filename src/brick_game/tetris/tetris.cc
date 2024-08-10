@@ -22,21 +22,21 @@ int TetrisGameLoop(GameInfo_t *gameInfo, WINDOW **windows)
   int isEnd = 0;
   int keyVal = 0;
   int input = 0;
-  game_states state = START;
+  GameState state = kStart;
 
-  while (keyVal != 404 && state != EXIT_STATE)
+  while (keyVal != 404 && state != kExitState)
   {
     input = userInput();
     *gameInfo =
         TetrisUpdateCurrentState(*gameInfo, &state, TetrisGetSignal(input), windows);
 
     endTime = getTimeInMS();
-    if (state == MOVING &&
+    if (state == kMoving &&
         endTime - startTime >=
             gameInfo->speed - gameInfo->level * gameInfo->acceleration)
     {
       startTime = getTimeInMS();
-      *gameInfo = TetrisUpdateCurrentState(*gameInfo, &state, MOVE_DOWN, windows);
+      *gameInfo = TetrisUpdateCurrentState(*gameInfo, &state, kMoveDown, windows);
     }
   }
 
@@ -48,7 +48,7 @@ int TetrisHandleCollision(int col, int dir)
   if (col == COL_STATE_NO)
     return COL_STATE_NO;
 
-  if (dir != DIR_DOWN)
+  if (dir != kDirDown)
     col = COL_STATE_COL;
   else
     col = COL_STATE_CRIT;

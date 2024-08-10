@@ -3,7 +3,7 @@
 START_TEST(move_brick_cords_case_1) {
   Brick brick = BRICKS_TYPES[0];
   bornBrick(&brick, 1, 0, 0, 7);
-  moveBrickCords(&brick, DIR_RIGHT);
+  moveBrickCords(&brick, kDirRight);
   ck_assert_int_eq(brick.x, 2);
   ck_assert_int_eq(brick.y, 0);
 }
@@ -12,7 +12,7 @@ END_TEST
 START_TEST(move_brick_cords_case_2) {
   Brick brick = BRICKS_TYPES[0];
   bornBrick(&brick, 1, 0, 0, 7);
-  moveBrickCords(&brick, DIR_DOWN);
+  moveBrickCords(&brick, kDirDown);
   ck_assert_int_eq(brick.x, 1);
   ck_assert_int_eq(brick.y, 1);
 }

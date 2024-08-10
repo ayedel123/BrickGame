@@ -21,14 +21,14 @@ int SnakeGameLoop(GameInfo_t *gameInfo, WINDOW **windows)
   int isEnd = 0;
   int keyVal = 0;
   int input = 0;
-  game_states state = START;
+  GameState state = kStart;
   std::vector<Brick *> body = std::vector<Brick *>();
-  signals last_move = MOVE_DOWN;
-  while (keyVal != 404 && state != EXIT_STATE)
+  Signal last_move = kMoveDown;
+  while (keyVal != 404 && state != kExitState)
   {
     input = userInput();
-    signals signal = getSignal(input);
-    if (signal == MOVE_DOWN || signal == MOVE_UP || signal == MOVE_LEFT || signal == MOVE_RIGHT)
+    Signal signal = getSignal(input);
+    if (signal == kMoveDown || signal == kMoveUp || signal == kMoveLeft || signal == kMoveRight)
     {
       last_move = signal;
     }
@@ -37,7 +37,7 @@ int SnakeGameLoop(GameInfo_t *gameInfo, WINDOW **windows)
         updateCurrentState(*gameInfo, body, &state, signal, windows);
 
     endTime = getTimeInMS();
-    if (state == MOVING &&
+    if (state == kMoving &&
         endTime - startTime >=
             gameInfo->speed - gameInfo->level * gameInfo->acceleration)
     {

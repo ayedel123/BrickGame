@@ -6,7 +6,7 @@ int checkCollisionBrick(int **field, Brick *brick, int cordI, int direction)
   int result = field[brick->y + brick->cords[cordI][1]]
                     [brick->x + brick->cords[cordI][0]];
 
-  // if (result != COL_STATE_NO && direction == DIR_DOWN)
+  // if (result != COL_STATE_NO && direction == kDirDown)
   // {
   //   result = COL_STATE_COL;
   // }
@@ -23,7 +23,7 @@ int checkOutOfBounds(Brick *brick, int cordI, int width, int height,
                    : COL_STATE_NO;
 
   result =
-      (brickY >= height && direction != DIR_STATE) ? COLLIDE_WITH_BORDER : result;
+      (brickY >= height && direction != kDirState) ? COLLIDE_WITH_BORDER : result;
   return result;
 }
 

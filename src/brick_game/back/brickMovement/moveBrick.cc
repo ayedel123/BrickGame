@@ -4,11 +4,11 @@
 
 void moveBrickCords(Brick *brick, int direction)
 {
-  if (direction == DIR_RIGHT || direction == DIR_LEFT)
+  if (direction == kDirRight || direction == kDirLeft)
   {
     brick->x += direction;
   }
-  if (direction == DIR_TOP || direction == DIR_DOWN)
+  if (direction == kDirTop || direction == kDirDown)
   {
     brick->y += direction / 2;
   }
@@ -50,17 +50,17 @@ int TryToMove(GameInfo_t *gameInfo, Brick *oldBrick, int direction, int angle)
   for (int i = 0; i < 4 && result == COL_STATE_NO; i++)
   {
     result = checkOutOfBounds(oldBrick, i, gameInfo->winInfo.width,
-                              gameInfo->winInfo.height, DIR_STATE);
+                              gameInfo->winInfo.height, kDirState);
   }
   if (result == COL_STATE_NO)
   {
     deleteFromField(gameInfo->field, oldBrick);
 
-    if (direction != DIR_STATE)
+    if (direction != kDirState)
     {
       moveBrickCords(oldBrick, direction);
     }
-    else if (angle != 0 && direction == DIR_STATE)
+    else if (angle != 0 && direction == kDirState)
     {
       rotateBrickCords(oldBrick, angle);
     }

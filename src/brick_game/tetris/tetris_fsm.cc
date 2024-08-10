@@ -1,178 +1,178 @@
 #include "tetris_fsm.h"
 
 
-void TetrisSpawHandler(GameInfo_t *gameInfo, game_states *state)
+void TetrisSpawHandler(GameInfo_t *gameInfo, GameState *state)
 {
   addPoints(gameInfo, fullLineHandler(gameInfo));
   if (resetBrick(gameInfo) != COL_STATE_NO)
-    *state = GAMEOVER;
+    *state = kGameOver;
   else
-    *state = MOVING;
+    *state = kMoving;
 }
 
 void TetrisGetMoveData(int signal, int *direction, int *angle)
 {
   switch (signal)
   {
-  case MOVE_UP:
-    *direction = DIR_TOP;
+  case kMoveUp:
+    *direction = kDirTop;
     break;
-  case MOVE_DOWN:
-    *direction = DIR_DOWN;
+  case kMoveDown:
+    *direction = kDirDown;
     break;
-  case MOVE_LEFT:
-    *direction = DIR_LEFT;
+  case kMoveLeft:
+    *direction = kDirLeft;
     break;
-  case MOVE_RIGHT:
-    *direction = DIR_RIGHT;
+  case kMoveRight:
+    *direction = kDirRight;
     break;
-  case ROTATE_LEFT:
+  case kRotateLeft:
     *angle = -1;
     break;
-  case ROTATE_RIGHT:
+  case kRotateRight:
     *angle = 1;
     break;
-  case NOSIG:
+  case kNosig:
     break;
   };
 }
 
-void TetrisMovingHandler(GameInfo_t *gameInfo, game_states *state,
-                   signals signal, WINDOW **windows)
+void TetrisMovingHandler(GameInfo_t *gameInfo, GameState *state,
+                   Signal signal, WINDOW **windows)
 {
 
-  if (signal == PAUSE)
+  if (signal == kPause)
   {
-    *state = ONPAUSE;
+    *state = kOnPause;
   }
-  else if (signal != EXIT)
+  else if (signal != kExit)
   {
-    int direction = DIR_STATE;
+    int direction = kDirState;
     int angle = 0;
     TetrisGetMoveData(signal, &direction, &angle);
     int col = moveBrick(gameInfo, &gameInfo->currentBrick, direction, angle);
     col = TetrisHandleCollision(col, direction);
     if (col == COL_STATE_CRIT)
     {
-      *state = SPAWN;
+      *state = kSpawn;
     }
   }
   else
-    *state = EXIT_STATE;
+    *state = kExitState;
 
-  drawField(windows[GAME_WIN], gameInfo);
-  if (*state == ONPAUSE)
+  drawField(windows[kGameWin], gameInfo);
+  if (*state == kOnPause)
   {
-    printTetrisStats(windows[INFO_WIN], gameInfo, 0);
+    printTetrisStats(windows[kInfoWin], gameInfo, 0);
   }
   else
   {
-    printTetrisStats(windows[INFO_WIN], gameInfo, 1);
+    printTetrisStats(windows[kInfoWin], gameInfo, 1);
   }
 }
 
-void TetrisStartHandler(GameInfo_t *gameInfo, game_states *state,
-                  signals signal, WINDOW *gameWin)
+void TetrisStartHandler(GameInfo_t *gameInfo, GameState *state,
+                  Signal signal, WINDOW *gameWin)
 {
   startMessage(gameWin, gameInfo->winInfo.width, gameInfo->winInfo.width);
 
-  if (signal == START_SIG)
+  if (signal == kStartSig)
   {
     clearField(gameInfo->field, gameInfo->winInfo.height,
                gameInfo->winInfo.width);
-    *state = SPAWN;
+    *state = kSpawn;
   }
-  else if (signal == EXIT)
+  else if (signal == kExit)
   {
-    *state = EXIT_STATE;
+    *state = kExitState;
   }
 }
 
-void TetrisGameOverHandler(GameInfo_t *gameInfo, game_states *state,
-                     signals signal, WINDOW *gameWin)
+void TetrisGameOverHandler(GameInfo_t *gameInfo, GameState *state,
+                     Signal signal, WINDOW *gameWin)
 {
 
   gameOverMessage(gameWin, gameInfo->winInfo.width, gameInfo->winInfo.width);
-  if (signal != NOSIG)
+  if (signal != kNosig)
   {
-    if (signal != EXIT)
+    if (signal != kExit)
     {
-      *state = START;
+      *state = kStart;
     }
     else
-      *state = EXIT_STATE;
+      *state = kExitState;
   }
 }
 
-void TetrisExitHandler(game_states *state) { *state = static_cast<game_states>(EXIT); }
+void TetrisExitHandler(GameState *state) { *state = static_cast<GameState>(kExit); }
 
-void TetrisPauseHandler(game_states *state, signals signal)
+void TetrisPauseHandler(GameState *state, Signal signal)
 {
-  if (signal == PAUSE)
+  if (signal == kPause)
   {
-    *state = MOVING;
+    *state = kMoving;
   }
-  else if (signal == EXIT)
+  else if (signal == kExit)
   {
-    *state = EXIT_STATE;
+    *state = kExitState;
   }
 }
 
-GameInfo_t TetrisUpdateCurrentState(GameInfo_t gameInfo, game_states *state,
-                              signals signal, WINDOW **windows)
+GameInfo_t TetrisUpdateCurrentState(GameInfo_t gameInfo, GameState *state,
+                              Signal signal, WINDOW **windows)
 {
 
   switch (*state)
   {
 
-  case START:
-    TetrisStartHandler(&gameInfo, state, signal, windows[GAME_WIN]);
+  case kStart:
+    TetrisStartHandler(&gameInfo, state, signal, windows[kGameWin]);
     break;
-  case SPAWN:
+  case kSpawn:
     TetrisSpawHandler(&gameInfo, state);
     break;
-  case MOVING:
+  case kMoving:
     TetrisMovingHandler(&gameInfo, state, signal, windows);
     break;
     break;
-  case GAMEOVER:
-    TetrisGameOverHandler(&gameInfo, state, signal, windows[GAME_WIN]);
+  case kGameOver:
+    TetrisGameOverHandler(&gameInfo, state, signal, windows[kGameWin]);
     break;
-  case ONPAUSE:
+  case kOnPause:
     TetrisPauseHandler(state, signal);
     break;
-  case EXIT_STATE:
+  case kExitState:
     TetrisExitHandler(state);
     break;
   }
   return gameInfo;
 }
 
-signals TetrisGetSignal(int userInput)
+Signal TetrisGetSignal(int userInput)
 {
-  signals rc = NOSIG;
+  Signal rc = kNosig;
 
   // if (userInput == KEY_UP)
-  //   rc = MOVE_UP;
+  //   rc = kMoveUp;
   // else
   if (userInput == KEY_DOWN)
-    rc = MOVE_DOWN;
+    rc = kMoveDown;
   else if (userInput == KEY_LEFT)
-    rc = MOVE_LEFT;
+    rc = kMoveLeft;
   else if (userInput == KEY_RIGHT)
-    rc = MOVE_RIGHT;
+    rc = kMoveRight;
   else if (userInput == KEY_ROTATE_LEFT)
-    rc = ROTATE_LEFT;
+    rc = kRotateLeft;
   else if (userInput == KEY_ROTATE_RIGHT)
-    rc = ROTATE_RIGHT;
+    rc = kRotateRight;
   else if (userInput == KEY_PAUSE)
-    rc = PAUSE;
+    rc = kPause;
   else if (userInput == ERR)
-    rc = NOSIG;
+    rc = kNosig;
   else if (userInput == KEY_START)
-    rc = START_SIG;
+    rc = kStartSig;
   else if (userInput == KEY_ESCAPE)
-    rc = EXIT;
+    rc = kExit;
 
   return rc;
 }

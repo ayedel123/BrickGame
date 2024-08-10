@@ -10,7 +10,7 @@ START_TEST(case_1) {
   field[0][4] = 1;
   int status = 0;
   for (int i = 0; i < 4; i++) {
-    status = (status == 0) ? checkCollisionBrick(field, &brick1, i, DIR_RIGHT)
+    status = (status == 0) ? checkCollisionBrick(field, &brick1, i, kDirRight)
                            : status;
   }
   ck_assert_int_eq(status, COL_STATE_COL);
@@ -28,7 +28,7 @@ START_TEST(case_2) {
   field[1][4] = 1;
   int status = 0;
   for (int i = 0; i < 4; i++) {
-    status = (status == 0) ? checkCollisionBrick(field, &brick1, i, DIR_DOWN)
+    status = (status == 0) ? checkCollisionBrick(field, &brick1, i, kDirDown)
                            : status;
   }
   ck_assert_int_eq(status, COL_STATE_CRIT);
@@ -46,7 +46,7 @@ START_TEST(case_3) {
   field[0][4] = 1;
   int status = 0;
   for (int i = 0; i < 4; i++) {
-    status = (status == 0) ? checkCollisionBrick(field, &brick1, i, DIR_TOP)
+    status = (status == 0) ? checkCollisionBrick(field, &brick1, i, kDirTop)
                            : status;
   }
   ck_assert_int_eq(status, COL_STATE_COL);
@@ -65,7 +65,7 @@ START_TEST(case_4) {
   int status = 0;
   status = 0;
   for (int i = 0; i < 4; i++) {
-    status = (status == 0) ? checkCollisionBrick(field, &brick1, i, DIR_LEFT)
+    status = (status == 0) ? checkCollisionBrick(field, &brick1, i, kDirLeft)
                            : status;
   }
   ck_assert_int_eq(status, COL_STATE_COL);

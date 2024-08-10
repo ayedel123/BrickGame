@@ -1,55 +1,55 @@
 #ifndef __DEFINES__
 #define __DEFINES__
 
-typedef enum { GAME_WIN, INFO_WIN, DEBUG_WIN } WINDOWS_ENUM;
+typedef enum { kGameWin, kInfoWin, kDebugWIn } WindowsEnum;
 
 typedef struct WinInfo {
   int height, width;
 } WinInfo;
 
 typedef enum directions_enum {
-  DIR_TOP = -2,
-  DIR_DOWN = 2,
-  DIR_RIGHT = 1,
-  DIR_LEFT = -1,
-  DIR_STATE = 0
-} DIRECTIONS_ENUM;
+  kDirTop = -2,
+  kDirDown = 2,
+  kDirRight = 1,
+  kDirLeft = -1,
+  kDirState = 0
+} DirectionEnum;
+
+// typedef enum {
+//   KStart,
+//   Pause,
+//   Terminate,
+//   Left,
+//   Right,
+//   Up,
+//   Down,
+//   Action
+// } UserAction;
 
 typedef enum {
-  Start,
-  Pause,
-  Terminate,
-  Left,
-  Right,
-  Up,
-  Down,
-  Action
-} UserAction_t;
-
-typedef enum {
-  MOVE_UP = 0,
-  MOVE_DOWN,
-  MOVE_RIGHT,
-  MOVE_LEFT,
-  ROTATE_LEFT,
-  ROTATE_RIGHT,
-  PAUSE,
-  EXIT,
-  START_SIG,
-  NOSIG
-} signals;
+  kMoveUp = 0,
+  kMoveDown,
+  kMoveRight,
+  kMoveLeft,
+  kRotateLeft,
+  kRotateRight,
+  kPause,
+  kExit,
+  kStartSig,
+  kNosig
+} Signal;
 
 typedef enum
 {
-  START = 0,
-  SPAWN,
-  MOVING,
-  COLLIDE,
-  GAMEOVER,
-  ONPAUSE,
-  SPAWN_APPLE,
-  EXIT_STATE
-} game_states;
+  kStart = 0,
+  kSpawn,
+  kMoving,
+  kCollide,
+  kGameOver,
+  kOnPause,
+  kSpawnApple,
+  kExitState
+} GameState;
 
 #define ESCAPE 27
 #define KEY_ROTATE_LEFT 'q'

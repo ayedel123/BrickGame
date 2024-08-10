@@ -9,7 +9,7 @@ START_TEST(case_1) {
   int status = 0;
   for (int i = 0; i < 4; i++) {
     status = (status == 0)
-                 ? checkOutOfBounds(&brick, i, width, height, DIR_RIGHT)
+                 ? checkOutOfBounds(&brick, i, width, height, kDirRight)
                  : status;
   }
   ck_assert_int_eq(status, COL_STATE_NO);
@@ -25,7 +25,7 @@ START_TEST(case_2) {
   int status = 0;
   for (int i = 0; i < 4; i++) {
     status = (status == 0)
-                 ? checkOutOfBounds(&brick, i, width, height, DIR_RIGHT)
+                 ? checkOutOfBounds(&brick, i, width, height, kDirRight)
                  : status;
   }
   ck_assert_int_eq(status, COL_STATE_COL);
@@ -41,7 +41,7 @@ START_TEST(case_3) {
   int status = 0;
   for (int i = 0; i < 4; i++) {
     status = (status == 0)
-                 ? checkOutOfBounds(&brick, i, width, height, DIR_DOWN)
+                 ? checkOutOfBounds(&brick, i, width, height, kDirDown)
                  : status;
   }
   ck_assert_int_eq(status, COL_STATE_CRIT);
@@ -57,7 +57,7 @@ START_TEST(case_4) {
   int status = 0;
   for (int i = 0; i < 4; i++) {
     status = (status == 0)
-                 ? checkOutOfBounds(&brick, i, width, height, DIR_DOWN)
+                 ? checkOutOfBounds(&brick, i, width, height, kDirDown)
                  : status;
   }
   ck_assert_int_eq(status, COL_STATE_COL);
@@ -73,7 +73,7 @@ START_TEST(case_5) {
   bornBrick(&brick, 1, 0, 0, 7);
   int status = 0;
   for (int i = 0; i < 4; i++) {
-    status = checkOutOfBounds(&brick, i, width, height, DIR_DOWN);
+    status = checkOutOfBounds(&brick, i, width, height, kDirDown);
   }
   ck_assert_int_eq(status, COL_STATE_COL);
   // for (int i = 0; i < 4; i++) {

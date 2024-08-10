@@ -16,7 +16,7 @@ START_TEST(case_1) {
 
   field[0][4] = 1;
   int status = 0;
-  status = checkCollision(&gameInfo, &brick1, DIR_RIGHT);
+  status = checkCollision(&gameInfo, &brick1, kDirRight);
   ck_assert_int_eq(status, COL_STATE_COL);
   deleteField(field, height);
 }
@@ -36,7 +36,7 @@ START_TEST(case_2) {
   bornBrick(&brick1, 1, 1, 0, 7);
   field[1][4] = 1;
   int status = 0;
-  status = checkCollision(&gameInfo, &brick1, DIR_DOWN);
+  status = checkCollision(&gameInfo, &brick1, kDirDown);
   ck_assert_int_eq(status, COL_STATE_CRIT);
   deleteField(field, height);
 }
@@ -55,7 +55,7 @@ START_TEST(case_3) {
   gameInfo.currentBrick = brick1;
   bornBrick(&brick1, 1, 0, 0, 7);
   field[0][4] = 1;
-  int status = checkCollision(&gameInfo, &brick1, DIR_TOP);
+  int status = checkCollision(&gameInfo, &brick1, kDirTop);
   ck_assert_int_eq(status, COL_STATE_COL);
   deleteField(field, height);
 }
@@ -76,7 +76,7 @@ START_TEST(case_4) {
   gameInfo.currentBrick = brick1;
   bornBrick(&brick1, 1, 0, 0, 7);
   field[0][1] = 1;
-  int status = checkCollision(&gameInfo, &brick1, DIR_LEFT);
+  int status = checkCollision(&gameInfo, &brick1, kDirLeft);
   ck_assert_int_eq(status, COL_STATE_COL);
   deleteField(field, height);
 }
@@ -94,7 +94,7 @@ START_TEST(case_5) {
   Brick brick = BRICKS_TYPES[0];
   gameInfo.currentBrick = brick;
   bornBrick(&brick, 1, 0, 0, 7);
-  int status = checkCollision(&gameInfo, &brick, DIR_LEFT);
+  int status = checkCollision(&gameInfo, &brick, kDirLeft);
 
   ck_assert_int_eq(status, COL_STATE_NO);
   deleteField(field, height);
@@ -113,7 +113,7 @@ START_TEST(case_6) {
   Brick brick = BRICKS_TYPES[0];
   gameInfo.currentBrick = brick;
   bornBrick(&brick, 1, 0, 0, 7);
-  int status = checkCollision(&gameInfo, &brick, DIR_LEFT);
+  int status = checkCollision(&gameInfo, &brick, kDirLeft);
 
   ck_assert_int_eq(status, COL_STATE_COL);
   deleteField(field, height);
@@ -133,7 +133,7 @@ START_TEST(case_7) {
   gameInfo.winInfo.width = width;
   gameInfo.currentBrick = brick;
 
-  int status = checkCollision(&gameInfo, &brick, DIR_DOWN);
+  int status = checkCollision(&gameInfo, &brick, kDirDown);
   ck_assert_int_eq(status, COL_STATE_CRIT);
   deleteField(field, height);
 }
@@ -152,7 +152,7 @@ START_TEST(case_8) {
   gameInfo.winInfo.width = width;
   gameInfo.currentBrick = brick;
 
-  int status = checkCollision(&gameInfo, &brick, DIR_DOWN);
+  int status = checkCollision(&gameInfo, &brick, kDirDown);
   ck_assert_int_eq(status, COL_STATE_COL);
   deleteField(field, height);
 }
@@ -172,7 +172,7 @@ START_TEST(case_9) {
   gameInfo.currentBrick = brick;
 
   bornBrick(&brick, 1, 0, 0, 7);
-  int status = checkCollision(&gameInfo, &brick, DIR_RIGHT);
+  int status = checkCollision(&gameInfo, &brick, kDirRight);
   ck_assert_int_eq(status, COL_STATE_COL);
   ck_assert_int_eq(brick.x, 1);
   ck_assert_int_eq(brick.y, 0);

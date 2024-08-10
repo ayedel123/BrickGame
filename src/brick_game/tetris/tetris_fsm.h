@@ -12,21 +12,21 @@ extern "C"
 
 // typedef enum
 // {
-//   MOVE_UP = 0,
-//   MOVE_DOWN,
-//   MOVE_RIGHT,
-//   MOVE_LEFT,
-//   ROTATE_LEFT,
-//   ROTATE_RIGHT,
-//   PAUSE,
-//   EXIT,
-//   START_SIG,
-//   NOSIG
+//   kMoveUp = 0,
+//   kMoveDown,
+//   kMoveRight,
+//   kMoveLeft,
+//   kRotateLeft,
+//   kRotateRight,
+//   kPause,
+//   kExit,
+//   kStartSig,
+//   kNosig
 // } tetris_signals;
 
 
-GameInfo_t TetrisUpdateCurrentState(GameInfo_t gameInfo, game_states *state,
-                              signals signal, WINDOW **windows);
-signals TetrisGetSignal(int userInput);
+GameInfo_t TetrisUpdateCurrentState(GameInfo_t gameInfo, GameState *state,
+                              Signal signal, WINDOW **windows);
+Signal TetrisGetSignal(int userInput);
 
 #endif

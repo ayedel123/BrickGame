@@ -62,6 +62,6 @@ int resetBrick(GameInfo_t *gameInfo)
   gameInfo->currentBrick = gameInfo->nextBrick;
   bornBrick(&gameInfo->nextBrick, x, y, RANDOM_BRICK, gameInfo->colorCount);
 
-  int isEnd = checkCollision(gameInfo, &gameInfo->currentBrick, DIR_DOWN) == COL_STATE_NO ? 0 : 1;
+  int isEnd = checkCollision(gameInfo, &gameInfo->currentBrick, kDirDown) == COL_STATE_NO ? 0 : 1;
   return isEnd;
 }

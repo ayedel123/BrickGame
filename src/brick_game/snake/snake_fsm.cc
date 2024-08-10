@@ -1,62 +1,62 @@
 #include "snake_fsm.h"
 
-void spawnAppleHandler(GameInfo_t *gameInfo, game_states *state)
+void spawnAppleHandler(GameInfo_t *gameInfo, GameState *state)
 {
   addPoints(gameInfo, 1);
   // if (resetBrick(gameInfo) != COL_STATE_NO)
-  //   *state = GAMEOVER;
+  //   *state = kGameOver;
   // else
-  //   *state = MOVING;
+  //   *state = kMoving;
   SpawnApple(gameInfo);
   // bornBrick(&gameInfo->nextBrick, gameInfo->winInfo.width / 2, gameInfo->winInfo.height / 2, BRICK_TYPES_COUNT, 2);
-  *state = MOVING;
+  *state = kMoving;
 }
 
 void getMoveData(int signal, int *direction, int *angle)
 {
   switch (signal)
   {
-  case MOVE_UP:
-    *direction = DIR_TOP;
+  case kMoveUp:
+    *direction = kDirTop;
     break;
-  case MOVE_DOWN:
-    *direction = DIR_DOWN;
+  case kMoveDown:
+    *direction = kDirDown;
     break;
-  case MOVE_LEFT:
-    *direction = DIR_LEFT;
+  case kMoveLeft:
+    *direction = kDirLeft;
     break;
-  case MOVE_RIGHT:
-    *direction = DIR_RIGHT;
+  case kMoveRight:
+    *direction = kDirRight;
     break;
-  case ROTATE_LEFT:
+  case kRotateLeft:
     *angle = -1;
     break;
-  case ROTATE_RIGHT:
+  case kRotateRight:
     *angle = 1;
     break;
-  case NOSIG:
+  case kNosig:
     break;
   };
 }
 
-void movingHandler(GameInfo_t *gameInfo, std::vector<Brick *> &body, game_states *state,
-                   signals signal, WINDOW **windows)
+void movingHandler(GameInfo_t *gameInfo, std::vector<Brick *> &body, GameState *state,
+                   Signal signal, WINDOW **windows)
 {
-  if (signal == EXIT)
+  if (signal == kExit)
   {
-    *state = EXIT_STATE;
+    *state = kExitState;
   }
-  else if (signal == PAUSE)
+  else if (signal == kPause)
   {
-    *state = ONPAUSE;
+    *state = kOnPause;
   }
   else
   {
-    int direction = DIR_STATE;
+    int direction = kDirState;
     int angle = 0;
     getMoveData(signal, &direction, &angle);
     int col = 0;
-    if (signal != NOSIG)
+    if (signal != kNosig)
       col = MoveBody(gameInfo, body, direction, false);
     gameInfo->currentBrick = **body.begin();
     col = SnakeHandleCollision(gameInfo, col, direction);
@@ -64,22 +64,22 @@ void movingHandler(GameInfo_t *gameInfo, std::vector<Brick *> &body, game_states
     if (col == COL_STATE_CRIT)
     {
       SpawnNode(gameInfo, body);
-      if (signal != NOSIG)
+      if (signal != kNosig)
         MoveBody(gameInfo, body, direction, true);
 
-      *state = SPAWN_APPLE;
+      *state = kSpawnApple;
     }
     else if (col == COL_STATE_END)
-      *state = GAMEOVER;
+      *state = kGameOver;
   }
 
-  drawField(windows[GAME_WIN], gameInfo);
+  drawField(windows[kGameWin], gameInfo);
 
-  printTetrisStats(windows[INFO_WIN], gameInfo, (*state == ONPAUSE) ? 0 : 1);
+  printTetrisStats(windows[kInfoWin], gameInfo, (*state == kOnPause) ? 0 : 1);
 }
 
-void startHandler(GameInfo_t *gameInfo, std::vector<Brick *> &body, game_states *state,
-                  signals signal, WINDOW *gameWin)
+void startHandler(GameInfo_t *gameInfo, std::vector<Brick *> &body, GameState *state,
+                  Signal signal, WINDOW *gameWin)
 {
   gameInfo->currentBrick.x = gameInfo->winInfo.width / 2;
   gameInfo->currentBrick.y = gameInfo->winInfo.height / 2;
@@ -88,113 +88,113 @@ void startHandler(GameInfo_t *gameInfo, std::vector<Brick *> &body, game_states 
   clearField(gameInfo->field, gameInfo->winInfo.height,
              gameInfo->winInfo.width);
   moveBrickInField(gameInfo->field, &gameInfo->currentBrick);
-  *state = SPAWN_APPLE;
+  *state = kSpawnApple;
   body.clear();
   body.insert(body.begin(), new Brick{gameInfo->currentBrick});
 }
 
-void gameOverHandler(GameInfo_t *gameInfo, game_states *state,
-                     signals signal, WINDOW *gameWin)
+void gameOverHandler(GameInfo_t *gameInfo, GameState *state,
+                     Signal signal, WINDOW *gameWin)
 {
 
   gameOverMessage(gameWin, gameInfo->winInfo.width, gameInfo->winInfo.width);
   // signal = getSignal(userInput());
-  if (signal != NOSIG)
+  if (signal != kNosig)
   {
-    if (signal != EXIT)
+    if (signal != kExit)
     {
-      *state = START;
+      *state = kStart;
     }
     else
-      *state = EXIT_STATE;
+      *state = kExitState;
   }
 }
 
-void exitHandler(game_states *state)
+void exitHandler(GameState *state)
 {
-  *state = static_cast<game_states>(EXIT);
+  *state = static_cast<GameState>(kExit);
 }
 
-void pauseHandler(game_states *state, signals signal)
+void pauseHandler(GameState *state, Signal signal)
 {
-  if (signal == PAUSE)
+  if (signal == kPause)
   {
-    *state = MOVING;
+    *state = kMoving;
   }
-  else if (signal == EXIT)
+  else if (signal == kExit)
   {
-    *state = EXIT_STATE;
+    *state = kExitState;
   }
 }
 
-GameInfo_t updateCurrentState(GameInfo_t gameInfo, std::vector<Brick *> &body, game_states *state,
-                              signals signal, WINDOW **windows)
+GameInfo_t updateCurrentState(GameInfo_t gameInfo, std::vector<Brick *> &body, GameState *state,
+                              Signal signal, WINDOW **windows)
 {
 
   switch (*state)
   {
 
-  case START:
-    startHandler(&gameInfo, body, state, signal, windows[GAME_WIN]);
+  case kStart:
+    startHandler(&gameInfo, body, state, signal, windows[kGameWin]);
     break;
-  case SPAWN_APPLE:
+  case kSpawnApple:
     spawnAppleHandler(&gameInfo, state);
     break;
-  case MOVING:
+  case kMoving:
     movingHandler(&gameInfo, body, state, signal, windows);
     break;
     break;
-  case GAMEOVER:
-    gameOverHandler(&gameInfo, state, signal, windows[GAME_WIN]);
+  case kGameOver:
+    gameOverHandler(&gameInfo, state, signal, windows[kGameWin]);
     break;
-  case ONPAUSE:
+  case kOnPause:
     pauseHandler(state, signal);
     break;
-  case EXIT_STATE:
+  case kExitState:
     exitHandler(state);
     break;
   }
   return gameInfo;
 }
 
-signals getSignal(int userInput)
+Signal getSignal(int userInput)
 {
-  signals rc = NOSIG;
+  Signal rc = kNosig;
 
   switch (userInput)
   {
   case KEY_UP:
-    rc = MOVE_UP;
+    rc = kMoveUp;
     break;
   case KEY_DOWN:
-    rc = MOVE_DOWN;
+    rc = kMoveDown;
     break;
   case KEY_LEFT:
-    rc = MOVE_LEFT;
+    rc = kMoveLeft;
     break;
   case KEY_RIGHT:
-    rc = MOVE_RIGHT;
+    rc = kMoveRight;
     break;
   case KEY_ROTATE_LEFT:
-    rc = ROTATE_LEFT;
+    rc = kRotateLeft;
     break;
   case KEY_ROTATE_RIGHT:
-    rc = ROTATE_RIGHT;
+    rc = kRotateRight;
     break;
   case KEY_PAUSE:
-    rc = PAUSE;
+    rc = kPause;
     break;
   case ERR:
-    rc = NOSIG;
+    rc = kNosig;
     break;
   case KEY_START:
-    rc = START_SIG;
+    rc = kStartSig;
     break;
   case KEY_ESCAPE:
-    rc = EXIT;
+    rc = kExit;
     break;
   default:
-    rc = NOSIG;
+    rc = kNosig;
     break;
   }
 
