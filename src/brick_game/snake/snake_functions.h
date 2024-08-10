@@ -1,5 +1,5 @@
-#ifndef __SNAKE_FUNCTIONS__
-#define __SNAKE_FUNCTIONS__
+#ifndef CPP3_BRICKGAME_V2_0_1_SRC_BRICK_GAME_SNAKE_SNAKE_FUNCTIONS_H_
+#define CPP3_BRICKGAME_V2_0_1_SRC_BRICK_GAME_SNAKE_SNAKE_FUNCTIONS_H_
 
 #include "../../gui/cli/cli.h"
 #include "../back/back.h"

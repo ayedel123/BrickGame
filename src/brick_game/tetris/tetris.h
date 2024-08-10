@@ -1,9 +1,9 @@
-#ifndef __TETRIS__
-#define __TETRIS__
+#ifndef CPP3_BRICKGAME_V2_0_1_SRC_BRICK_GAME_TETRIS_TETRIS_H_
+#define CPP3_BRICKGAME_V2_0_1_SRC_BRICK_GAME_TETRIS_TETRIS_H_
 
 #include "../../gui/cli/cli.h"
 #include "../back/back.h"
-#include "fullLineHandler/fullLineHandler.h"
+#include "full_line_handler/full_line_handler.h"
 #include "tetris_fsm.h"
 extern "C"
 {
@@ -12,11 +12,10 @@ extern "C"
 #include <stdlib.h>
 }
 int TetrisGameLoop(GameInfo *game_info, WINDOW **windows);
-// void TetrisSetUp(WINDOW **windows, int winCount, GameInfo *game_info, int **field);
 int TetrisHandleCollision(int col, int dir);
 void TetrisSetUp(GameInfo *game_info, int **field);
 
-#define GAME_SPEED 300
-#define GMAE_ACCELERATION 20
+#define TETRIS_GAME_SPEED 300
+#define TETRIS_GAME_ACCELERATION 20
 
 #endif

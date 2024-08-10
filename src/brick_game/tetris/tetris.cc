@@ -6,12 +6,12 @@
 //   srand(time(0));
 //   cursesSetUp();
 //   setUpBrickGameWindows(windows, winCount);
-//   InitGameInfo(game_info, field, GAME_SPEED, GMAE_ACCELERATION, RANDOM_BRICK);
+//   InitGameInfo(game_info, field, TETRIS_GAME_SPEED, TETRIS_GAME_ACCELERATION, RANDOM_BRICK);
 // }
 
 void TetrisSetUp(GameInfo *game_info, int **field)
 {
-  InitGameInfo(game_info, field, GAME_SPEED, GMAE_ACCELERATION, RANDOM_BRICK);
+  InitGameInfo(game_info, field, TETRIS_GAME_SPEED, TETRIS_GAME_ACCELERATION, RANDOM_BRICK);
 }
 
 int TetrisGameLoop(GameInfo *game_info, WINDOW **windows)
@@ -19,7 +19,7 @@ int TetrisGameLoop(GameInfo *game_info, WINDOW **windows)
 
   long long startTime = getTimeInMS();
   long long endTime = 0;
-  int isEnd = 0;
+  int is_end = 0;
   int keyVal = 0;
   int input = 0;
   GameState state = kStart;

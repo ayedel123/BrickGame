@@ -36,6 +36,6 @@ void printTetrisStats(WINDOW *menuWin, GameInfo *game_info, int isOnPause) {
   }
   y++;
   printPoints(menuWin, game_info, &y);
-  printNextBrick(menuWin, &game_info->next_Brick, &y);
+  printNextBrick(menuWin, &game_info->next_brick, &y);
   wrefresh(menuWin);
 }

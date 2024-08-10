@@ -16,7 +16,7 @@ void SetUp(WINDOW **windows, int winCount, GameInfo *game_info, int **field)
     srand(time(0));
     cursesSetUp();
     setUpBrickGameWindows(windows, winCount);
-    InitGameInfo(game_info, field, GAME_SPEED, GMAE_ACCELERATION, RANDOM_BRICK);
+    InitGameInfo(game_info, field, TETRIS_GAME_SPEED, TETRIS_GAME_ACCELERATION, RANDOM_BRICK);
 }
 
 void print_menu(WINDOW *menu_win, int highlight, const char *choices[], int n_choices)

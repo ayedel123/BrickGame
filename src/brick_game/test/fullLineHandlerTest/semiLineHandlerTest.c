@@ -41,8 +41,8 @@ START_TEST(is_line_full_case_1) {
   game_info.field[1][2] = 4;
   game_info.field[1][3] = 5;
 
-  int lineId = 1;
-  int isFull = isLineFull(&game_info, lineId);
+  int line_id = 1;
+  int isFull = isLineFull(&game_info, line_id);
 
   ck_assert_int_eq(isFull, 1);
 
@@ -59,7 +59,7 @@ START_TEST(reset_brick_case_1) {
   InitGameInfo(&game_info, field, 10, 10);
   game_info.win_info.height = height;
   game_info.win_info.width = width;
-  Brick secondBrick = game_info.next_Brick;
+  Brick secondBrick = game_info.next_brick;
 
   int status = resetBrick(&game_info);
   ck_assert_int_eq(game_info.current_brick.x, secondBrick.x);

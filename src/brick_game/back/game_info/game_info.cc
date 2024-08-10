@@ -8,7 +8,7 @@ void InitGameInfo(GameInfo *game_info, int **field, int speed,
   game_info->field = field;
   BornBrick(&game_info->current_brick, game_info->win_info.width / 2, 0, brick_type,
             game_info->color_count);
-  BornBrick(&game_info->next_Brick, game_info->win_info.width / 2, 0, brick_type,
+  BornBrick(&game_info->next_brick, game_info->win_info.width / 2, 0, brick_type,
             game_info->color_count);
   game_info->points = 0;
   game_info->level = 1;
@@ -23,7 +23,7 @@ void BaseInitGameInfo(GameInfo *game_info) {
   game_info->color_count = 1;
   game_info->field = NULL;
   game_info->current_brick = BRICKS_TYPES[0];
-  game_info->next_Brick = BRICKS_TYPES[0];
+  game_info->next_brick = BRICKS_TYPES[0];
   game_info->level = 0;
   game_info->points = 0;
   game_info->high_score = 0;
@@ -50,10 +50,10 @@ int ReadRecord(const char *filename) {
   return number;
 }
 
-void AddPoints(GameInfo *game_info, int fullLines) {
+void AddPoints(GameInfo *game_info, int full_lines) {
 
   int points = 0;
-  switch (fullLines) {
+  switch (full_lines) {
   case 0:
     points = 0;
     break;

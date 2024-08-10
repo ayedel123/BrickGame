@@ -3,7 +3,7 @@
 
 void TetrisSpawHandler(GameInfo *game_info, GameState *state)
 {
-  AddPoints(game_info, fullLineHandler(game_info));
+  AddPoints(game_info, FullLineHandler(game_info));
   if (resetBrick(game_info) != COL_STATE_NO)
     *state = kGameOver;
   else

@@ -12,7 +12,7 @@ typedef struct
 {
   WinInfo win_info;
   Brick current_brick;
-  Brick next_Brick;
+  Brick next_brick;
   int color_count;
   int points;
   int **field;
@@ -24,7 +24,7 @@ typedef struct
 
 } GameInfo;
 
-void AddPoints(GameInfo *game_info, int fullLines);
+void AddPoints(GameInfo *game_info, int full_lines);
 void WriteRecord(const char *filename, int record);
 int ReadRecord(const char *filename);
 void InitGameInfo(GameInfo *game_info, int **field, int speed,

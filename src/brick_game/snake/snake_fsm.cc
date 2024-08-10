@@ -3,16 +3,12 @@
 void spawnAppleHandler(GameInfo *game_info, GameState *state)
 {
   AddPoints(game_info, 1);
-  // if (resetBrick(game_info) != COL_STATE_NO)
-  //   *state = kGameOver;
-  // else
-  //   *state = kMoving;
+
   SpawnApple(game_info);
-  // BornBrick(&game_info->next_Brick, game_info->win_info.width / 2, game_info->win_info.height / 2, BRICK_TYPES_COUNT, 2);
   *state = kMoving;
 }
 
-void getMoveData(int signal, int *direction, int *angle)
+void GetMoveData(int signal, int *direction, int *angle)
 {
   switch (signal)
   {
@@ -54,7 +50,7 @@ void movingHandler(GameInfo *game_info, std::vector<Brick *> &body, GameState *s
   {
     int direction = kDirState;
     int angle = 0;
-    getMoveData(signal, &direction, &angle);
+    GetMoveData(signal, &direction, &angle);
     int col = 0;
     if (signal != kNosig)
       col = MoveBody(game_info, body, direction, false);
@@ -84,7 +80,7 @@ void startHandler(GameInfo *game_info, std::vector<Brick *> &body, GameState *st
   game_info->current_brick.x = game_info->win_info.width / 2;
   game_info->current_brick.y = game_info->win_info.height / 2;
   game_info->current_brick.color = 1;
-  game_info->next_Brick.color = 2;
+  game_info->next_brick.color = 2;
   ClearField(game_info->field, game_info->win_info.height,
              game_info->win_info.width);
   moveBrickInField(game_info->field, &game_info->current_brick);
@@ -98,7 +94,6 @@ void gameOverHandler(GameInfo *game_info, GameState *state,
 {
 
   gameOverMessage(gameWin, game_info->win_info.width, game_info->win_info.width);
-  // signal = getSignal(userInput());
   if (signal != kNosig)
   {
     if (signal != kExit)
@@ -127,8 +122,8 @@ void pauseHandler(GameState *state, Signal signal)
   }
 }
 
-GameInfo updateCurrentState(GameInfo game_info, std::vector<Brick *> &body, GameState *state,
-                              Signal signal, WINDOW **windows)
+GameInfo UpdateCurrentState(GameInfo game_info, std::vector<Brick *> &body, GameState *state,
+                            Signal signal, WINDOW **windows)
 {
 
   switch (*state)
@@ -157,7 +152,7 @@ GameInfo updateCurrentState(GameInfo game_info, std::vector<Brick *> &body, Game
   return game_info;
 }
 
-Signal getSignal(int userInput)
+Signal GetSignal(int userInput)
 {
   Signal rc = kNosig;
 

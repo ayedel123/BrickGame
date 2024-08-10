@@ -5,7 +5,7 @@ CFLAGS =  -Werror -Wall -Wextra -std=c11
 PILK = pilk.c
 FRONTEND = gui/cli/getUserInput/*.cc gui/cli/tetrisStats/*.cc gui/cli/timer/*.cc gui/cli/ui/*.cc gui/cli/window/*.cc
 TETRIS_BACK = brick_game/back/bricks/*.cc brick_game/back/brick_movement/*.cc brick_game/back/game_info/*.cc brick_game/back/field/*.cc
-TETRIS = brick_game/tetris/*.cc brick_game/tetris/fullLineHandler/*.cc
+TETRIS = brick_game/tetris/*.cc brick_game/tetris/full_line_handler/*.cc
 SNAKE = brick_game/snake/*.cc
 TEST_SOURCES = brick_game/test/*.cc brick_game/test/collisionTest/*.cc brick_game/test/movementTest/*.cc brick_game/test/fullLineHandlerTest/*.cc brick_game/test/addPointsTest/*.cc
 MAIN = brick_game/main.cc

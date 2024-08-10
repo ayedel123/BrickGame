@@ -1,13 +1,6 @@
 
 #include "snake_functions.h"
 
-// void setUp(WINDOW **windows, int winCount, GameInfo *game_info, int **field) {
-//   srand(time(0));
-//   cursesSetUp();
-//   setUpBrickGameWindows(windows, winCount);
-//   InitGameInfo(game_info, field, GAME_SPEED, GMAE_ACCELERATION,3);
-// }
-
 void RandomFreeCell(int **field, int height, int width, int *y, int *x)
 {
 
@@ -48,9 +41,9 @@ int SpawnApple(GameInfo *game_info)
     {
         return 1;
     }
-    game_info->next_Brick.x = x;
-    game_info->next_Brick.y = y;
-    moveBrickInField(game_info->field, &(game_info->next_Brick));
+    game_info->next_brick.x = x;
+    game_info->next_brick.y = y;
+    moveBrickInField(game_info->field, &(game_info->next_brick));
 
     return 0;
 }
@@ -59,7 +52,6 @@ void redrawBody(GameInfo *game_info, std::vector<Brick *> &body)
 {
     for (auto it = body.begin(); it != body.cend(); ++it)
     {
-        // deleteFromField(game_info->field, *it);
         moveBrickInField(game_info->field, *it);
     }
 }
@@ -67,11 +59,8 @@ void redrawBody(GameInfo *game_info, std::vector<Brick *> &body)
 int SpawnNode(GameInfo *game_info, std::vector<Brick *> &body)
 {
     Brick local_brick = Brick{*(body.back())};
-    // moveBrickCords(&local_brick, -direction);
 
-    // moveBrickCords(&local_brick, direction);
     body.push_back(new Brick{local_brick});
-    // moveBrickInField(game_info->field, &local_brick);
 
     return 0;
 }
@@ -79,7 +68,7 @@ int SpawnNode(GameInfo *game_info, std::vector<Brick *> &body)
 int SnakeHandleCollision(GameInfo *game_info, int col, int dir)
 {
 
-    if (col == game_info->next_Brick.color)
+    if (col == game_info->next_brick.color)
     {
         col = COL_STATE_CRIT;
     }
