@@ -59,18 +59,7 @@ void MovingHandler(s21::Snake &snake, GameState *state,
       snake.last_signal = signal;
     }
     snake.game_info->current_brick = **snake.body.begin();
-    col = snake.SnakeHandleCollision(col, direction);
-
-    if (col == COL_STATE_CRIT)
-    {
-      snake.SpawnNode();
-      if (signal != kNosig)
-        snake.MoveBody(direction, true);
-
-      *state = kSpawnApple;
-    }
-    else if (col == COL_STATE_END)
-      *state = kGameOver;
+    *state = snake.SnakeHandleCollision(col, snake, *state);
   }
 
   DrawField(windows[kGameWin], snake.game_info);
@@ -91,7 +80,6 @@ void StartHandler(s21::Snake &snake, GameState *state,
   *state = kSpawnApple;
   snake.body.clear();
   snake = s21::Snake(snake.game_info, snake.game_info->field);
-  
 }
 
 void GameOverHandler(s21::Snake &snake, GameState *state,

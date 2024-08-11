@@ -103,9 +103,8 @@ namespace s21
             return 0;
         }
 
-        int SnakeHandleCollision(int col, int dir)
+        GameState SnakeHandleCollision(int col, Snake &snake, GameState state)
         {
-
             if (col == game_info->next_brick.color)
             {
                 col = COL_STATE_CRIT;
@@ -114,8 +113,17 @@ namespace s21
             {
                 col = COL_STATE_END;
             }
+            if (col == COL_STATE_CRIT)
+            {
+                snake.SpawnNode();
+                snake.MoveBody(snake.last_direction, true);
 
-            return col;
+                state = kSpawnApple;
+            }
+            else if (col == COL_STATE_END)
+                state = kGameOver;
+
+            return state;
         }
 
         int MoveBody(int direction, bool ignore_collision)

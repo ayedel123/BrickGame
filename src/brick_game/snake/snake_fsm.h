@@ -11,8 +11,6 @@ extern "C"
 #include "snake.h"
 #include <vector>
 
-// void UpdateCurrentState(s21::Snake &snake, GameState *state,
-//                         Signal signal, WINDOW **windows);
 Signal GetSignal(int UserInput);
 void GetMoveData(int signal, int *direction, int *angle);
 void GetMoveData(int signal, int *direction, int *angle);
