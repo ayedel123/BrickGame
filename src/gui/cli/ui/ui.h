@@ -3,6 +3,7 @@
 
 #include "../../../brick_game/back/back.h"
 #include "../window/window.h"
+#include "../user_input/user_input.h"
 extern "C"
 {
 #include <ctype.h>
@@ -18,5 +19,6 @@ void GameOverMessage(WINDOW *win, int width, int height);
 void StartMessage(WINDOW *win, int width, int height);
 
 void PrintMenu(WINDOW *menu_win, int highlight, const char *choices[], int choices_count);
+int ChoseGame(WINDOW *win);
 
 #endif

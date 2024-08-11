@@ -1,10 +1,10 @@
 #include "snake_fsm.h"
 
-void spawnAppleHandler(GameInfo *game_info, GameState *state)
+void SpawnAppleHandler(s21::Snake &snake, GameState *state)
 {
-  AddPoints(game_info, 1);
+  AddPoints(snake.game_info, 1);
 
-  SpawnApple(game_info);
+  snake.SpawnApple();
   *state = kMoving;
 }
 
@@ -35,7 +35,7 @@ void GetMoveData(int signal, int *direction, int *angle)
   };
 }
 
-void movingHandler(GameInfo *game_info, std::vector<Brick *> &body, GameState *state,
+void MovingHandler(s21::Snake &snake, GameState *state,
                    Signal signal, WINDOW **windows)
 {
   if (signal == kExit)
@@ -52,16 +52,20 @@ void movingHandler(GameInfo *game_info, std::vector<Brick *> &body, GameState *s
     int angle = 0;
     GetMoveData(signal, &direction, &angle);
     int col = 0;
-    if (signal != kNosig)
-      col = MoveBody(game_info, body, direction, false);
-    game_info->current_brick = **body.begin();
-    col = SnakeHandleCollision(game_info, col, direction);
+    if (signal != kNosig && direction != -snake.last_direction)
+    {
+      col = snake.MoveBody(direction, false);
+      snake.last_direction = direction;
+      snake.last_signal = signal;
+    }
+    snake.game_info->current_brick = **snake.body.begin();
+    col = snake.SnakeHandleCollision(col, direction);
 
     if (col == COL_STATE_CRIT)
     {
-      SpawnNode(game_info, body);
+      snake.SpawnNode();
       if (signal != kNosig)
-        MoveBody(game_info, body, direction, true);
+        snake.MoveBody(direction, true);
 
       *state = kSpawnApple;
     }
@@ -69,31 +73,32 @@ void movingHandler(GameInfo *game_info, std::vector<Brick *> &body, GameState *s
       *state = kGameOver;
   }
 
-  DrawField(windows[kGameWin], game_info);
+  DrawField(windows[kGameWin], snake.game_info);
 
-  printTetrisStats(windows[kInfoWin], game_info, (*state == kOnPause) ? 0 : 1);
+  printTetrisStats(windows[kInfoWin], snake.game_info, (*state == kOnPause) ? 0 : 1);
 }
 
-void startHandler(GameInfo *game_info, std::vector<Brick *> &body, GameState *state,
+void StartHandler(s21::Snake &snake, GameState *state,
                   Signal signal, WINDOW *gameWin)
 {
-  game_info->current_brick.x = game_info->win_info.width / 2;
-  game_info->current_brick.y = game_info->win_info.height / 2;
-  game_info->current_brick.color = 1;
-  game_info->next_brick.color = 2;
-  ClearField(game_info->field, game_info->win_info.height,
-             game_info->win_info.width);
-  moveBrickInField(game_info->field, &game_info->current_brick);
+  snake.game_info->current_brick.x = snake.game_info->win_info.width / 2;
+  snake.game_info->current_brick.y = snake.game_info->win_info.height / 2;
+  snake.game_info->current_brick.color = 1;
+  snake.game_info->next_brick.color = 2;
+  ClearField(snake.game_info->field, snake.game_info->win_info.height,
+             snake.game_info->win_info.width);
+  moveBrickInField(snake.game_info->field, &snake.game_info->current_brick);
   *state = kSpawnApple;
-  body.clear();
-  body.insert(body.begin(), new Brick{game_info->current_brick});
+  snake.body.clear();
+  snake = s21::Snake(snake.game_info, snake.game_info->field);
+  
 }
 
-void gameOverHandler(GameInfo *game_info, GameState *state,
+void GameOverHandler(s21::Snake &snake, GameState *state,
                      Signal signal, WINDOW *gameWin)
 {
 
-  GameOverMessage(gameWin, game_info->win_info.width, game_info->win_info.width);
+  GameOverMessage(gameWin, snake.game_info->win_info.width, snake.game_info->win_info.width);
   if (signal != kNosig)
   {
     if (signal != kExit)
@@ -105,12 +110,12 @@ void gameOverHandler(GameInfo *game_info, GameState *state,
   }
 }
 
-void exitHandler(GameState *state)
+void ExitHandler(GameState *state)
 {
   *state = static_cast<GameState>(kExit);
 }
 
-void pauseHandler(GameState *state, Signal signal)
+void PauseHandler(GameState *state, Signal signal)
 {
   if (signal == kPause)
   {
@@ -122,41 +127,11 @@ void pauseHandler(GameState *state, Signal signal)
   }
 }
 
-GameInfo UpdateCurrentState(GameInfo game_info, std::vector<Brick *> &body, GameState *state,
-                            Signal signal, WINDOW **windows)
-{
-
-  switch (*state)
-  {
-
-  case kStart:
-    startHandler(&game_info, body, state, signal, windows[kGameWin]);
-    break;
-  case kSpawnApple:
-    spawnAppleHandler(&game_info, state);
-    break;
-  case kMoving:
-    movingHandler(&game_info, body, state, signal, windows);
-    break;
-    break;
-  case kGameOver:
-    gameOverHandler(&game_info, state, signal, windows[kGameWin]);
-    break;
-  case kOnPause:
-    pauseHandler(state, signal);
-    break;
-  case kExitState:
-    exitHandler(state);
-    break;
-  }
-  return game_info;
-}
-
-Signal GetSignal(int UserInput)
+Signal GetSignal(int user_input)
 {
   Signal rc = kNosig;
 
-  switch (UserInput)
+  switch (user_input)
   {
   case KEY_UP:
     rc = kMoveUp;

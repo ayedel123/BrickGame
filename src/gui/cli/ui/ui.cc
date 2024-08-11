@@ -16,7 +16,7 @@ void DrawField(WINDOW *win, GameInfo *game_info)
         wattroff(win, COLOR_PAIR(game_info->field[i][j]));
       }
       else
-        mvwprintw(win, i + 1, j + 1, " ");
+        mvwprintw(win, i + 1, j + 1, ".");
     }
   }
 
@@ -111,4 +111,36 @@ void PrintMenu(WINDOW *menu_win, int highlight, const char *choices[], int choic
     y++;
   }
   wrefresh(menu_win);
+}
+
+int ChoseGame(WINDOW *win)
+{
+  int height = 10, width = 30, start_y = 4, start_x = 4;
+  int highlight = 0;
+  int choice;
+  const char *choices[] = {"Tetris", "Snake", "Exit"};
+  int choices_count = sizeof(choices) / sizeof(char *);
+  while (1)
+  {
+    choice = UserInput();
+    switch (choice)
+    {
+    case KEY_UP:
+      highlight = (highlight == 0) ? choices_count - 1 : highlight - 1;
+      break;
+    case KEY_DOWN:
+      highlight = (highlight + 1) % choices_count;
+      break;
+    case 10:
+      if (highlight == choices_count - 1)
+        return -1;
+      else
+        return highlight;
+      break;
+    default:
+      break;
+    }
+    PrintMenu(win, highlight, choices, choices_count);
+  }
+  return 0;
 }

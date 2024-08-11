@@ -8,12 +8,23 @@ extern "C"
 {
 #include <curses.h>
 }
-#include "snake_functions.h"
+#include "snake.h"
 #include <vector>
 
-GameInfo UpdateCurrentState(GameInfo game_info, std::vector<Brick *> &body, GameState *state,
-                              Signal signal, WINDOW **windows);
+// void UpdateCurrentState(s21::Snake &snake, GameState *state,
+//                         Signal signal, WINDOW **windows);
 Signal GetSignal(int UserInput);
 void GetMoveData(int signal, int *direction, int *angle);
+void GetMoveData(int signal, int *direction, int *angle);
+void SpawnAppleHandler(s21::Snake &snake, GameState *state);
+void MovingHandler(s21::Snake &snake, GameState *state,
+                   Signal signal, WINDOW **windows);
+void StartHandler(s21::Snake &snake, GameState *state,
+                  Signal signal, WINDOW *gameWin);
+void GameOverHandler(s21::Snake &snake, GameState *state,
+                     Signal signal, WINDOW *gameWin);
+void ExitHandler(GameState *state);
+void PauseHandler(GameState *state, Signal signal);
+Signal GetSignal(int user_input);
 
 #endif
