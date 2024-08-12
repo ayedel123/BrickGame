@@ -7,7 +7,7 @@
 
 int moveBrick(GameInfo *game_info, Brick *oldBrick, int direction,
               int angle);
-int ForceMoveBrick(GameInfo *game_info, Brick *oldBrick, int direction, int angle);
+int ForceMoveBrick(GameInfo *game_info, Brick *oldBrick, int direction);
 void moveBrickInField(int **field, Brick *brick);
 void deleteFromField(int **field, Brick *brick);
 void rotateBrickCords(Brick *brick, int angle);

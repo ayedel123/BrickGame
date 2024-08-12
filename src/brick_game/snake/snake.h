@@ -37,7 +37,8 @@ namespace s21
             last_signal = kMoveDown;
             last_direction = kDirState;
             this->game_info = game_info;
-            InitGameInfo(game_info, field, game_speed, game_acceleration, BRICK_TYPES_COUNT);
+            InitGameInfo(game_info, field, game_speed, game_acceleration, BRICK_TYPES_COUNT, "snake_record");
+            this->game_info->next_brick.color = 2;
         }
 
         void RandomFreeCell(int *y, int *x)
@@ -138,7 +139,7 @@ namespace s21
 
             if (col != COL_STATE_NO && ignore_collision)
             {
-                ForceMoveBrick(game_info, head, direction, 0);
+                ForceMoveBrick(game_info, head, direction);
             }
 
             if ((col == COL_STATE_NO || ignore_collision) && body.size() >= 2)
@@ -147,6 +148,24 @@ namespace s21
                 MoveBodyCords(old_brick);
             }
             return col;
+        }
+
+        int AddPoints(int apple)
+        {
+            int points = apple;
+
+            if (game_info->points < 200)
+                game_info->points += points;
+            if (game_info->points > game_info->high_score)
+            {
+                game_info->high_score = game_info->points;
+                WriteRecord("snake_record", game_info->high_score);
+            }
+            if (game_info->points >= 5 * (game_info->level) && game_info->level < 10)
+            {
+                game_info->level = game_info->points / 5 + 1;
+            }
+            return (points < 200);
         }
 
     private:

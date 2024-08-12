@@ -72,7 +72,7 @@ void CursesSetUp()
   timeout(0);
 }
 
-void GameOverMessage(WINDOW *win, int width, int height)
+void GameOverMessage(WINDOW *win, int height)
 {
   mvwprintw(win, height / 2, 1, "game over");
   mvwprintw(win, height / 2 + 1, 1, "  press ");
@@ -84,7 +84,7 @@ void GameOverMessage(WINDOW *win, int width, int height)
   wrefresh(win);
 }
 
-void StartMessage(WINDOW *win, int width, int height)
+void StartMessage(WINDOW *win, int height)
 {
   mvwprintw(win, height / 2, 2, "  press ");
   mvwprintw(win, height / 2 + 1, 2, " any key ");
@@ -115,7 +115,7 @@ void PrintMenu(WINDOW *menu_win, int highlight, const char *choices[], int choic
 
 int ChoseGame(WINDOW *win)
 {
-  int height = 10, width = 30, start_y = 4, start_x = 4;
+
   int highlight = 0;
   int choice;
   const char *choices[] = {"Tetris", "Snake", "Exit"};

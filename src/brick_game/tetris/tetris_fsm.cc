@@ -1,9 +1,8 @@
 #include "tetris_fsm.h"
 
-
 void TetrisSpawHandler(GameInfo *game_info, GameState *state)
 {
-  AddPoints(game_info, FullLineHandler(game_info));
+  TetrisAddPoints(game_info, FullLineHandler(game_info));
   if (resetBrick(game_info) != COL_STATE_NO)
     *state = kGameOver;
   else
@@ -38,7 +37,7 @@ void TetrisGetMoveData(int signal, int *direction, int *angle)
 }
 
 void TetrisMovingHandler(GameInfo *game_info, GameState *state,
-                   Signal signal, WINDOW **windows)
+                         Signal signal, WINDOW **windows)
 {
 
   if (signal == kPause)
@@ -72,9 +71,9 @@ void TetrisMovingHandler(GameInfo *game_info, GameState *state,
 }
 
 void TetrisStartHandler(GameInfo *game_info, GameState *state,
-                  Signal signal, WINDOW *gameWin)
+                        Signal signal, WINDOW *gameWin)
 {
-  StartMessage(gameWin, game_info->win_info.width, game_info->win_info.width);
+  StartMessage(gameWin, game_info->win_info.width);
 
   if (signal == kStartSig)
   {
@@ -89,10 +88,10 @@ void TetrisStartHandler(GameInfo *game_info, GameState *state,
 }
 
 void TetrisGameOverHandler(GameInfo *game_info, GameState *state,
-                     Signal signal, WINDOW *gameWin)
+                           Signal signal, WINDOW *gameWin)
 {
 
-  GameOverMessage(gameWin, game_info->win_info.width, game_info->win_info.width);
+  GameOverMessage(gameWin, game_info->win_info.width);
   if (signal != kNosig)
   {
     if (signal != kExit)
@@ -119,15 +118,12 @@ void TetrisPauseHandler(GameState *state, Signal signal)
 }
 
 GameInfo TetrisUpdateCurrentState(GameInfo game_info, GameState *state,
-                              Signal signal, WINDOW **windows)
+                                  Signal signal, WINDOW **windows)
 {
 
   switch (*state)
   {
 
-  case kStart:
-    TetrisStartHandler(&game_info, state, signal, windows[kGameWin]);
-    break;
   case kSpawn:
     TetrisSpawHandler(&game_info, state);
     break;
@@ -143,6 +139,9 @@ GameInfo TetrisUpdateCurrentState(GameInfo game_info, GameState *state,
     break;
   case kExitState:
     TetrisExitHandler(state);
+    break;
+  default:
+    TetrisStartHandler(&game_info, state, signal, windows[kGameWin]);
     break;
   }
   return game_info;

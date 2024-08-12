@@ -8,12 +8,12 @@ extern "C"
 #include "./snake/snake.h"
 #include "./snake/snake_game_loop.h"
 
-void SetUp(WINDOW **windows, int win_count, GameInfo *game_info, int **field)
+void SetUp(WINDOW **windows, int win_count)
 {
     srand(time(0));
     CursesSetUp();
     SetUpBrickGameWindows(windows, win_count);
-    InitGameInfo(game_info, field, TETRIS_GAME_SPEED, TETRIS_GAME_ACCELERATION, RANDOM_BRICK);
+    // InitGameInfo(game_info, field, TETRIS_GAME_SPEED, TETRIS_GAME_ACCELERATION, RANDOM_BRICK);
 }
 
 int main()
@@ -23,7 +23,7 @@ int main()
     int **field = NULL;
     InitField(&field, GAME_WINDOW_HEIGHT, GAME_WINDOW_WIDTH);
     ClearField(field, GAME_WINDOW_HEIGHT, GAME_WINDOW_WIDTH);
-    SetUp(windows, 2, &game_info, field);
+    SetUp(windows, 2);
 
     int game = ChoseGame(windows[0]);
     while (game == 0 || game == 1)

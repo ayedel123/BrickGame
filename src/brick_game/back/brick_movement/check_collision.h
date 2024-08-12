@@ -6,6 +6,6 @@
 int CheckCollision(GameInfo *game_info, Brick *brick, int direction);
 int CheckOutOfBounds(Brick *brick, int cordI, int width, int height,
                      int direction);
-int CheckCollisionBrick(int **field, Brick *brick, int cordI, int direction);
+int CheckCollisionBrick(int **field, Brick *brick, int cordI);
 
 #endif

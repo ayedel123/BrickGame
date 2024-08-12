@@ -84,7 +84,7 @@ int moveBrick(GameInfo *game_info, Brick *oldBrick, int direction, int angle)
   return result;
 }
 
-int ForceMoveBrick(GameInfo *game_info, Brick *oldBrick, int direction, int angle)
+int ForceMoveBrick(GameInfo *game_info, Brick *oldBrick, int direction)
 {
   deleteFromField(game_info->field, oldBrick);
   moveBrickCords(oldBrick, direction);

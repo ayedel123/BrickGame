@@ -15,8 +15,8 @@ void DrawField(WINDOW *win, GameInfo *game_info);
 WINDOW *SetUpWindow(int win_number);
 int *SetUpBrickGameWindows(WINDOW **windows, int win_count);
 void CursesSetUp();
-void GameOverMessage(WINDOW *win, int width, int height);
-void StartMessage(WINDOW *win, int width, int height);
+void GameOverMessage(WINDOW *win, int height);
+void StartMessage(WINDOW *win, int height);
 
 void PrintMenu(WINDOW *menu_win, int highlight, const char *choices[], int choices_count);
 int ChoseGame(WINDOW *win);

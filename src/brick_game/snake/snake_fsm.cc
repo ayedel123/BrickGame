@@ -2,7 +2,7 @@
 
 void SpawnAppleHandler(s21::Snake &snake, GameState *state)
 {
-  AddPoints(snake.game_info, 1);
+  snake.AddPoints(1);
 
   snake.SpawnApple();
   *state = kMoving;
@@ -67,8 +67,7 @@ void MovingHandler(s21::Snake &snake, GameState *state,
   printTetrisStats(windows[kInfoWin], snake.game_info, (*state == kOnPause) ? 0 : 1);
 }
 
-void StartHandler(s21::Snake &snake, GameState *state,
-                  Signal signal, WINDOW *gameWin)
+void StartHandler(s21::Snake &snake, GameState *state)
 {
   snake.game_info->current_brick.x = snake.game_info->win_info.width / 2;
   snake.game_info->current_brick.y = snake.game_info->win_info.height / 2;
@@ -86,7 +85,7 @@ void GameOverHandler(s21::Snake &snake, GameState *state,
                      Signal signal, WINDOW *gameWin)
 {
 
-  GameOverMessage(gameWin, snake.game_info->win_info.width, snake.game_info->win_info.width);
+  GameOverMessage(gameWin, snake.game_info->win_info.width);
   if (signal != kNosig)
   {
     if (signal != kExit)

@@ -17,8 +17,7 @@ void GetMoveData(int signal, int *direction, int *angle);
 void SpawnAppleHandler(s21::Snake &snake, GameState *state);
 void MovingHandler(s21::Snake &snake, GameState *state,
                    Signal signal, WINDOW **windows);
-void StartHandler(s21::Snake &snake, GameState *state,
-                  Signal signal, WINDOW *gameWin);
+void StartHandler(s21::Snake &snake, GameState *state);
 void GameOverHandler(s21::Snake &snake, GameState *state,
                      Signal signal, WINDOW *gameWin);
 void ExitHandler(GameState *state);

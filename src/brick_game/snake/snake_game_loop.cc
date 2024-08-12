@@ -6,7 +6,6 @@ int SnakeGameLoop(s21::Snake &snake, WINDOW **windows)
 
     long long startTime = GetTimeInMS();
     long long endTime = 0;
-    int is_end = 0;
     int keyVal = 0;
     int input = 0;
     GameState state = kStart;
@@ -37,16 +36,11 @@ void UpdateCurrentState(s21::Snake &snake, GameState *state,
 
     switch (*state)
     {
-
-    case kStart:
-        StartHandler(snake, state, signal, windows[kGameWin]);
-        break;
     case kSpawnApple:
         SpawnAppleHandler(snake, state);
         break;
     case kMoving:
         MovingHandler(snake, state, signal, windows);
-        break;
         break;
     case kGameOver:
         GameOverHandler(snake, state, signal, windows[kGameWin]);
@@ -56,6 +50,9 @@ void UpdateCurrentState(s21::Snake &snake, GameState *state,
         break;
     case kExitState:
         ExitHandler(state);
+        break;
+    default:
+        StartHandler(snake, state);
         break;
     }
 }

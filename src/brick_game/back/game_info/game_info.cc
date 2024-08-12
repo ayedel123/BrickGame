@@ -1,7 +1,8 @@
 #include "game_info.h"
 
 void InitGameInfo(GameInfo *game_info, int **field, int speed,
-                  int acceleration,int brick_type) {
+                  int acceleration, int brick_type, const char *file_name)
+{
   game_info->win_info.height = GAME_WINDOW_HEIGHT;
   game_info->win_info.width = GAME_WINDOW_WIDTH;
   game_info->color_count = COLOR_COUNT;
@@ -13,11 +14,12 @@ void InitGameInfo(GameInfo *game_info, int **field, int speed,
   game_info->points = 0;
   game_info->level = 1;
   game_info->speed = speed;
-  game_info->high_score = ReadRecord("record");
+  game_info->high_score = ReadRecord(file_name);
   game_info->acceleration = acceleration;
 }
 
-void BaseInitGameInfo(GameInfo *game_info) {
+void BaseInitGameInfo(GameInfo *game_info)
+{
   game_info->win_info.height = 0;
   game_info->win_info.width = 0;
   game_info->color_count = 1;
@@ -30,30 +32,36 @@ void BaseInitGameInfo(GameInfo *game_info) {
   game_info->acceleration = 0;
 }
 
-void WriteRecord(const char *filename, int record) {
+void WriteRecord(const char *filename, int record)
+{
   FILE *file = fopen(filename, "wb");
-  if (file == NULL) {
+  if (file == NULL)
+  {
     return;
   }
   fwrite(&record, sizeof(int), 1, file);
   fclose(file);
 }
 
-int ReadRecord(const char *filename) {
+int ReadRecord(const char *filename)
+{
   int number = 0;
   FILE *file = fopen(filename, "rb");
 
-  if (file != NULL) {
+  if (file != NULL)
+  {
     fread(&number, sizeof(int), 1, file);
     fclose(file);
   }
   return number;
 }
 
-void AddPoints(GameInfo *game_info, int full_lines) {
+void AddPoints(GameInfo *game_info, int full_lines)
+{
 
   int points = 0;
-  switch (full_lines) {
+  switch (full_lines)
+  {
   case 0:
     points = 0;
     break;
@@ -75,11 +83,13 @@ void AddPoints(GameInfo *game_info, int full_lines) {
   }
   if (game_info->points <= 100000000)
     game_info->points += points;
-  if (game_info->points > game_info->high_score) {
+  if (game_info->points > game_info->high_score)
+  {
     game_info->high_score = game_info->points;
     WriteRecord("record", game_info->high_score);
   }
-  if (game_info->points >= 600 * (game_info->level) && game_info->level < 10) {
-    game_info->level = game_info->points / 600+1;
+  if (game_info->points >= 600 * (game_info->level) && game_info->level < 10)
+  {
+    game_info->level = game_info->points / 600 + 1;
   }
 }

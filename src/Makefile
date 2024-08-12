@@ -1,6 +1,5 @@
-CC = gcc
-GPP = g++ -std=c++17 
-CFLAGS =  -Werror -Wall -Wextra -std=c11
+GPP = gcc -lstdc++ 
+CFLAGS =  -Werror -Wall -Wextra -std=c++17 
 
 PILK = pilk.c
 FRONTEND = gui/cli/user_input/*.cc gui/cli/stats/*.cc gui/cli/timer/*.cc gui/cli/ui/*.cc gui/cli/window/*.cc
@@ -31,11 +30,8 @@ endif
 
 all: gcov_report install run
 
-install: ${TETRIS_BACK} $(FRONTEND) ${TETRIS}
-		$(CC) $^ $(LIBS)  -o tetris.out
-
-snake: ${MAIN} ${TETRIS_BACK} $(FRONTEND) ${TETRIS} ${SNAKE}
-	g++ $^ $(LIBS)  -o snake.out
+install_cli: ${MAIN} ${TETRIS_BACK} $(FRONTEND) ${TETRIS} ${SNAKE}
+	$(GPP) $(CFLAGS) $^ $(LIBS)  -o snake.out
 
 uninstall:
 	rm -f tetris.out
@@ -76,7 +72,7 @@ clang:
 
 
 clean: clean_gcov clean_dist
-	rm -rf *.o *.out test.out bepis report 
+	rm -rf *.o *.out *_record test.out bepis report 
 
 clean_gcov: clean_record
 	rm -rf GcovReport *.gcda *.gcno GcovReport.dSYM *.info

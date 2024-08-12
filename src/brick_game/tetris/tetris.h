@@ -14,6 +14,7 @@ extern "C"
 int TetrisGameLoop(GameInfo *game_info, WINDOW **windows);
 int TetrisHandleCollision(int col, int dir);
 void TetrisSetUp(GameInfo *game_info, int **field);
+void TetrisAddPoints(GameInfo *game_info, int full_lines);
 
 #define TETRIS_GAME_SPEED 300
 #define TETRIS_GAME_ACCELERATION 20

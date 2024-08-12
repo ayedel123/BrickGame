@@ -11,7 +11,7 @@
 
 void TetrisSetUp(GameInfo *game_info, int **field)
 {
-  InitGameInfo(game_info, field, TETRIS_GAME_SPEED, TETRIS_GAME_ACCELERATION, RANDOM_BRICK);
+  InitGameInfo(game_info, field, TETRIS_GAME_SPEED, TETRIS_GAME_ACCELERATION, RANDOM_BRICK, "tetris_record");
 }
 
 int TetrisGameLoop(GameInfo *game_info, WINDOW **windows)
@@ -19,7 +19,6 @@ int TetrisGameLoop(GameInfo *game_info, WINDOW **windows)
 
   long long startTime = GetTimeInMS();
   long long endTime = 0;
-  int is_end = 0;
   int keyVal = 0;
   int input = 0;
   GameState state = kStart;
@@ -55,17 +54,20 @@ int TetrisHandleCollision(int col, int dir)
   return col;
 }
 
-// int main()
-// {
-//   WINDOW *windows[3];
-//   GameInfo game_info;
-//   int **field = NULL;
-//   InitField(&field, GAME_WINDOW_HEIGHT, GAME_WINDOW_WIDTH);
-//   ClearField(field, GAME_WINDOW_HEIGHT, GAME_WINDOW_WIDTH);
-//   setUp(windows, 2, &game_info, field);
-//   gameLoop(&game_info, windows);
-//   endwin();
-//   DeleteField(field, GAME_WINDOW_HEIGHT);
+void TetrisAddPoints(GameInfo *game_info, int full_lines)
+{
 
-//   return 0;
-// }
+  int points = (full_lines * 100 > 1500) ? 1500 : full_lines * 100;
+
+  if (game_info->points <= 100000000)
+    game_info->points += points;
+  if (game_info->points > game_info->high_score)
+  {
+    game_info->high_score = game_info->points;
+    WriteRecord("tetris_record", game_info->high_score);
+  }
+  if (game_info->points >= 600 * (game_info->level) && game_info->level < 10)
+  {
+    game_info->level = game_info->points / 600 + 1;
+  }
+}

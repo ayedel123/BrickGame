@@ -1,6 +1,6 @@
 #include "check_collision.h"
 
-int CheckCollisionBrick(int **field, Brick *brick, int cordI, int direction)
+int CheckCollisionBrick(int **field, Brick *brick, int cordI)
 {
 
   int result = field[brick->y + brick->cords[cordI][1]]
@@ -32,7 +32,7 @@ int CheckCollision(GameInfo *game_info, Brick *brick, int direction)
                               game_info->win_info.height, direction);
     if (result == COL_STATE_NO)
     {
-      result = CheckCollisionBrick(game_info->field, brick, i, direction);
+      result = CheckCollisionBrick(game_info->field, brick, i);
     }
   }
 

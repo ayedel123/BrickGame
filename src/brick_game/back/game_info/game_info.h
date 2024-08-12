@@ -28,7 +28,7 @@ void AddPoints(GameInfo *game_info, int full_lines);
 void WriteRecord(const char *filename, int record);
 int ReadRecord(const char *filename);
 void InitGameInfo(GameInfo *game_info, int **field, int speed,
-                  int acceleration, int brick_type);
+                  int acceleration, int brick_type, const char *file_name);
 void BaseInitGameInfo(GameInfo *game_info);
 
 #endif
