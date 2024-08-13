@@ -9,7 +9,6 @@ extern "C"
 #include <curses.h>
 }
 
-
 // typedef enum
 // {
 //   kMoveUp = 0,
@@ -24,9 +23,8 @@ extern "C"
 //   kNosig
 // } tetris_signals;
 
-
 GameInfo TetrisUpdateCurrentState(GameInfo game_info, GameState *state,
-                              Signal signal, WINDOW **windows);
+                                  Signal signal);
 Signal TetrisGetSignal(int UserInput);
 
 #endif

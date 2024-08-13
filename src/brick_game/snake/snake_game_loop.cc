@@ -12,9 +12,9 @@ int SnakeGameLoop(s21::Snake &snake, WINDOW **windows)
     while (keyVal != 404 && state != kExitState)
     {
         input = UserInput();
-        Signal signal = GetSignal(input);
+        Signal signal = GetSignalConsole(input);
 
-        UpdateCurrentState(snake, &state, signal, windows);
+        SnakeUpdateCurrentState(snake, &state, signal);
 
         endTime = GetTimeInMS();
         if (state == kMoving &&
@@ -22,8 +22,10 @@ int SnakeGameLoop(s21::Snake &snake, WINDOW **windows)
                 snake.game_info->speed - snake.game_info->level * snake.game_info->acceleration)
         {
             startTime = GetTimeInMS();
-            UpdateCurrentState(snake, &state, snake.last_signal, windows);
+            SnakeUpdateCurrentState(snake, &state, snake.last_signal);
         }
+        printTetrisStats(windows[kInfoWin], snake.game_info, (state == kOnPause) ? 0 : 1);
+        DrawGame(state, snake.game_info, windows);
     }
     snake.body.clear();
 
@@ -31,7 +33,7 @@ int SnakeGameLoop(s21::Snake &snake, WINDOW **windows)
 }
 
 void UpdateCurrentState(s21::Snake &snake, GameState *state,
-                        Signal signal, WINDOW **windows)
+                        Signal signal)
 {
 
     switch (*state)
@@ -40,10 +42,10 @@ void UpdateCurrentState(s21::Snake &snake, GameState *state,
         SpawnAppleHandler(snake, state);
         break;
     case kMoving:
-        MovingHandler(snake, state, signal, windows);
+        MovingHandler(snake, state, signal);
         break;
     case kGameOver:
-        GameOverHandler(snake, state, signal, windows[kGameWin]);
+        GameOverHandler(state, signal);
         break;
     case kOnPause:
         PauseHandler(state, signal);

@@ -6,5 +6,6 @@
 #include "timer/timer.h"
 #include "ui/ui.h"
 #include "window/window.h"
+#include "get_signal_console/get_signal_console.h"
 
 #endif

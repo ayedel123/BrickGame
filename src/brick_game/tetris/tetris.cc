@@ -1,17 +1,21 @@
 
 #include "tetris.h"
 
-// void TetrisSetUp(WINDOW **windows, int win_count, GameInfo *game_info, int **field)
-// {
-//   srand(time(0));
-//   CursesSetUp();
-//   SetUpBrickGameWindows(windows, win_count);
-//   InitGameInfo(game_info, field, TETRIS_GAME_SPEED, TETRIS_GAME_ACCELERATION, RANDOM_BRICK);
-// }
-
 void TetrisSetUp(GameInfo *game_info, int **field)
 {
   InitGameInfo(game_info, field, TETRIS_GAME_SPEED, TETRIS_GAME_ACCELERATION, RANDOM_BRICK, "tetris_record");
+}
+
+void DarwTetrisStats(GameState state, GameInfo *game_info, WINDOW **windows)
+{
+  if (state == kOnPause)
+  {
+    printTetrisStats(windows[kInfoWin], game_info, 0);
+  }
+  else
+  {
+    printTetrisStats(windows[kInfoWin], game_info, 1);
+  }
 }
 
 int TetrisGameLoop(GameInfo *game_info, WINDOW **windows)
@@ -26,8 +30,11 @@ int TetrisGameLoop(GameInfo *game_info, WINDOW **windows)
   while (keyVal != 404 && state != kExitState)
   {
     input = UserInput();
+    Signal signal = GetSignalConsole(input);
+    if (signal == kMoveUp)
+      signal = kNosig;
     *game_info =
-        TetrisUpdateCurrentState(*game_info, &state, TetrisGetSignal(input), windows);
+        TetrisUpdateCurrentState(*game_info, &state, signal);
 
     endTime = GetTimeInMS();
     if (state == kMoving &&
@@ -35,8 +42,10 @@ int TetrisGameLoop(GameInfo *game_info, WINDOW **windows)
             game_info->speed - game_info->level * game_info->acceleration)
     {
       startTime = GetTimeInMS();
-      *game_info = TetrisUpdateCurrentState(*game_info, &state, kMoveDown, windows);
+      *game_info = TetrisUpdateCurrentState(*game_info, &state, kMoveDown);
     }
+    DarwTetrisStats(state, game_info, windows);
+    DrawGame(state, game_info, windows);
   }
 
   return 0;

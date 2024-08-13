@@ -1,5 +1,18 @@
 #include "ui.h"
 
+void DrawGame(GameState state, GameInfo *game_info, WINDOW **windows)
+{
+
+  if (state == kGameOver)
+  {
+    GameOverMessage(windows[kGameWin], game_info->win_info.width);
+  }
+  else
+  {
+    DrawField(windows[kGameWin], game_info);
+  }
+}
+
 void DrawField(WINDOW *win, GameInfo *game_info)
 {
 

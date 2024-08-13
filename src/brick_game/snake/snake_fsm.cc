@@ -36,7 +36,7 @@ void GetMoveData(int signal, int *direction, int *angle)
 }
 
 void MovingHandler(s21::Snake &snake, GameState *state,
-                   Signal signal, WINDOW **windows)
+                   Signal signal)
 {
   if (signal == kExit)
   {
@@ -62,9 +62,9 @@ void MovingHandler(s21::Snake &snake, GameState *state,
     *state = snake.SnakeHandleCollision(col, snake, *state);
   }
 
-  DrawField(windows[kGameWin], snake.game_info);
+  //DrawField(windows[kGameWin], snake.game_info);
 
-  printTetrisStats(windows[kInfoWin], snake.game_info, (*state == kOnPause) ? 0 : 1);
+  //printTetrisStats(windows[kInfoWin], snake.game_info, (*state == kOnPause) ? 0 : 1);
 }
 
 void StartHandler(s21::Snake &snake, GameState *state)
@@ -81,11 +81,11 @@ void StartHandler(s21::Snake &snake, GameState *state)
   snake = s21::Snake(snake.game_info, snake.game_info->field);
 }
 
-void GameOverHandler(s21::Snake &snake, GameState *state,
-                     Signal signal, WINDOW *gameWin)
+void GameOverHandler(GameState *state,
+                     Signal signal)
 {
 
-  GameOverMessage(gameWin, snake.game_info->win_info.width);
+  //GameOverMessage(gameWin, snake.game_info->win_info.width);
   if (signal != kNosig)
   {
     if (signal != kExit)

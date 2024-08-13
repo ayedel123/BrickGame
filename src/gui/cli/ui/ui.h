@@ -11,6 +11,8 @@ extern "C"
 #include <stdlib.h>
 #include <time.h>
 }
+
+void DrawGame(GameState state, GameInfo *game_info, WINDOW **windows);
 void DrawField(WINDOW *win, GameInfo *game_info);
 WINDOW *SetUpWindow(int win_number);
 int *SetUpBrickGameWindows(WINDOW **windows, int win_count);
