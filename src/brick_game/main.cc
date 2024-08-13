@@ -25,9 +25,10 @@ int main()
     ClearField(field, GAME_WINDOW_HEIGHT, GAME_WINDOW_WIDTH);
     SetUp(windows, 2);
 
-    int game = ChoseGame(windows[0]);
+    int game = 1;
     while (game == 0 || game == 1)
     {
+        game = ChoseGame(windows[0]);
         if (game == 0)
         {
             TetrisSetUp(&game_info, field);
@@ -38,7 +39,7 @@ int main()
             s21::Snake snake = s21::Snake(&game_info, field);
             SnakeGameLoop(snake, windows);
         }
-        game = ChoseGame(windows[0]);
+        
     }
     endwin();
     DeleteField(field, GAME_WINDOW_HEIGHT);

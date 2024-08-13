@@ -33,8 +33,7 @@ int TetrisGameLoop(GameInfo *game_info, WINDOW **windows)
     Signal signal = GetSignalConsole(input);
     if (signal == kMoveUp)
       signal = kNosig;
-    *game_info =
-        TetrisUpdateCurrentState(*game_info, &state, signal);
+    TetrisUpdateCurrentState(game_info, &state, signal);
 
     endTime = GetTimeInMS();
     if (state == kMoving &&
@@ -42,7 +41,7 @@ int TetrisGameLoop(GameInfo *game_info, WINDOW **windows)
             game_info->speed - game_info->level * game_info->acceleration)
     {
       startTime = GetTimeInMS();
-      *game_info = TetrisUpdateCurrentState(*game_info, &state, kMoveDown);
+      TetrisUpdateCurrentState(game_info, &state, kMoveDown);
     }
     DarwTetrisStats(state, game_info, windows);
     DrawGame(state, game_info, windows);

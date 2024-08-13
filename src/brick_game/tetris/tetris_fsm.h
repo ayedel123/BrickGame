@@ -23,7 +23,7 @@ extern "C"
 //   kNosig
 // } tetris_signals;
 
-GameInfo TetrisUpdateCurrentState(GameInfo game_info, GameState *state,
+void TetrisUpdateCurrentState(GameInfo *game_info, GameState *state,
                                   Signal signal);
 Signal TetrisGetSignal(int UserInput);
 

@@ -60,20 +60,19 @@ void TetrisMovingHandler(GameInfo *game_info, GameState *state,
     *state = kExitState;
 }
 
-void TetrisStartHandler(GameInfo *game_info, GameState *state,
-                        Signal signal)
+void TetrisStartHandler(GameInfo *game_info, GameState *state)
 {
 
-  if (signal == kStartSig)
-  {
-    ClearField(game_info->field, game_info->win_info.height,
-               game_info->win_info.width);
-    *state = kSpawn;
-  }
-  else if (signal == kExit)
-  {
-    *state = kExitState;
-  }
+  // if (signal == kStartSig)
+  //{
+  ClearField(game_info->field, game_info->win_info.height,
+             game_info->win_info.width);
+  *state = kSpawn;
+  // }
+  // else if (signal == kExit)
+  // {
+  //   *state = kExitState;
+  // }
 }
 
 void TetrisGameOverHandler(GameState *state,
@@ -91,7 +90,11 @@ void TetrisGameOverHandler(GameState *state,
   }
 }
 
-void TetrisExitHandler(GameState *state) { *state = static_cast<GameState>(kExit); }
+void TetrisExitHandler(GameInfo *game_info, GameState *state)
+{
+  ClearField(game_info->field, game_info->win_info.height, game_info->win_info.width);
+  *state = static_cast<GameState>(kExit);
+}
 
 void TetrisPauseHandler(GameState *state, Signal signal)
 {
@@ -105,18 +108,18 @@ void TetrisPauseHandler(GameState *state, Signal signal)
   }
 }
 
-GameInfo TetrisUpdateCurrentState(GameInfo game_info, GameState *state,
-                                  Signal signal)
+void TetrisUpdateCurrentState(GameInfo *game_info, GameState *state,
+                              Signal signal)
 {
 
   switch (*state)
   {
 
   case kSpawn:
-    TetrisSpawHandler(&game_info, state);
+    TetrisSpawHandler(game_info, state);
     break;
   case kMoving:
-    TetrisMovingHandler(&game_info, state, signal);
+    TetrisMovingHandler(game_info, state, signal);
     break;
     break;
   case kGameOver:
@@ -126,13 +129,12 @@ GameInfo TetrisUpdateCurrentState(GameInfo game_info, GameState *state,
     TetrisPauseHandler(state, signal);
     break;
   case kExitState:
-    TetrisExitHandler(state);
+    TetrisExitHandler(game_info, state);
     break;
   default:
-    TetrisStartHandler(&game_info, state, signal);
+    TetrisStartHandler(game_info, state);
     break;
   }
-  return game_info;
 }
 
 Signal TetrisGetSignal(int UserInput)

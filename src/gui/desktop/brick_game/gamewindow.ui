@@ -6,18 +6,18 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>480</width>
+    <width>763</width>
     <height>900</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QLabel" name="label">
+  <widget class="QLabel" name="game_name_label">
    <property name="geometry">
     <rect>
      <x>170</x>
-     <y>130</y>
+     <y>10</y>
      <width>58</width>
      <height>16</height>
     </rect>
@@ -26,12 +26,61 @@
     <string>TextLabel</string>
    </property>
   </widget>
-  <widget class="QLabel" name="game_name_label">
+  <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
-     <x>170</x>
+     <x>290</x>
      <y>10</y>
-     <width>58</width>
+     <width>100</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>PushButton</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="score_label">
+   <property name="geometry">
+    <rect>
+     <x>640</x>
+     <y>130</y>
+     <width>91</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="record_label">
+   <property name="geometry">
+    <rect>
+     <x>640</x>
+     <y>150</y>
+     <width>101</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QWidget" name="nextBrick" native="true">
+   <property name="geometry">
+    <rect>
+     <x>560</x>
+     <y>220</y>
+     <width>151</width>
+     <height>181</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lvl_label">
+   <property name="geometry">
+    <rect>
+     <x>640</x>
+     <y>170</y>
+     <width>101</width>
      <height>16</height>
     </rect>
    </property>

@@ -18,9 +18,9 @@ void SpawnAppleHandler(s21::Snake &snake, GameState *state);
 void MovingHandler(s21::Snake &snake, GameState *state,
                    Signal signal);
 void StartHandler(s21::Snake &snake, GameState *state);
-void GameOverHandler(GameState *state,
+void GameOverHandler(s21::Snake &snake, GameState *state,
                      Signal signal);
-void ExitHandler(GameState *state);
+void ExitHandler(s21::Snake &snake,GameState *state);
 void PauseHandler(GameState *state, Signal signal);
 Signal GetSignal(int user_input);
 

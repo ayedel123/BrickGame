@@ -4,6 +4,8 @@
 #include <QWidget>
 #include <QKeyEvent>
 #include <QPainter>
+#include <QTimer>
+
 #include "../get_signal_desctop/get_signal_desktop.h"
 #include "../../../brick_game/tetris/tetris.h"
 #include  "../../../brick_game/snake/snake.h"
@@ -18,6 +20,11 @@ class GameForm : public QWidget
 {
     Q_OBJECT
 
+signals:
+    void MainWindow();
+private slots:
+    void UpdateCurrentState();
+
 public:
     explicit GameForm(QWidget *parent = nullptr);
     ~GameForm();
@@ -29,8 +36,15 @@ public:
 protected:
     void keyPressEvent(QKeyEvent *event) override;
     void paintEvent(QPaintEvent *event) override;
+    void ForcedUpdate();
+    void UpdateView();
+
+private slots:
+    void on_pushButton_clicked();
 
 private:
+    QTimer *gameTimer;
+    void UpdateGameState(Signal signal);
     Ui::GameForm *ui;
     int game_type_ = 0;
     bool game_started_ = false;
@@ -38,7 +52,7 @@ private:
     s21::Snake snake_;
     int **field_;
     GameState game_state_=kStart;
-
+    int time =0;
 
 
 };

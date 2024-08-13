@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     game_form = new GameForm();
+    connect(game_form, &GameForm::MainWindow, this, &MainWindow::show);
 }
 
 MainWindow::~MainWindow()
@@ -21,6 +22,7 @@ void MainWindow::on_playTetrisButton_clicked()
     game_form->SetGameType(0);
     game_form->PrintGameName();
     game_form->SetUpTetris();
+    game_form->StartGame();
 }
 
 
@@ -31,6 +33,7 @@ void MainWindow::on_playSnakeButton_clicked()
     game_form->SetGameType(1);
     game_form->PrintGameName();
     game_form->SetUpSnake();
+    game_form->StartGame();
 
 }
 

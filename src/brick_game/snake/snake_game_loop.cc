@@ -32,8 +32,8 @@ int SnakeGameLoop(s21::Snake &snake, WINDOW **windows)
     return 0;
 }
 
-void UpdateCurrentState(s21::Snake &snake, GameState *state,
-                        Signal signal)
+void SnakeUpdateCurrentState(s21::Snake &snake, GameState *state,
+                             Signal signal)
 {
 
     switch (*state)
@@ -45,13 +45,13 @@ void UpdateCurrentState(s21::Snake &snake, GameState *state,
         MovingHandler(snake, state, signal);
         break;
     case kGameOver:
-        GameOverHandler(state, signal);
+        GameOverHandler(snake, state, signal);
         break;
     case kOnPause:
         PauseHandler(state, signal);
         break;
     case kExitState:
-        ExitHandler(state);
+        ExitHandler(snake, state);
         break;
     default:
         StartHandler(snake, state);

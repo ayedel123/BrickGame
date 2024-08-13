@@ -62,30 +62,25 @@ void MovingHandler(s21::Snake &snake, GameState *state,
     *state = snake.SnakeHandleCollision(col, snake, *state);
   }
 
-  //DrawField(windows[kGameWin], snake.game_info);
+  // DrawField(windows[kGameWin], snake.game_info);
 
-  //printTetrisStats(windows[kInfoWin], snake.game_info, (*state == kOnPause) ? 0 : 1);
+  // printTetrisStats(windows[kInfoWin], snake.game_info, (*state == kOnPause) ? 0 : 1);
 }
 
 void StartHandler(s21::Snake &snake, GameState *state)
 {
-  snake.game_info->current_brick.x = snake.game_info->win_info.width / 2;
-  snake.game_info->current_brick.y = snake.game_info->win_info.height / 2;
-  snake.game_info->current_brick.color = 1;
-  snake.game_info->next_brick.color = 2;
   ClearField(snake.game_info->field, snake.game_info->win_info.height,
              snake.game_info->win_info.width);
+  snake.Respawn();
   moveBrickInField(snake.game_info->field, &snake.game_info->current_brick);
   *state = kSpawnApple;
-  snake.body.clear();
-  snake = s21::Snake(snake.game_info, snake.game_info->field);
 }
 
-void GameOverHandler(GameState *state,
+void GameOverHandler(s21::Snake &snake, GameState *state,
                      Signal signal)
 {
-
-  //GameOverMessage(gameWin, snake.game_info->win_info.width);
+  snake.Kill();
+  // GameOverMessage(gameWin, snake.game_info->win_info.width);
   if (signal != kNosig)
   {
     if (signal != kExit)
@@ -97,8 +92,12 @@ void GameOverHandler(GameState *state,
   }
 }
 
-void ExitHandler(GameState *state)
+void ExitHandler(s21::Snake &snake, GameState *state)
 {
+  if (!snake.body.empty())
+  {
+    snake.Kill();
+  }
   *state = static_cast<GameState>(kExit);
 }
 

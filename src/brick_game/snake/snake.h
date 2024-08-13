@@ -9,9 +9,9 @@ extern "C"
 #include <ncurses.h>
 #include <stdlib.h>
 }
-
+#include "iostream"
 #include <vector>
-
+#include <stdexcept>
 namespace s21
 {
 
@@ -29,16 +29,38 @@ namespace s21
 
         Snake(GameInfo *game_info, int **field) : Snake()
         {
+
+            this->game_info = game_info;
+            InitGameInfo(this->game_info, field, game_speed, game_acceleration, BRICK_TYPES_COUNT, "snake_record");
+
+            this->game_info->next_brick.color = 2;
+            last_signal = kMoveDown;
+            last_direction = kDirState;
+            Respawn();
+        }
+
+        void Respawn()
+        {
+            game_info->current_brick.x = game_info->win_info.width / 2;
+            game_info->current_brick.y = game_info->win_info.height / 2;
+            game_info->current_brick.color = 1;
+            game_info->next_brick.color = 2;
+            body.clear();
             for (int i = 0; i < 4; i++)
             {
                 body.insert(body.cend(), new Brick{game_info->current_brick});
                 body[i]->y -= i;
+                moveBrickInField(game_info->field, body[i]);
             }
-            last_signal = kMoveDown;
-            last_direction = kDirState;
-            this->game_info = game_info;
-            InitGameInfo(game_info, field, game_speed, game_acceleration, BRICK_TYPES_COUNT, "snake_record");
-            this->game_info->next_brick.color = 2;
+        }
+        void Kill()
+        {
+            ClearField(game_info->field, game_info->win_info.height,
+                       game_info->win_info.width);
+            body.clear();
+            last_direction = kMoveDown;
+            game_info->points = 0;
+            game_info->level = 0;
         }
 
         void RandomFreeCell(int *y, int *x)

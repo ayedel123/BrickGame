@@ -8,7 +8,8 @@ GameForm::GameForm(QWidget *parent)
     ui->setupUi(this);
     InitField(&field_, GAME_WINDOW_HEIGHT, GAME_WINDOW_WIDTH);
     ClearField(field_, GAME_WINDOW_HEIGHT, GAME_WINDOW_WIDTH);
-
+    gameTimer = new QTimer(this);
+    connect(gameTimer, &QTimer::timeout, this, &GameForm::UpdateCurrentState);
 
 }
 
@@ -17,25 +18,53 @@ GameForm::~GameForm()
     delete ui;
 }
 
-
+void GameForm::ForcedUpdate(){
+    UpdateGameState(kNosig);
+    if(game_state_==kStart || game_state_==kSpawn){
+        while(game_state_!=kMoving)
+            UpdateGameState(kNosig);
+    }
+}
 
 void GameForm::keyPressEvent(QKeyEvent *event){
     Signal signal = GetSignalDesktop(event);
     uint sign = (uint)signal;
-    ui->label->setText("sign"+QString::number(sign)+"");
+    UpdateGameState(signal);
+    ForcedUpdate();
+    UpdateView();
 
 
+}
+
+void GameForm::UpdateCurrentState() {
+    if(game_started_){
+        if(game_type_==0){
+            UpdateGameState(kMoveDown);
+        }else if(game_type_==1){
+            UpdateGameState(snake_.last_signal);
+        }
+        ForcedUpdate();
+    }
+}
+
+
+void GameForm::UpdateGameState(Signal signal){
+
+        if(game_type_==0){
+            TetrisUpdateCurrentState(&game_info_,&game_state_, signal);
+        }else if(game_type_==1){
+            SnakeUpdateCurrentState(snake_,&game_state_, signal);
+        }
+        UpdateView();
 
 }
 
 void GameForm::StartGame(){
     if(!game_started_){
         game_state_ = kStart;
-        if(game_type_==0){
-            TetrisUpdateCurrentState(game_info_,&game_state_, kNosig);
-        }else if(game_type_==1){
-            SnakeUpdateCurrentState(snake_,&game_state_, kNosig);
-        }
+        UpdateGameState(kStartSig);
+        gameTimer->start(300);
+        game_started_ = true;
     }
 }
 
@@ -47,10 +76,17 @@ void GameForm::PrintGameName(){
     }
 }
 
+void GameForm::UpdateView(){
+    ui->lvl_label->setText(QString::number(game_info_.level) + " lvl");
+    ui->score_label->setText("Your score: "+ QString::number(game_info_.points));
+    ui->record_label->setText("Record: "+ QString::number(game_info_.high_score));
+    update();
+}
+
 void GameForm::paintEvent(QPaintEvent *event){
     Q_UNUSED(event);
-    QPainter painter(this); // Создаём объект отрисовщика
-    // Устанавливаем кисть абриса
+    QPainter painter(this);
+
     painter.setPen(QPen(Qt::white, 1, Qt::SolidLine, Qt::FlatCap));
     painter.setBrush(QBrush(Qt::black, Qt::SolidPattern));
     int start_x = 40;
@@ -69,6 +105,7 @@ void GameForm::paintEvent(QPaintEvent *event){
 
 
                 painter.drawRect(start_x+j*cell_size,start_y+i*cell_size,cell_size,cell_size);
+                painter.setBrush(QBrush(Qt::black, Qt::SolidPattern));
             }
         }
     }
@@ -80,10 +117,22 @@ void GameForm::SetGameType(int game_type){
 }
 
 void GameForm::SetUpSnake(){
-    TetrisSetUp(&game_info_, field_);
+    snake_ = s21::Snake(&game_info_, field_);
 }
 
 void GameForm::SetUpTetris(){
-    snake_ = s21::Snake(&game_info_, field_);
+
+    TetrisSetUp(&game_info_, field_);
+}
+
+
+void GameForm::on_pushButton_clicked()
+{
+    UpdateGameState(kExit);
+    game_state_=kGameOver;
+    game_started_ = false;
+    this->close();
+
+    emit MainWindow();
 }
 
