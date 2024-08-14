@@ -13,7 +13,6 @@ void SetUp(WINDOW **windows, int win_count)
     srand(time(0));
     CursesSetUp();
     SetUpBrickGameWindows(windows, win_count);
-    // InitGameInfo(game_info, field, TETRIS_GAME_SPEED, TETRIS_GAME_ACCELERATION, RANDOM_BRICK);
 }
 
 int main()
@@ -44,7 +43,6 @@ int main()
     endwin();
     DeleteField(field, GAME_WINDOW_HEIGHT);
 
-    putchar('0' + game);
 
     return 0;
 }

@@ -2,7 +2,7 @@
 
 // доработка
 
-void moveBrickCords(Brick *brick, int direction)
+void MoveBrickCords(Brick *brick, int direction)
 {
   if (direction == kDirRight || direction == kDirLeft)
   {
@@ -14,7 +14,7 @@ void moveBrickCords(Brick *brick, int direction)
   }
 }
 
-void rotateBrickCords(Brick *brick, int angle)
+void RotateBrickCords(Brick *brick, int angle)
 {
   int tmp = 0;
   for (int i = 0; i < 4; i++)
@@ -25,7 +25,7 @@ void rotateBrickCords(Brick *brick, int angle)
   }
 }
 
-void deleteFromField(int **field, Brick *brick)
+void DeleteFromField(int **field, Brick *brick)
 {
   for (int i = 0; i < 4; i++)
   {
@@ -33,7 +33,7 @@ void deleteFromField(int **field, Brick *brick)
   }
 }
 
-void moveBrickInField(int **field, Brick *brick)
+void MoveBrickInField(int **field, Brick *brick)
 {
 
   for (int i = 0; i < 4; i++)
@@ -54,15 +54,15 @@ int TryToMove(GameInfo *game_info, Brick *oldBrick, int direction, int angle)
   }
   if (result == COL_STATE_NO)
   {
-    deleteFromField(game_info->field, oldBrick);
+    DeleteFromField(game_info->field, oldBrick);
 
     if (direction != kDirState)
     {
-      moveBrickCords(oldBrick, direction);
+      MoveBrickCords(oldBrick, direction);
     }
     else if (angle != 0 && direction == kDirState)
     {
-      rotateBrickCords(oldBrick, angle);
+      RotateBrickCords(oldBrick, angle);
     }
 
     result = CheckCollision(game_info, oldBrick, direction);
@@ -70,7 +70,7 @@ int TryToMove(GameInfo *game_info, Brick *oldBrick, int direction, int angle)
   return result;
 }
 
-int moveBrick(GameInfo *game_info, Brick *oldBrick, int direction, int angle)
+int MoveBrick(GameInfo *game_info, Brick *oldBrick, int direction, int angle)
 {
   Brick newBrick = *oldBrick;
   int result = COL_STATE_NO;
@@ -80,14 +80,14 @@ int moveBrick(GameInfo *game_info, Brick *oldBrick, int direction, int angle)
   {
     *oldBrick = newBrick;
   }
-  moveBrickInField(game_info->field, oldBrick);
+  MoveBrickInField(game_info->field, oldBrick);
   return result;
 }
 
 int ForceMoveBrick(GameInfo *game_info, Brick *oldBrick, int direction)
 {
-  deleteFromField(game_info->field, oldBrick);
-  moveBrickCords(oldBrick, direction);
-  moveBrickInField(game_info->field, oldBrick);
+  DeleteFromField(game_info->field, oldBrick);
+  MoveBrickCords(oldBrick, direction);
+  MoveBrickInField(game_info->field, oldBrick);
   return 0;
 }

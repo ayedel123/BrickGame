@@ -26,7 +26,7 @@ namespace s21
         int game_acceleration = 20;
 
         Snake() = default;
-
+        ~Snake()= default;
         Snake(GameInfo *game_info, int **field) : Snake()
         {
 
@@ -50,7 +50,7 @@ namespace s21
             {
                 body.insert(body.cend(), new Brick{game_info->current_brick});
                 body[i]->y -= i;
-                moveBrickInField(game_info->field, body[i]);
+                MoveBrickInField(game_info->field, body[i]);
             }
         }
         void Kill()
@@ -104,7 +104,7 @@ namespace s21
             }
             game_info->next_brick.x = x;
             game_info->next_brick.y = y;
-            moveBrickInField(game_info->field, &(game_info->next_brick));
+            MoveBrickInField(game_info->field, &(game_info->next_brick));
 
             return 0;
         }
@@ -113,7 +113,7 @@ namespace s21
         {
             for (auto it = body.begin(); it != body.cend(); ++it)
             {
-                moveBrickInField(game_info->field, *it);
+                MoveBrickInField(game_info->field, *it);
             }
         }
 
@@ -157,7 +157,17 @@ namespace s21
             Brick *head = body.front();
             Brick old_brick = *head;
 
-            int col = moveBrick(game_info, head, direction, 0);
+            int col = MoveBrick(game_info, head, direction, 0);
+
+            if(col == head->color){
+                Brick check_brick = *head;
+                MoveBrickCords(&check_brick,direction);
+                if(check_brick.x==body.back()->x&&check_brick.y==body.back()->y)
+                {
+                    ForceMoveBrick(game_info, head, direction);
+                    col = COL_STATE_NO;
+                }
+            }
 
             if (col != COL_STATE_NO && ignore_collision)
             {
@@ -169,6 +179,7 @@ namespace s21
 
                 MoveBodyCords(old_brick);
             }
+            MoveBrickInField(game_info->field,body.front());
             return col;
         }
 
@@ -202,8 +213,8 @@ namespace s21
                 current->y = old_brick.y;
 
                 old_brick = tmp_brick;
-                deleteFromField(game_info->field, &old_brick);
-                moveBrickInField(game_info->field, current);
+                DeleteFromField(game_info->field, &old_brick);
+                MoveBrickInField(game_info->field, current);
             }
         }
     };

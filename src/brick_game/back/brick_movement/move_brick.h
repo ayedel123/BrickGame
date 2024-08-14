@@ -5,12 +5,12 @@
 #include "../game_info/game_info.h"
 #include "check_collision.h"
 
-int moveBrick(GameInfo *game_info, Brick *oldBrick, int direction,
+int MoveBrick(GameInfo *game_info, Brick *oldBrick, int direction,
               int angle);
 int ForceMoveBrick(GameInfo *game_info, Brick *oldBrick, int direction);
-void moveBrickInField(int **field, Brick *brick);
-void deleteFromField(int **field, Brick *brick);
-void rotateBrickCords(Brick *brick, int angle);
-void moveBrickCords(Brick *brick, int direction);
+void MoveBrickInField(int **field, Brick *brick);
+void DeleteFromField(int **field, Brick *brick);
+void RotateBrickCords(Brick *brick, int angle);
+void MoveBrickCords(Brick *brick, int direction);
 
 #endif

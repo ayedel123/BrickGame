@@ -2,11 +2,25 @@ GPP = gcc -lstdc++
 CFLAGS =  -Werror -Wall -Wextra -std=c++17 
 
 PILK = pilk.c
-FRONTEND = gui/cli/user_input/*.cc gui/cli/stats/*.cc gui/cli/timer/*.cc gui/cli/ui/*.cc gui/cli/window/*.cc gui/cli/get_signal_console/get_signal_console.cc
-TETRIS_BACK = brick_game/back/bricks/*.cc brick_game/back/brick_movement/*.cc brick_game/back/game_info/*.cc brick_game/back/field/*.cc 
-TETRIS = brick_game/tetris/*.cc brick_game/tetris/full_line_handler/*.cc
+FRONTEND = gui/cli/user_input/*.cc \
+			gui/cli/stats/*.cc \
+			gui/cli/timer/*.cc \
+			gui/cli/ui/*.cc \
+			gui/cli/window/*.cc \
+			gui/cli/get_signal_console/get_signal_console.cc
+
+TETRIS_BACK = brick_game/back/bricks/*.cc \
+				brick_game/back/brick_movement/*.cc \
+				brick_game/back/game_info/*.cc \
+				brick_game/back/field/*.cc
+
+TETRIS = brick_game/tetris/*.cc \
+				brick_game/tetris/full_line_handler/*.cc
+
 SNAKE = brick_game/snake/*.cc
-TEST_SOURCES = brick_game/test/*.cc brick_game/test/collisionTest/*.cc brick_game/test/movementTest/*.cc brick_game/test/fullLineHandlerTest/*.cc brick_game/test/addPointsTest/*.cc
+
+TEST_SOURCES = brick_game/test/brick_game_test.cc
+
 MAIN = brick_game/main.cc
 
 CURSES = -lncurses
@@ -15,6 +29,17 @@ LIBS = $(CURSES)
 G_FLAGS = -lpthread -g -fprofile-arcs -ftest-coverage
 DIST_DIR = game_archive
 OPEN_COMMAND = open
+
+
+UNAME := $(shell uname)
+
+ifeq ($(UNAME), Linux)
+TESTFLAGS=-lgtest -lgtest_main -lrt -lstdc++ -pthread -lm -g
+endif
+ifeq ($(UNAME), Darwin)
+TESTFLAGS=-lgtest -lgtest_main -lstdc++ -pthread -lm -g
+endif
+
 
 DVI = dvi/README.html
 
@@ -31,13 +56,13 @@ endif
 all: gcov_report install run
 
 install_cli: ${MAIN} ${TETRIS_BACK} $(FRONTEND) ${TETRIS} ${SNAKE}
-	$(GPP) $(CFLAGS) $^ $(LIBS)  -o snake.out
+	$(GPP) $(CFLAGS) $^ $(LIBS) -lstdc++ -o brick_game_cli.out
 
 uninstall:
 	rm -f tetris.out
 
 gcov_report: clean clean_record
-	$(CC) $(CFLAGS) $(TETRIS_BACK) $(TEST_SOURCES) $(CHECK_FLAGS) $(G_FLAGS) -o GcovReport
+	$(GPP) $(CFLAGS) $(TETRIS_BACK) $(TEST_SOURCES) $(CHECK_FLAGS) $(G_FLAGS) -o GcovReport
 	./GcovReport
 	@lcov -t "GcovReport" -o GcovReport.info --no-external -c -d .
 	@genhtml -o report GcovReport.info
@@ -60,9 +85,11 @@ run:
 	./tetris.out
 
 test: clean
-	$(CC) $(TETRIS_BACK) $(TEST_SOURCES) $(CHECK_FLAGS) -o test.out
+	$(GPP) $(TETRIS_BACK) $(FRONTEND) $(TETRIS) $(SNAKE) $(TEST_SOURCES) $(TESTFLAGS) $(LIBS) -lstdc++ -o test.out
 	./test.out
 
+valgrind:
+	valgrind --tool=memcheck --leak-check=yes  ./test.out
 
 clang:
 	@cp ../../../../materials/linters/.clang-format .clang-format

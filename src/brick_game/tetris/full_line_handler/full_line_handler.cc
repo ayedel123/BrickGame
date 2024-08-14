@@ -1,6 +1,6 @@
 #include "full_line_handler.h"
 
-void dropLines(GameInfo *game_info, int last_line, int linesCount)
+void DropLines(GameInfo *game_info, int last_line, int linesCount)
 {
   for (int i = 0; i < last_line; i++)
   {
@@ -20,7 +20,7 @@ void dropLines(GameInfo *game_info, int last_line, int linesCount)
   }
 }
 
-int isLineFull(GameInfo *game_info, int line_id)
+int IsLineFull(GameInfo *game_info, int line_id)
 {
   int counter = 0;
   int result = 0;
@@ -42,7 +42,7 @@ int FullLineHandler(GameInfo *game_info)
   int full_lines = 0;
   for (int i = 0; i < game_info->win_info.height; i++)
   {
-    if (isLineFull(game_info, i) != 0)
+    if (IsLineFull(game_info, i) != 0)
     {
       full_lines++;
       last_line = i;
@@ -50,7 +50,7 @@ int FullLineHandler(GameInfo *game_info)
   }
   if (full_lines != 0)
   {
-    dropLines(game_info, last_line, full_lines);
+    DropLines(game_info, last_line, full_lines);
   }
   return full_lines;
 }

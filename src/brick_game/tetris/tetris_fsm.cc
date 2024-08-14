@@ -49,7 +49,7 @@ void TetrisMovingHandler(GameInfo *game_info, GameState *state,
     int direction = kDirState;
     int angle = 0;
     TetrisGetMoveData(signal, &direction, &angle);
-    int col = moveBrick(game_info, &game_info->current_brick, direction, angle);
+    int col = MoveBrick(game_info, &game_info->current_brick, direction, angle);
     col = TetrisHandleCollision(col, direction);
     if (col == COL_STATE_CRIT)
     {
@@ -141,9 +141,6 @@ Signal TetrisGetSignal(int UserInput)
 {
   Signal rc = kNosig;
 
-  // if (UserInput == KEY_UP)
-  //   rc = kMoveUp;
-  // else
   if (UserInput == KEY_DOWN)
     rc = kMoveDown;
   else if (UserInput == KEY_LEFT)

@@ -5,8 +5,8 @@
 
 int FullLineHandler(GameInfo *game_info);
 
-int isLineFull(GameInfo *game_info, int line_id);
-void dropLines(GameInfo *game_info, int last_line, int linesCount);
+int IsLineFull(GameInfo *game_info, int line_id);
+void DropLines(GameInfo *game_info, int last_line, int linesCount);
 int resetBrick(GameInfo *game_info);
 
 #endif

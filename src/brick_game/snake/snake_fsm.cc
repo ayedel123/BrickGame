@@ -72,7 +72,8 @@ void StartHandler(s21::Snake &snake, GameState *state)
   ClearField(snake.game_info->field, snake.game_info->win_info.height,
              snake.game_info->win_info.width);
   snake.Respawn();
-  moveBrickInField(snake.game_info->field, &snake.game_info->current_brick);
+  snake.last_signal = kMoveDown;
+  MoveBrickInField(snake.game_info->field, &snake.game_info->current_brick);
   *state = kSpawnApple;
 }
 
@@ -86,6 +87,7 @@ void GameOverHandler(s21::Snake &snake, GameState *state,
     if (signal != kExit)
     {
       *state = kStart;
+      snake.last_signal=kStartSig;
     }
     else
       *state = kExitState;
