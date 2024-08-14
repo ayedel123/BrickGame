@@ -9,6 +9,7 @@
 
 #include "./back_test/back_test.h"
 #include "./tetris_test/tetris_test.h"
+#include "snake_test/snake_test.h"
 // #define TEST_CASES                                                             \
 //   out_of_bounds_suite(), collision_brick_suite(), collision_suite(),           \
 //       semi_move_brick_suite(), move_brick_suite(), semi_linehandler_suite(),   \

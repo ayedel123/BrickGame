@@ -27,7 +27,7 @@ int SnakeGameLoop(s21::Snake &snake, WINDOW **windows)
         printTetrisStats(windows[kInfoWin], snake.game_info, (state == kOnPause) ? 0 : 1);
         DrawGame(state, snake.game_info, windows);
     }
-    snake.body.clear();
+    snake.Clear();
 
     return 0;
 }

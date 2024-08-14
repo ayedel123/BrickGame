@@ -113,7 +113,7 @@ TEST_F(MapTestCase, case_6)
   int width = 4;
   int height = 3;
   int **field;
-  InitField(&field, width, height);
+  InitField(&field,height,width);
   GameInfo game_info;
   game_info.field = field;
   game_info.win_info.height = height;
@@ -124,7 +124,7 @@ TEST_F(MapTestCase, case_6)
   int status = CheckCollision(&game_info, &brick, kDirLeft);
 
   ASSERT_EQ(status, COLLIDE_WITH_BORDER);
-  DeleteField(field, width);
+  DeleteField(field, height);
 }
 
 

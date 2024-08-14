@@ -26,7 +26,9 @@ namespace s21
         int game_acceleration = 20;
 
         Snake() = default;
-        ~Snake()= default;
+        ~Snake(){
+            Clear();
+        }
         Snake(GameInfo *game_info, int **field) : Snake()
         {
 
@@ -35,7 +37,7 @@ namespace s21
 
             this->game_info->next_brick.color = 2;
             last_signal = kMoveDown;
-            last_direction = kDirState;
+            last_direction = kDirDown;
             Respawn();
         }
 
@@ -45,7 +47,7 @@ namespace s21
             game_info->current_brick.y = game_info->win_info.height / 2;
             game_info->current_brick.color = 1;
             game_info->next_brick.color = 2;
-            body.clear();
+            Clear();
             for (int i = 0; i < 4; i++)
             {
                 body.insert(body.cend(), new Brick{game_info->current_brick});
@@ -53,11 +55,21 @@ namespace s21
                 MoveBrickInField(game_info->field, body[i]);
             }
         }
+
+        void Clear()
+        {
+            for (auto it = body.begin(); it != body.end(); ++it)
+            {
+                delete (*it);
+            }
+            body.clear();
+        }
+
         void Kill()
         {
             ClearField(game_info->field, game_info->win_info.height,
                        game_info->win_info.width);
-            body.clear();
+            Clear();
             last_direction = kMoveDown;
             game_info->points = 0;
             game_info->level = 0;
@@ -130,21 +142,17 @@ namespace s21
         {
             if (col == game_info->next_brick.color)
             {
-                col = COL_STATE_CRIT;
-            }
-            else if (col == COLLIDE_WITH_BORDER || col == game_info->current_brick.color)
-            {
-                col = COL_STATE_END;
-            }
-            if (col == COL_STATE_CRIT)
-            {
                 snake.SpawnNode();
                 snake.MoveBody(snake.last_direction, true);
 
                 state = kSpawnApple;
             }
-            else if (col == COL_STATE_END)
+            else if (col == COLLIDE_WITH_BORDER || col == game_info->current_brick.color)
+            {
                 state = kGameOver;
+            }
+
+                
 
             return state;
         }
@@ -159,10 +167,11 @@ namespace s21
 
             int col = MoveBrick(game_info, head, direction, 0);
 
-            if(col == head->color){
+            if (col == head->color)
+            {
                 Brick check_brick = *head;
-                MoveBrickCords(&check_brick,direction);
-                if(check_brick.x==body.back()->x&&check_brick.y==body.back()->y)
+                MoveBrickCords(&check_brick, direction);
+                if (check_brick.x == body.back()->x && check_brick.y == body.back()->y)
                 {
                     ForceMoveBrick(game_info, head, direction);
                     col = COL_STATE_NO;
@@ -179,7 +188,7 @@ namespace s21
 
                 MoveBodyCords(old_brick);
             }
-            MoveBrickInField(game_info->field,body.front());
+            MoveBrickInField(game_info->field, body.front());
             return col;
         }
 
