@@ -14,11 +14,11 @@ extern "C"
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "./snake.h"
+#include "./snake_class.h"
 #include "./snake_fsm.h"
-void SnakeUpdateCurrentState(s21::Snake &snake, GameState *state,
-                        Signal signal);
 int SnakeGameLoop(s21::Snake &snake, WINDOW **windows);
+void SnakeUpdateCurrentState(s21::Snake &snake, GameState *state,
+                             Signal signal);
 // #define SNAKE_GAME_SPEED 350
 // #define SNAKE_GAME_ACCELERATION 20
 

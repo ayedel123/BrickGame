@@ -31,7 +31,7 @@ TEST_F(TetrisFsmTEST, case_2)
     InitField(&field, GAME_WINDOW_HEIGHT, GAME_WINDOW_WIDTH);
     GameInfo game_info;
     TetrisSetUp(&game_info, field);
-    game_info.current_brick.y = GAME_WINDOW_HEIGHT - 2;
+    game_info.current_brick.y = GAME_WINDOW_HEIGHT - 1;
     int x = game_info.current_brick.x;
     int y = game_info.current_brick.y;
     GameState state = kMoving;

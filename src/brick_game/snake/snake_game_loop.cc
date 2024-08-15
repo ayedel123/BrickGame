@@ -38,7 +38,7 @@ void SnakeUpdateCurrentState(s21::Snake &snake, GameState *state,
 
     switch (*state)
     {
-    case kSpawnApple:
+    case kSpawn:
         SpawnAppleHandler(snake, state);
         break;
     case kMoving:

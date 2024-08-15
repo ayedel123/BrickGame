@@ -3,6 +3,8 @@
 
 #include "../../snake/snake.h"
 
+#include <gtest/gtest.h>
 #include "snake_functions_test.h"
+#include "snake_fsm_test.h"
 
 #endif

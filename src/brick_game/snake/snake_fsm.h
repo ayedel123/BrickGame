@@ -8,10 +8,10 @@ extern "C"
 {
 #include <curses.h>
 }
-#include "snake.h"
+#include "snake_class.h"
 #include <vector>
 
-Signal GetSignal(int UserInput);
+// Signal GetSignal(int UserInput);
 void GetMoveData(int signal, int *direction, int *angle);
 void GetMoveData(int signal, int *direction, int *angle);
 void SpawnAppleHandler(s21::Snake &snake, GameState *state);
@@ -20,7 +20,7 @@ void MovingHandler(s21::Snake &snake, GameState *state,
 void StartHandler(s21::Snake &snake, GameState *state);
 void GameOverHandler(s21::Snake &snake, GameState *state,
                      Signal signal);
-void ExitHandler(s21::Snake &snake,GameState *state);
+void ExitHandler(s21::Snake &snake, GameState *state);
 void PauseHandler(GameState *state, Signal signal);
 Signal GetSignal(int user_input);
 

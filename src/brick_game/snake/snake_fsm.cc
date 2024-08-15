@@ -3,7 +3,6 @@
 void SpawnAppleHandler(s21::Snake &snake, GameState *state)
 {
   snake.AddPoints(1);
-
   snake.SpawnApple();
   *state = kMoving;
 }
@@ -62,9 +61,6 @@ void MovingHandler(s21::Snake &snake, GameState *state,
     *state = snake.SnakeHandleCollision(col, snake, *state);
   }
 
-  // DrawField(windows[kGameWin], snake.game_info);
-
-  // printTetrisStats(windows[kInfoWin], snake.game_info, (*state == kOnPause) ? 0 : 1);
 }
 
 void StartHandler(s21::Snake &snake, GameState *state)
@@ -74,20 +70,19 @@ void StartHandler(s21::Snake &snake, GameState *state)
   snake.Respawn();
   snake.last_signal = kMoveDown;
   MoveBrickInField(snake.game_info->field, &snake.game_info->current_brick);
-  *state = kSpawnApple;
+  *state = kSpawn;
 }
 
 void GameOverHandler(s21::Snake &snake, GameState *state,
                      Signal signal)
 {
   snake.Kill();
-  // GameOverMessage(gameWin, snake.game_info->win_info.width);
   if (signal != kNosig)
   {
     if (signal != kExit)
     {
       *state = kStart;
-      snake.last_signal=kStartSig;
+      snake.last_signal = kStartSig;
     }
     else
       *state = kExitState;
@@ -100,7 +95,7 @@ void ExitHandler(s21::Snake &snake, GameState *state)
   {
     snake.Kill();
   }
-  *state = static_cast<GameState>(kExit);
+  *state = kExitState;
 }
 
 void PauseHandler(GameState *state, Signal signal)
@@ -113,48 +108,4 @@ void PauseHandler(GameState *state, Signal signal)
   {
     *state = kExitState;
   }
-}
-
-Signal GetSignal(int user_input)
-{
-  Signal rc = kNosig;
-
-  switch (user_input)
-  {
-  case KEY_UP:
-    rc = kMoveUp;
-    break;
-  case KEY_DOWN:
-    rc = kMoveDown;
-    break;
-  case KEY_LEFT:
-    rc = kMoveLeft;
-    break;
-  case KEY_RIGHT:
-    rc = kMoveRight;
-    break;
-  case KEY_ROTATE_LEFT:
-    rc = kRotateLeft;
-    break;
-  case KEY_ROTATE_RIGHT:
-    rc = kRotateRight;
-    break;
-  case KEY_PAUSE:
-    rc = kPause;
-    break;
-  case ERR:
-    rc = kNosig;
-    break;
-  case KEY_START:
-    rc = kStartSig;
-    break;
-  case KEY_ESCAPE:
-    rc = kExit;
-    break;
-  default:
-    rc = kNosig;
-    break;
-  }
-
-  return rc;
 }
