@@ -1,7 +1,4 @@
-#ifndef CPP3_BRICKGAME_V2_0_1_SRC_TEST_BACK_TEST_TETRIS_TETRIS_FSM_H_
-#define CPP3_BRICKGAME_V2_0_1_SRC_TEST_BACK_TEST_TETRIS_TETRIS_FSM_H_
-
-#include "tetris_test.h"
+#include "../brick_game_test.h"
 
 class TetrisFsmTEST : public ::testing::Test
 {
@@ -111,5 +108,3 @@ TEST_F(TetrisFsmTEST, case_7)
     ASSERT_EQ(state, kOnPause);
     DeleteField(game_info.field, GAME_WINDOW_HEIGHT);
 }
-
-#endif

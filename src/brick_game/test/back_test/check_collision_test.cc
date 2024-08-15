@@ -1,7 +1,4 @@
-#ifndef CPP3_BRICKGAME_V2_0_1_SRC_TEST_BACK_TEST_CHECK_COLLISION_TEST_H_
-#define CPP3_BRICKGAME_V2_0_1_SRC_TEST_BACK_TEST_CHECK_COLLISION_TEST_H_
-
-#include "back_test.h"
+#include "../brick_game_test.h"
 
 class MapTestCase : public ::testing::Test
 {
@@ -305,5 +302,3 @@ TEST_F(MapTestCase, case_17)
   DeleteField(field, height);
 }
 
-
-#endif

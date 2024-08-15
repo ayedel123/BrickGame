@@ -1,7 +1,4 @@
-#ifndef CPP3_BRICKGAME_V2_0_1_SRC_TEST_BACK_TEST_TETRIS_TEST_FULL_LINE_HANDLER_TEST_H_
-#define CPP3_BRICKGAME_V2_0_1_SRC_TEST_BACK_TEST_TETRIS_TEST_FULL_LINE_HANDLER_TEST_H_
-
-#include "tetris_test.h"
+#include "../brick_game_test.h"
 
 class FullLineHandlerTest : public ::testing::Test
 {
@@ -171,5 +168,3 @@ TEST_F(FullLineHandlerTest, case_7)
 
   DeleteField(game_info.field, height);
 }
-
-#endif

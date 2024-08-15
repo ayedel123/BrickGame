@@ -1,7 +1,4 @@
-#ifndef CPP3_BRICKGAME_V2_0_1_SRC_BRICKGAME_TEST_SNAKE_TEST_SNAKE_FUNCTIONS_TEST_H_
-#define CPP3_BRICKGAME_V2_0_1_SRC_BRICKGAME_TEST_SNAKE_TEST_SNAKE_FUNCTIONS_TEST_H_
-
-#include "snake_test.h"
+#include "../brick_game_test.h"
 
 class SnakeFunctionsTest : public ::testing::Test
 {
@@ -316,5 +313,3 @@ TEST_F(SnakeFunctionsTest, case_17)
     ASSERT_EQ(state, kGameOver);
     DeleteField(game_info.field, GAME_WINDOW_HEIGHT);
 }
-
-#endif

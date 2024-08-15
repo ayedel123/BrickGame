@@ -1,7 +1,4 @@
-#ifndef CPP3_BRICKGAME_V2_0_1_SRC_TEST_BACK_TEST_MOVE_BRICK_TEST_H_
-#define CPP3_BRICKGAME_V2_0_1_SRC_TEST_BACK_TEST_MOVE_BRICK_TEST_H_
-
-#include "back_test.h"
+#include "../brick_game_test.h"
 
 class MoveBrickCase : public ::testing::Test
 {
@@ -262,6 +259,3 @@ TEST_F(MoveBrickCase, case_11)
   ASSERT_EQ(field[brick1.y + 1][brick1.x + 2], 0);
   DeleteField(field, rows);
 }
- 
-
-#endif

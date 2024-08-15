@@ -1,8 +1,4 @@
-#ifndef CPP3_BRICKGAME_V2_0_1_SRC_BRICKGAME_TEST_SNAKE_TEST_SNAKE_FSM_TEST_H_
-#define CPP3_BRICKGAME_V2_0_1_SRC_BRICKGAME_TEST_SNAKE_TEST_SNAKE_FSM_TEST_H_
-
-#include "snake_test.h"
-
+#include "../brick_game_test.h"
 class SnakeFSMTest : public ::testing::Test
 {
 };
@@ -337,5 +333,3 @@ TEST_F(SnakeFSMTest, case_17)
 
     DeleteField(game_info.field, GAME_WINDOW_HEIGHT);
 }
-
-#endif

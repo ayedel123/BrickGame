@@ -19,17 +19,25 @@ TETRIS = brick_game/tetris/*.cc \
 
 SNAKE = brick_game/snake/*.cc
 
-TEST_SOURCES = brick_game/test/brick_game_test.cc
+TEST_SOURCES = brick_game/test/brick_game_test.cc \
+				brick_game/test/back_test/add_points_test.cc \
+				brick_game/test/back_test/check_collision_test.cc \
+				brick_game/test/back_test/move_brick_test.cc \
+				brick_game/test/tetris_test/full_line_handler_test.cc \
+				brick_game/test/tetris_test/tetris_fsm_test.cc \
+				brick_game/test/tetris_test/tetris_handle_collision_test.cc \
+				brick_game/test/snake_test/snake_fsm_test.cc \
+				brick_game/test/snake_test/snake_functions_test.cc
+				
 
 MAIN = brick_game/main.cc
 
 CURSES = -lncurses
 CHECK_FLAGS = -lcheck
 LIBS = $(CURSES)
-G_FLAGS = -lpthread -g -fprofile-arcs -ftest-coverage
+GCOV = -lgcov --coverage -fprofile-arcs -ftest-coverage
 DIST_DIR = game_archive
 OPEN_COMMAND = open
-
 
 UNAME := $(shell uname)
 
@@ -61,14 +69,6 @@ install_cli: ${MAIN} ${TETRIS_BACK} $(FRONTEND) ${TETRIS} ${SNAKE}
 uninstall:
 	rm -f tetris.out
 
-gcov_report: clean clean_record
-	$(GPP) $(CFLAGS) $(TETRIS_BACK) $(TEST_SOURCES) $(CHECK_FLAGS) $(G_FLAGS) -o GcovReport
-	./GcovReport
-	@lcov -t "GcovReport" -o GcovReport.info --no-external -c -d .
-	@genhtml -o report GcovReport.info
-	open ./report/index-sort-f.html
-	make clean_gcov
-
 dist: clean_dist
 	mkdir -p ${DIST_DIR}
 	cp -rf MakeFile ${DIST_DIR}
@@ -88,6 +88,14 @@ test: clean
 	$(GPP) $(TETRIS_BACK) $(FRONTEND) $(TETRIS) $(SNAKE) $(TEST_SOURCES) $(TESTFLAGS) $(LIBS) -lstdc++ -o test.out
 	./test.out
 
+gcov_report:
+	$(GPP) $(TETRIS_BACK) $(FRONTEND) $(TETRIS) $(SNAKE) $(TEST_SOURCES) $(TESTFLAGS) $(LIBS) -lstdc++ $(GCOV) -o gcov_report.out
+	./gcov_report.out
+	@lcov -t "gcov_report" -o report.info --ignore-errors inconsistent --no-external -c -d .
+	@genhtml -o report report.info
+	@make clean_gcov
+	open report/index.html
+
 valgrind:
 	valgrind --tool=memcheck --leak-check=yes  ./test.out
 
@@ -102,7 +110,7 @@ clean: clean_gcov clean_dist
 	rm -rf *.o *.out *_record test.out bepis report 
 
 clean_gcov: clean_record
-	rm -rf GcovReport *.gcda *.gcno GcovReport.dSYM *.info
+	rm -rf GcovReport *.gcda *.gcno *.dSYM *.info
 
 clean_record:
 	rm -rf record

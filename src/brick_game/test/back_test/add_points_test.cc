@@ -1,7 +1,6 @@
-#ifndef CPP3_BRICKGAME_V2_0_1_SRC_TEST_BACK_TEST_ADD_POINTS_TEST_H_
-#define CPP3_BRICKGAME_V2_0_1_SRC_TEST_BACK_TEST_ADD_POINTS_TEST_H_
+#include "../brick_game_test.h"
 
-#include "back_test.h"
+
 
 class AddPointsTest : public ::testing::Test
 {
@@ -14,7 +13,7 @@ TEST_F(AddPointsTest, case_1)
   int **field;
   InitField(&field, width, height);
   GameInfo game_info;
-  InitGameInfo(&game_info, field, 10, 10,RANDOM_BRICK,"test_record");
+  InitGameInfo(&game_info, field, 10, 10, RANDOM_BRICK, "test_record");
   game_info.win_info.height = height;
   game_info.win_info.width = width;
   AddPoints(&game_info, 4);
@@ -22,7 +21,7 @@ TEST_F(AddPointsTest, case_1)
   ASSERT_EQ(game_info.level, 3);
   DeleteField(game_info.field, width);
 }
- 
+
 TEST_F(AddPointsTest, case_2)
 {
   int width = 10;
@@ -30,7 +29,7 @@ TEST_F(AddPointsTest, case_2)
   int **field;
   InitField(&field, width, height);
   GameInfo game_info;
-  InitGameInfo(&game_info, field, 10, 10,RANDOM_BRICK,"test_record");
+  InitGameInfo(&game_info, field, 10, 10, RANDOM_BRICK, "test_record");
   game_info.win_info.height = height;
   game_info.win_info.width = width;
   AddPoints(&game_info, 0);
@@ -38,7 +37,6 @@ TEST_F(AddPointsTest, case_2)
   ASSERT_EQ(game_info.level, 1);
   DeleteField(game_info.field, width);
 }
- 
 
 TEST_F(AddPointsTest, case_3)
 {
@@ -47,7 +45,7 @@ TEST_F(AddPointsTest, case_3)
   int **field;
   InitField(&field, width, height);
   GameInfo game_info;
-  InitGameInfo(&game_info, field, 10, 10,RANDOM_BRICK,"test_record");
+  InitGameInfo(&game_info, field, 10, 10, RANDOM_BRICK, "test_record");
   game_info.win_info.height = height;
   game_info.win_info.width = width;
   AddPoints(&game_info, 1);
@@ -55,7 +53,6 @@ TEST_F(AddPointsTest, case_3)
   ASSERT_EQ(game_info.level, 1);
   DeleteField(game_info.field, width);
 }
- 
 
 TEST_F(AddPointsTest, case_4)
 {
@@ -64,7 +61,7 @@ TEST_F(AddPointsTest, case_4)
   int **field;
   InitField(&field, width, height);
   GameInfo game_info;
-  InitGameInfo(&game_info, field, 10, 10,RANDOM_BRICK,"test_record");
+  InitGameInfo(&game_info, field, 10, 10, RANDOM_BRICK, "test_record");
   game_info.win_info.height = height;
   game_info.win_info.width = width;
   game_info.points = 300;
@@ -73,7 +70,6 @@ TEST_F(AddPointsTest, case_4)
   ASSERT_EQ(game_info.level, 2);
   DeleteField(game_info.field, width);
 }
- 
 
 TEST_F(AddPointsTest, case_5)
 {
@@ -82,7 +78,7 @@ TEST_F(AddPointsTest, case_5)
   int **field;
   InitField(&field, width, height);
   GameInfo game_info;
-  InitGameInfo(&game_info, field, 10, 10,RANDOM_BRICK,"test_record");
+  InitGameInfo(&game_info, field, 10, 10, RANDOM_BRICK, "test_record");
   game_info.win_info.height = height;
   game_info.win_info.width = width;
   AddPoints(&game_info, 1500);
@@ -90,5 +86,3 @@ TEST_F(AddPointsTest, case_5)
   ASSERT_EQ(game_info.level, 3);
   DeleteField(game_info.field, width);
 }
-
-#endif
