@@ -118,6 +118,7 @@ void GameForm::SetGameType(int game_type){
 
 void GameForm::SetUpSnake(){
     snake_ = s21::Snake(&game_info_, field_);
+    snake_.Clear();
 }
 
 void GameForm::SetUpTetris(){
