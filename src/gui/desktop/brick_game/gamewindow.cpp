@@ -65,6 +65,7 @@ void GameForm::StartGame(){
         UpdateGameState(kStartSig);
         gameTimer->start(300);
         game_started_ = true;
+        UpdateView();
     }
 }
 

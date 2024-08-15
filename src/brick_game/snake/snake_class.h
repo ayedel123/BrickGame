@@ -43,6 +43,45 @@ namespace s21
             Respawn();
         }
 
+        Snake(const Snake &other)
+        {
+            this->game_info = other.game_info;
+
+            body.reserve(other.body.size());
+            for (const auto &brick : other.body)
+            {
+                body.push_back(new Brick(*brick));
+            }
+
+            last_direction = other.last_direction;
+            last_signal = other.last_signal;
+            game_speed = other.game_speed;
+            game_acceleration = other.game_acceleration;
+        }
+
+        Snake &
+        operator=(const Snake &other)
+        {
+            if (this != &other)
+            {
+                Clear();
+
+                this->game_info = other.game_info;
+
+                body.reserve(other.body.size());
+                for (const auto &brick : other.body)
+                {
+                    body.push_back(new Brick(*brick));
+                }
+
+                last_direction = other.last_direction;
+                last_signal = other.last_signal;
+                game_speed = other.game_speed;
+                game_acceleration = other.game_acceleration;
+            }
+            return *this;
+        }
+
         void Respawn()
         {
             game_info->current_brick.x = game_info->win_info.width / 2;
