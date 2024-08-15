@@ -3,28 +3,13 @@
 
 #include "../../gui/cli/cli.h"
 #include "../back/back.h"
-#include "tetris.h"
+#include "tetris_base.h"
 extern "C"
 {
 #include <curses.h>
 }
 
-// typedef enum
-// {
-//   kMoveUp = 0,
-//   kMoveDown,
-//   kMoveRight,
-//   kMoveLeft,
-//   kRotateLeft,
-//   kRotateRight,
-//   kPause,
-//   kExit,
-//   kStartSig,
-//   kNosig
-// } tetris_signals;
-
 void TetrisUpdateCurrentState(GameInfo *game_info, GameState *state,
-                                  Signal signal);
-Signal TetrisGetSignal(int UserInput);
+                              Signal signal);
 
 #endif

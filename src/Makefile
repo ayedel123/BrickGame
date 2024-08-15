@@ -1,7 +1,6 @@
 GPP = gcc -lstdc++ 
 CFLAGS =  -Werror -Wall -Wextra -std=c++17 
 
-PILK = pilk.c
 FRONTEND = gui/cli/user_input/*.cc \
 			gui/cli/stats/*.cc \
 			gui/cli/timer/*.cc \
@@ -9,15 +8,26 @@ FRONTEND = gui/cli/user_input/*.cc \
 			gui/cli/window/*.cc \
 			gui/cli/get_signal_console/get_signal_console.cc
 
-TETRIS_BACK = brick_game/back/bricks/*.cc \
+E_FRONTEND = $(patsubst %, -e %, $(FRONTEND))
+
+BACK = brick_game/back/bricks/*.cc \
 				brick_game/back/brick_movement/*.cc \
 				brick_game/back/game_info/*.cc \
 				brick_game/back/field/*.cc
 
-TETRIS = brick_game/tetris/*.cc \
-				brick_game/tetris/full_line_handler/*.cc
+TETRIS_BASIC = brick_game/tetris/tetris_fsm.cc \
+				brick_game/tetris/tetris_base.cc
 
-SNAKE = brick_game/snake/*.cc
+TETRIS_GAME = brick_game/tetris/tetris_game_loop.cc
+
+TETRIS = $(TETRIS_BASIC) $(TETRIS_GAME)
+
+SNAKE_BASIC = brick_game/snake/snake_fsm.cc \
+		brick_game/snake/snake_update_current_state.cc
+
+SNAKE_GAME = brick_game/snake/snake_game_loop.cc
+
+SNAKE = $(SNAKE_BASIC) $(SNAKE_GAME)
 
 TEST_SOURCES = brick_game/test/brick_game_test.cc \
 				brick_game/test/back_test/add_points_test.cc \
@@ -63,7 +73,7 @@ endif
 
 all: gcov_report install run
 
-install_cli: ${MAIN} ${TETRIS_BACK} $(FRONTEND) ${TETRIS} ${SNAKE}
+install_cli: ${MAIN} ${BACK} $(FRONTEND) ${TETRIS} ${SNAKE}
 	$(GPP) $(CFLAGS) $^ $(LIBS) -lstdc++ -o brick_game_cli.out
 
 uninstall:
@@ -85,13 +95,21 @@ run:
 	./tetris.out
 
 test: clean
-	$(GPP) $(TETRIS_BACK) $(FRONTEND) $(TETRIS) $(SNAKE) $(TEST_SOURCES) $(TESTFLAGS) $(LIBS) -lstdc++ -o test.out
+	$(GPP) $(BACK) $(FRONTEND) $(TETRIS_BASIC) $(SNAKE_BASIC) $(TEST_SOURCES) $(TESTFLAGS) $(LIBS) -lstdc++ -o test.out
 	./test.out
 
-gcov_report:
-	$(GPP) $(TETRIS_BACK) $(FRONTEND) $(TETRIS) $(SNAKE) $(TEST_SOURCES) $(TESTFLAGS) $(LIBS) -lstdc++ $(GCOV) -o gcov_report.out
+gcov_report: clean
+	$(GPP) $(BACK) $(TETRIS_BASIC) $(SNAKE_BASIC) $(TEST_SOURCES) $(TESTFLAGS) $(GCOV) $(FRONTEND) $(LIBS)  -lstdc++  -o gcov_report.out
 	./gcov_report.out
-	@lcov -t "gcov_report" -o report.info --ignore-errors inconsistent --no-external -c -d .
+	@lcov -t "gcov_report" -o coverage.info --ignore-errors inconsistent --no-external -c -d .
+	@lcov -r coverage.info -o report.info \
+		--ignore-errors inconsistent --no-external \
+		gui/cli/user_input/user_input.cc \
+		gui/cli/stats/stats.cc \
+		gui/cli/timer/timer.cc \
+		gui/cli/ui/ui.cc \
+		gui/cli/window/window.cc \
+		gui/cli/get_signal_console/get_signal_console.cc
 	@genhtml -o report report.info
 	@make clean_gcov
 	open report/index.html

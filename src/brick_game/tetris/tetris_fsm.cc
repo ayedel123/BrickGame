@@ -9,32 +9,6 @@ void TetrisSpawHandler(GameInfo *game_info, GameState *state)
     *state = kMoving;
 }
 
-void TetrisGetMoveData(int signal, int *direction, int *angle)
-{
-  switch (signal)
-  {
-  case kMoveUp:
-    *direction = kDirTop;
-    break;
-  case kMoveDown:
-    *direction = kDirDown;
-    break;
-  case kMoveLeft:
-    *direction = kDirLeft;
-    break;
-  case kMoveRight:
-    *direction = kDirRight;
-    break;
-  case kRotateLeft:
-    *angle = -1;
-    break;
-  case kRotateRight:
-    *angle = 1;
-    break;
-  case kNosig:
-    break;
-  };
-}
 
 void TetrisMovingHandler(GameInfo *game_info, GameState *state,
                          Signal signal)
@@ -48,7 +22,7 @@ void TetrisMovingHandler(GameInfo *game_info, GameState *state,
   {
     int direction = kDirState;
     int angle = 0;
-    TetrisGetMoveData(signal, &direction, &angle);
+    GetMoveData(signal, &direction, &angle);
     int col = MoveBrick(game_info, &game_info->current_brick, direction, angle);
     col = TetrisHandleCollision(col, direction);
     if (col == COL_STATE_CRIT)
@@ -62,17 +36,9 @@ void TetrisMovingHandler(GameInfo *game_info, GameState *state,
 
 void TetrisStartHandler(GameInfo *game_info, GameState *state)
 {
-
-  // if (signal == kStartSig)
-  //{
   ClearField(game_info->field, game_info->win_info.height,
              game_info->win_info.width);
   *state = kSpawn;
-  // }
-  // else if (signal == kExit)
-  // {
-  //   *state = kExitState;
-  // }
 }
 
 void TetrisGameOverHandler(GameState *state,
@@ -135,30 +101,4 @@ void TetrisUpdateCurrentState(GameInfo *game_info, GameState *state,
     TetrisStartHandler(game_info, state);
     break;
   }
-}
-
-Signal TetrisGetSignal(int UserInput)
-{
-  Signal rc = kNosig;
-
-  if (UserInput == KEY_DOWN)
-    rc = kMoveDown;
-  else if (UserInput == KEY_LEFT)
-    rc = kMoveLeft;
-  else if (UserInput == KEY_RIGHT)
-    rc = kMoveRight;
-  else if (UserInput == KEY_ROTATE_LEFT)
-    rc = kRotateLeft;
-  else if (UserInput == KEY_ROTATE_RIGHT)
-    rc = kRotateRight;
-  else if (UserInput == KEY_PAUSE)
-    rc = kPause;
-  else if (UserInput == ERR)
-    rc = kNosig;
-  else if (UserInput == KEY_START)
-    rc = kStartSig;
-  else if (UserInput == KEY_ESCAPE)
-    rc = kExit;
-
-  return rc;
 }

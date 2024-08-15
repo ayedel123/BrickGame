@@ -1,5 +1,5 @@
-#ifndef __TETRIS_MOVE_BRICK__
-#define __TETRIS_MOVE_BRICK__
+#ifndef CPP3_BRICKGAME_V2_0_1_SRC_BRICK_GAME_BACK_BRICK_MOVEMENT_MOVE_BRICK_H_
+#define CPP3_BRICKGAME_V2_0_1_SRC_BRICK_GAME_BACK_BRICK_MOVEMENT_MOVE_BRICK_H_
 
 #include "../common/defines.h"
 #include "../game_info/game_info.h"

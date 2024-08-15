@@ -333,3 +333,17 @@ TEST_F(SnakeFSMTest, case_17)
 
     DeleteField(game_info.field, GAME_WINDOW_HEIGHT);
 }
+
+TEST_F(SnakeFSMTest, case_18)
+{
+    int **field;
+    InitField(&field, GAME_WINDOW_HEIGHT, GAME_WINDOW_WIDTH);
+    GameInfo game_info;
+    s21::Snake snake = s21::Snake(&game_info, field);
+    GameState state = kMoving;
+    field[GAME_WINDOW_HEIGHT / 2 + 1][GAME_WINDOW_WIDTH / 2] = 1;
+    SnakeUpdateCurrentState(snake, &state, kMoveDown);
+    ASSERT_EQ(state, kGameOver);
+
+    DeleteField(game_info.field, GAME_WINDOW_HEIGHT);
+}
