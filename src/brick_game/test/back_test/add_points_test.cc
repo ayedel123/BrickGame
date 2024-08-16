@@ -1,13 +1,8 @@
 #include "../brick_game_test.h"
 
+class AddPointsTest : public ::testing::Test {};
 
-
-class AddPointsTest : public ::testing::Test
-{
-};
-
-TEST_F(AddPointsTest, case_1)
-{
+TEST_F(AddPointsTest, case_1) {
   int width = 10;
   int height = 2;
   int **field;
@@ -22,8 +17,7 @@ TEST_F(AddPointsTest, case_1)
   DeleteField(game_info.field, width);
 }
 
-TEST_F(AddPointsTest, case_2)
-{
+TEST_F(AddPointsTest, case_2) {
   int width = 10;
   int height = 2;
   int **field;
@@ -38,8 +32,7 @@ TEST_F(AddPointsTest, case_2)
   DeleteField(game_info.field, width);
 }
 
-TEST_F(AddPointsTest, case_3)
-{
+TEST_F(AddPointsTest, case_3) {
   int width = 10;
   int height = 2;
   int **field;
@@ -54,8 +47,7 @@ TEST_F(AddPointsTest, case_3)
   DeleteField(game_info.field, width);
 }
 
-TEST_F(AddPointsTest, case_4)
-{
+TEST_F(AddPointsTest, case_4) {
   int width = 10;
   int height = 2;
   int **field;
@@ -71,8 +63,7 @@ TEST_F(AddPointsTest, case_4)
   DeleteField(game_info.field, width);
 }
 
-TEST_F(AddPointsTest, case_5)
-{
+TEST_F(AddPointsTest, case_5) {
   int width = 10;
   int height = 2;
   int **field;

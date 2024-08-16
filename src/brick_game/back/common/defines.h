@@ -40,8 +40,7 @@ typedef enum {
   kNosig
 } Signal;
 
-typedef enum
-{
+typedef enum {
   kStart = 0,
   kSpawn,
   kMoving,

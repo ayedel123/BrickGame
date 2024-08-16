@@ -1,12 +1,8 @@
 #include "../brick_game_test.h"
 
-class MoveBrickCase : public ::testing::Test
-{
-};
+class MoveBrickCase : public ::testing::Test {};
 
-
-TEST_F(MoveBrickCase, case_1)
-{
+TEST_F(MoveBrickCase, case_1) {
   int width = 10;
   int height = 10;
   int **field;
@@ -26,16 +22,13 @@ TEST_F(MoveBrickCase, case_1)
   ASSERT_EQ(brick.x, 2);
   ASSERT_EQ(brick.y, 0);
   for (int i = 0; i < 4; i++) {
-    ASSERT_EQ(
-        field[brick.cords[i][1] + brick.y][brick.cords[i][0] + brick.x],
-        brick.color);
+    ASSERT_EQ(field[brick.cords[i][1] + brick.y][brick.cords[i][0] + brick.x],
+              brick.color);
   }
   DeleteField(field, height);
 }
- 
 
-TEST_F(MoveBrickCase, case_2)
-{
+TEST_F(MoveBrickCase, case_2) {
   int width = 5;
   int height = 5;
   int **field;
@@ -55,18 +48,15 @@ TEST_F(MoveBrickCase, case_2)
   ASSERT_EQ(brick.x, 1);
   ASSERT_EQ(brick.y, 0);
   for (int i = 0; i < 4; i++) {
-    ASSERT_EQ(
-        field[brick.cords[i][1] + brick.y][brick.cords[i][0] + brick.x],
-        brick.color);
+    ASSERT_EQ(field[brick.cords[i][1] + brick.y][brick.cords[i][0] + brick.x],
+              brick.color);
     ASSERT_EQ(brick.cords[i][0], brick2.cords[i][0]);
     ASSERT_EQ(brick.cords[i][1], brick2.cords[i][1]);
   }
   DeleteField(field, height);
 }
- 
 
-TEST_F(MoveBrickCase, case_3)
-{
+TEST_F(MoveBrickCase, case_3) {
   int width = 10;
   int height = 10;
   int **field;
@@ -95,17 +85,15 @@ TEST_F(MoveBrickCase, case_3)
   ASSERT_EQ(brick.x, 0);
   ASSERT_EQ(brick.y, 0);
   for (int i = 0; i < 4; i++) {
-    ASSERT_EQ(
-        field[brick.cords[i][1] + brick.y][brick.cords[i][0] + brick.x],
-        brick.color);
+    ASSERT_EQ(field[brick.cords[i][1] + brick.y][brick.cords[i][0] + brick.x],
+              brick.color);
     ASSERT_EQ(brick.cords[i][0], brick2.cords[i][0]);
     ASSERT_EQ(brick.cords[i][1], brick2.cords[i][1]);
   }
   DeleteField(field, height);
 }
 
-TEST_F(MoveBrickCase, case_4)
-{
+TEST_F(MoveBrickCase, case_4) {
   int width = 10;
   int height = 3;
   int **field;
@@ -126,38 +114,31 @@ TEST_F(MoveBrickCase, case_4)
   ASSERT_EQ(brick.x, 0);
   ASSERT_EQ(brick.y, 0);
   for (int i = 0; i < 4; i++) {
-    ASSERT_EQ(
-        field[brick.cords[i][1] + brick.y][brick.cords[i][0] + brick.x],
-        brick.color);
+    ASSERT_EQ(field[brick.cords[i][1] + brick.y][brick.cords[i][0] + brick.x],
+              brick.color);
     ASSERT_EQ(brick.cords[i][0], brick2.cords[i][0]);
     ASSERT_EQ(brick.cords[i][1], brick2.cords[i][1]);
   }
   DeleteField(field, height);
 }
 
-
-TEST_F(MoveBrickCase, case_5)
-{
+TEST_F(MoveBrickCase, case_5) {
   Brick brick = BRICKS_TYPES[0];
   BornBrick(&brick, 1, 0, 0, 7);
   MoveBrickCords(&brick, kDirRight);
   ASSERT_EQ(brick.x, 2);
   ASSERT_EQ(brick.y, 0);
 }
- 
 
-TEST_F(MoveBrickCase, case_6)
-{
+TEST_F(MoveBrickCase, case_6) {
   Brick brick = BRICKS_TYPES[0];
   BornBrick(&brick, 1, 0, 0, 7);
   MoveBrickCords(&brick, kDirDown);
   ASSERT_EQ(brick.x, 1);
   ASSERT_EQ(brick.y, 1);
 }
- 
 
-TEST_F(MoveBrickCase, case_7)
-{
+TEST_F(MoveBrickCase, case_7) {
   Brick brick1 = BRICKS_TYPES[0];
   Brick brick2 = BRICKS_TYPES[0];
   BornBrick(&brick1, 0, 0, 0, 7);
@@ -176,10 +157,8 @@ TEST_F(MoveBrickCase, case_7)
     ASSERT_EQ(brick1.cords[i][1], brick2.cords[i][1]);
   }
 }
- 
 
-TEST_F(MoveBrickCase, case_8)
-{
+TEST_F(MoveBrickCase, case_8) {
   Brick brick1 = BRICKS_TYPES[0];
   Brick brick2 = BRICKS_TYPES[0];
   BornBrick(&brick1, 0, 0, 0, 7);
@@ -198,10 +177,8 @@ TEST_F(MoveBrickCase, case_8)
     ASSERT_EQ(brick1.cords[i][1], brick2.cords[i][1]);
   }
 }
- 
 
-TEST_F(MoveBrickCase, case_9)
-{
+TEST_F(MoveBrickCase, case_9) {
   Brick brick1 = BRICKS_TYPES[0];
   Brick brick2 = BRICKS_TYPES[0];
   BornBrick(&brick1, 0, 0, 6, 7);
@@ -220,10 +197,8 @@ TEST_F(MoveBrickCase, case_9)
     ASSERT_EQ(brick1.cords[i][1], brick2.cords[i][1]);
   }
 }
- 
 
-TEST_F(MoveBrickCase, case_10)
-{
+TEST_F(MoveBrickCase, case_10) {
   Brick brick1 = BRICKS_TYPES[0];
   BornBrick(&brick1, 0, 0, 3, 7);
   int **field;
@@ -237,10 +212,8 @@ TEST_F(MoveBrickCase, case_10)
   ASSERT_EQ(field[brick1.y + 1][brick1.x + 1], brick1.color);
   DeleteField(field, rows);
 }
- 
 
-TEST_F(MoveBrickCase, case_11)
-{
+TEST_F(MoveBrickCase, case_11) {
   Brick brick1 = BRICKS_TYPES[0];
   BornBrick(&brick1, 0, 0, 5, 7);
   int **field;

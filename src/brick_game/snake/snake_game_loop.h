@@ -4,16 +4,16 @@
 #include "../../gui/cli/cli.h"
 #include "../back/back.h"
 
-extern "C"
-{
+extern "C" {
 #include <ctype.h>
 #include <ncurses.h>
 #include <stdlib.h>
 }
-#include <vector>
-#include <iostream>
 #include <fstream>
+#include <iostream>
 #include <string>
+#include <vector>
+
 #include "./snake_class.h"
 // #include "./snake_fsm.h"
 #include "snake_update_current_state.h"

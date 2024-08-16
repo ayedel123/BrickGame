@@ -1,41 +1,39 @@
 #include "get_signal_desktop.h"
 
-Signal GetSignalDesktop(QKeyEvent *event)
-{
-    Signal signal = kNosig;
-    switch (event->key())
-    {
+Signal GetSignalDesktop(QKeyEvent *event) {
+  Signal signal = kNosig;
+  switch (event->key()) {
     case Qt::Key_Escape:
-        signal = kExit;
-        break;
+      signal = kExit;
+      break;
     case Qt::Key_Up:
-        signal = kMoveUp;
-        break;
+      signal = kMoveUp;
+      break;
     case Qt::Key_Down:
-        signal = kMoveDown;
-        break;
+      signal = kMoveDown;
+      break;
     case Qt::Key_Left:
-        signal = kMoveLeft;
-        break;
+      signal = kMoveLeft;
+      break;
     case Qt::Key_Right:
-        signal = kMoveRight;
-        break;
+      signal = kMoveRight;
+      break;
     case Qt::Key_Q:
-        signal = kRotateLeft;
-        break;
+      signal = kRotateLeft;
+      break;
     case Qt::Key_E:
-        signal = kRotateRight;
-        break;
+      signal = kRotateRight;
+      break;
     case Qt::Key_Space:
-        signal = kPause;
-        break;
+      signal = kPause;
+      break;
     case Qt::Key_Enter:
-        signal = kStartSig;
-        break;
+      signal = kStartSig;
+      break;
     default:
-        signal = kNosig;
-        break;
-    }
+      signal = kNosig;
+      break;
+  }
 
-    return signal;
+  return signal;
 }

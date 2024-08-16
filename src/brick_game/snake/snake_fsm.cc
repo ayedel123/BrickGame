@@ -1,38 +1,26 @@
 #include "snake_fsm.h"
 
-void SpawnAppleHandler(s21::Snake &snake, GameState *state)
-{
+void SpawnAppleHandler(s21::Snake &snake, GameState *state) {
   snake.AddPoints(1);
-  if (snake.game_info->points == 200)
-  {
+  if (snake.game_info->points == 200) {
     *state = kGameOver;
-  }
-  else
-  {
+  } else {
     snake.SpawnApple();
     *state = kMoving;
   }
 }
 
-void MovingHandler(s21::Snake &snake, GameState *state,
-                   Signal signal)
-{
-  if (signal == kExit)
-  {
+void MovingHandler(s21::Snake &snake, GameState *state, Signal signal) {
+  if (signal == kExit) {
     *state = kExitState;
-  }
-  else if (signal == kPause)
-  {
+  } else if (signal == kPause) {
     *state = kOnPause;
-  }
-  else
-  {
+  } else {
     int direction = kDirState;
     int angle = 0;
     GetMoveData(signal, &direction, &angle);
     int col = 0;
-    if (signal != kNosig && direction != -snake.last_direction)
-    {
+    if (signal != kNosig && direction != -snake.last_direction) {
       col = snake.MoveBody(direction, false);
       snake.last_direction = direction;
       snake.last_signal = signal;
@@ -42,8 +30,7 @@ void MovingHandler(s21::Snake &snake, GameState *state,
   }
 }
 
-void StartHandler(s21::Snake &snake, GameState *state)
-{
+void StartHandler(s21::Snake &snake, GameState *state) {
   ClearField(snake.game_info->field, snake.game_info->win_info.height,
              snake.game_info->win_info.width);
   snake.Respawn();
@@ -52,39 +39,28 @@ void StartHandler(s21::Snake &snake, GameState *state)
   *state = kSpawn;
 }
 
-void GameOverHandler(s21::Snake &snake, GameState *state,
-                     Signal signal)
-{
+void GameOverHandler(s21::Snake &snake, GameState *state, Signal signal) {
   snake.Kill();
-  if (signal != kNosig)
-  {
-    if (signal != kExit)
-    {
+  if (signal != kNosig) {
+    if (signal != kExit) {
       *state = kStart;
       snake.last_signal = kStartSig;
-    }
-    else
+    } else
       *state = kExitState;
   }
 }
 
-void ExitHandler(s21::Snake &snake, GameState *state)
-{
-  if (!snake.body.empty())
-  {
+void ExitHandler(s21::Snake &snake, GameState *state) {
+  if (!snake.body.empty()) {
     snake.Kill();
   }
   *state = kExitState;
 }
 
-void PauseHandler(GameState *state, Signal signal)
-{
-  if (signal == kPause)
-  {
+void PauseHandler(GameState *state, Signal signal) {
+  if (signal == kPause) {
     *state = kMoving;
-  }
-  else if (signal == kExit)
-  {
+  } else if (signal == kExit) {
     *state = kExitState;
   }
 }

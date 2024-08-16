@@ -10,7 +10,6 @@ void printPoints(WINDOW *menu_win, GameInfo *game_info, int *y) {
 }
 
 void printNextBrick(WINDOW *menu_win, Brick *next, int *y) {
-
   mvwprintw(menu_win, *y, 1, "next:");
   (*y)++;
   for (int i = 0; i < 4; i++) {
@@ -27,7 +26,6 @@ void printNextBrick(WINDOW *menu_win, Brick *next, int *y) {
 }
 
 void printTetrisStats(WINDOW *menu_win, GameInfo *game_info, int on_pause) {
-
   int y = 1;
   if (on_pause) {
     mvwprintw(menu_win, y, 1, "%10s", "playing");

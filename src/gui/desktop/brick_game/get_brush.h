@@ -5,4 +5,4 @@
 
 QBrush GetBrush(int color);
 
-#endif // GET_BRUSH_H
+#endif  // GET_BRUSH_H

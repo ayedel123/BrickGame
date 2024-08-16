@@ -4,22 +4,20 @@
 #include "../../gui/cli/cli.h"
 #include "../back/back.h"
 
-extern "C"
-{
+extern "C" {
 #include <curses.h>
 }
-#include "snake_class.h"
 #include <vector>
+
+#include "snake_class.h"
 
 // Signal GetSignal(int UserInput);
 void GetMoveData(int signal, int *direction, int *angle);
 void GetMoveData(int signal, int *direction, int *angle);
 void SpawnAppleHandler(s21::Snake &snake, GameState *state);
-void MovingHandler(s21::Snake &snake, GameState *state,
-                   Signal signal);
+void MovingHandler(s21::Snake &snake, GameState *state, Signal signal);
 void StartHandler(s21::Snake &snake, GameState *state);
-void GameOverHandler(s21::Snake &snake, GameState *state,
-                     Signal signal);
+void GameOverHandler(s21::Snake &snake, GameState *state, Signal signal);
 void ExitHandler(s21::Snake &snake, GameState *state);
 void PauseHandler(GameState *state, Signal signal);
 Signal GetSignal(int user_input);

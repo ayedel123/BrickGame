@@ -4,8 +4,7 @@
 #include "../../../brick_game/back/back.h"
 #include "../ui/ui.h"
 #include "../window/window.h"
-extern "C"
-{
+extern "C" {
 #include <ncurses.h>
 }
 void printTetrisStats(WINDOW *menu_win, GameInfo *game_info, int on_pause);

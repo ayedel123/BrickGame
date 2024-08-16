@@ -5,8 +5,7 @@
 #include "../back/back.h"
 #include "tetris_fsm.h"
 
-extern "C"
-{
+extern "C" {
 #include <ctype.h>
 #include <ncurses.h>
 #include <stdlib.h>

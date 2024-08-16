@@ -4,8 +4,7 @@
 #include "../../gui/cli/cli.h"
 #include "../back/back.h"
 #include "tetris_base.h"
-extern "C"
-{
+extern "C" {
 #include <curses.h>
 }
 

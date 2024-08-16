@@ -1,45 +1,43 @@
 #include "get_signal_console.h"
 
-Signal GetSignalConsole(int user_input)
-{
-    Signal signal = kNosig;
+Signal GetSignalConsole(int user_input) {
+  Signal signal = kNosig;
 
-    switch (user_input)
-    {
+  switch (user_input) {
     case KEY_UP:
-        signal = kMoveUp;
-        break;
+      signal = kMoveUp;
+      break;
     case KEY_DOWN:
-        signal = kMoveDown;
-        break;
+      signal = kMoveDown;
+      break;
     case KEY_LEFT:
-        signal = kMoveLeft;
-        break;
+      signal = kMoveLeft;
+      break;
     case KEY_RIGHT:
-        signal = kMoveRight;
-        break;
+      signal = kMoveRight;
+      break;
     case KEY_ROTATE_LEFT:
-        signal = kRotateLeft;
-        break;
+      signal = kRotateLeft;
+      break;
     case KEY_ROTATE_RIGHT:
-        signal = kRotateRight;
-        break;
+      signal = kRotateRight;
+      break;
     case KEY_PAUSE:
-        signal = kPause;
-        break;
+      signal = kPause;
+      break;
     case ERR:
-        signal = kNosig;
-        break;
+      signal = kNosig;
+      break;
     case KEY_START:
-        signal = kStartSig;
-        break;
+      signal = kStartSig;
+      break;
     case KEY_ESCAPE:
-        signal = kExit;
-        break;
+      signal = kExit;
+      break;
     default:
-        signal = kNosig;
-        break;
-    }
+      signal = kNosig;
+      break;
+  }
 
-    return signal;
+  return signal;
 }

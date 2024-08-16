@@ -1,11 +1,8 @@
 #include "../brick_game_test.h"
 
-class MapTestCase : public ::testing::Test
-{
-};
+class MapTestCase : public ::testing::Test {};
 
-TEST_F(MapTestCase, case_1)
-{
+TEST_F(MapTestCase, case_1) {
   int width = 10;
   int height = 10;
   int **field;
@@ -26,8 +23,7 @@ TEST_F(MapTestCase, case_1)
   DeleteField(field, height);
 }
 
-TEST_F(MapTestCase, case_2)
-{
+TEST_F(MapTestCase, case_2) {
   int width = 10;
   int height = 10;
   int **field;
@@ -46,8 +42,7 @@ TEST_F(MapTestCase, case_2)
   DeleteField(field, height);
 }
 
-TEST_F(MapTestCase, case_3)
-{
+TEST_F(MapTestCase, case_3) {
   int width = 10;
   int height = 10;
   int **field;
@@ -66,8 +61,7 @@ TEST_F(MapTestCase, case_3)
 
 // END_TEST
 
-TEST_F(MapTestCase, case_4)
-{
+TEST_F(MapTestCase, case_4) {
   int width = 10;
   int height = 10;
   int **field;
@@ -85,8 +79,7 @@ TEST_F(MapTestCase, case_4)
   DeleteField(field, height);
 }
 
-TEST_F(MapTestCase, case_5)
-{
+TEST_F(MapTestCase, case_5) {
   int width = 10;
   int height = 10;
   int **field;
@@ -104,13 +97,11 @@ TEST_F(MapTestCase, case_5)
   DeleteField(field, height);
 }
 
-
-TEST_F(MapTestCase, case_6)
-{
+TEST_F(MapTestCase, case_6) {
   int width = 4;
   int height = 3;
   int **field;
-  InitField(&field,height,width);
+  InitField(&field, height, width);
   GameInfo game_info;
   game_info.field = field;
   game_info.win_info.height = height;
@@ -124,9 +115,7 @@ TEST_F(MapTestCase, case_6)
   DeleteField(field, height);
 }
 
-
-TEST_F(MapTestCase, case_8)
-{
+TEST_F(MapTestCase, case_8) {
   int width = 4;
   int height = 1;
   Brick brick = BRICKS_TYPES[0];
@@ -144,8 +133,7 @@ TEST_F(MapTestCase, case_8)
   DeleteField(field, width);
 }
 
-TEST_F(MapTestCase, case_9)
-{
+TEST_F(MapTestCase, case_9) {
   int width = 4;
   int height = 5;
   int **field;
@@ -164,8 +152,7 @@ TEST_F(MapTestCase, case_9)
   DeleteField(field, height);
 }
 
-TEST_F(MapTestCase, case_10)
-{
+TEST_F(MapTestCase, case_10) {
   int width = 20;
   int height = 20;
   Brick brick = BRICKS_TYPES[0];
@@ -179,10 +166,7 @@ TEST_F(MapTestCase, case_10)
   ASSERT_EQ(status, COL_STATE_NO);
 }
 
-
-TEST_F(MapTestCase, case_11)
-{
-
+TEST_F(MapTestCase, case_11) {
   int width = 4;
   int height = 3;
   Brick brick = BRICKS_TYPES[0];
@@ -196,10 +180,7 @@ TEST_F(MapTestCase, case_11)
   ASSERT_EQ(status, COLLIDE_WITH_BORDER);
 }
 
-
-TEST_F(MapTestCase, case_12)
-{
-
+TEST_F(MapTestCase, case_12) {
   int width = 4;
   int height = 1;
   Brick brick = BRICKS_TYPES[0];
@@ -213,9 +194,7 @@ TEST_F(MapTestCase, case_12)
   ASSERT_EQ(status, COLLIDE_WITH_BORDER);
 }
 
-TEST_F(MapTestCase, case_13)
-{
-
+TEST_F(MapTestCase, case_13) {
   int width = 4;
   int height = 3;
   Brick brick = BRICKS_TYPES[0];
@@ -229,8 +208,7 @@ TEST_F(MapTestCase, case_13)
   ASSERT_EQ(status, COLLIDE_WITH_BORDER);
 }
 
-TEST_F(MapTestCase, case_14)
-{
+TEST_F(MapTestCase, case_14) {
   int width = 10;
   int height = 10;
   int **field;
@@ -240,15 +218,13 @@ TEST_F(MapTestCase, case_14)
   field[0][4] = 1;
   int status = 0;
   for (int i = 0; i < 4; i++) {
-    status = (status == 0) ? CheckCollisionBrick(field, &brick1, i)
-                           : status;
+    status = (status == 0) ? CheckCollisionBrick(field, &brick1, i) : status;
   }
   ASSERT_EQ(status, 1);
   DeleteField(field, height);
 }
 
-TEST_F(MapTestCase, case_15)
-{
+TEST_F(MapTestCase, case_15) {
   int width = 10;
   int height = 10;
   int **field;
@@ -258,15 +234,13 @@ TEST_F(MapTestCase, case_15)
   field[1][4] = 1;
   int status = 0;
   for (int i = 0; i < 4; i++) {
-    status = (status == 0) ? CheckCollisionBrick(field, &brick1, i)
-                           : status;
+    status = (status == 0) ? CheckCollisionBrick(field, &brick1, i) : status;
   }
   ASSERT_EQ(status, 1);
   DeleteField(field, height);
 }
 
-TEST_F(MapTestCase, case_16)
-{
+TEST_F(MapTestCase, case_16) {
   int width = 10;
   int height = 10;
   int **field;
@@ -276,15 +250,13 @@ TEST_F(MapTestCase, case_16)
   field[0][4] = 1;
   int status = 0;
   for (int i = 0; i < 4; i++) {
-    status = (status == 0) ? CheckCollisionBrick(field, &brick1, i)
-                           : status;
+    status = (status == 0) ? CheckCollisionBrick(field, &brick1, i) : status;
   }
   ASSERT_EQ(status, 1);
   DeleteField(field, height);
 }
 
-TEST_F(MapTestCase, case_17)
-{
+TEST_F(MapTestCase, case_17) {
   int width = 10;
   int height = 10;
   int **field;
@@ -295,10 +267,8 @@ TEST_F(MapTestCase, case_17)
   int status = 0;
   status = 0;
   for (int i = 0; i < 4; i++) {
-    status = (status == 0) ? CheckCollisionBrick(field, &brick1, i)
-                           : status;
+    status = (status == 0) ? CheckCollisionBrick(field, &brick1, i) : status;
   }
   ASSERT_EQ(status, 1);
   DeleteField(field, height);
 }
-

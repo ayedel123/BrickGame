@@ -1,28 +1,25 @@
 #include "snake_update_current_state.h"
 
 void SnakeUpdateCurrentState(s21::Snake &snake, GameState *state,
-                             Signal signal)
-{
-
-    switch (*state)
-    {
+                             Signal signal) {
+  switch (*state) {
     case kSpawn:
-        SpawnAppleHandler(snake, state);
-        break;
+      SpawnAppleHandler(snake, state);
+      break;
     case kMoving:
-        MovingHandler(snake, state, signal);
-        break;
+      MovingHandler(snake, state, signal);
+      break;
     case kGameOver:
-        GameOverHandler(snake, state, signal);
-        break;
+      GameOverHandler(snake, state, signal);
+      break;
     case kOnPause:
-        PauseHandler(state, signal);
-        break;
+      PauseHandler(state, signal);
+      break;
     case kExitState:
-        ExitHandler(snake, state);
-        break;
+      ExitHandler(snake, state);
+      break;
     default:
-        StartHandler(snake, state);
-        break;
-    }
+      StartHandler(snake, state);
+      break;
+  }
 }

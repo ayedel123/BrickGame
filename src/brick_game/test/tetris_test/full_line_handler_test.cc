@@ -1,12 +1,8 @@
 #include "../brick_game_test.h"
 
-class FullLineHandlerTest : public ::testing::Test
-{
-};
+class FullLineHandlerTest : public ::testing::Test {};
 
-
-TEST_F(FullLineHandlerTest, case_1)
-{
+TEST_F(FullLineHandlerTest, case_1) {
   int width = 4;
   int height = 4;
   int **field;
@@ -26,8 +22,7 @@ TEST_F(FullLineHandlerTest, case_1)
   DeleteField(game_info.field, height);
 }
 
-TEST_F(FullLineHandlerTest, case_2)
-{
+TEST_F(FullLineHandlerTest, case_2) {
   int width = 4;
   int height = 4;
   int **field;
@@ -56,9 +51,7 @@ TEST_F(FullLineHandlerTest, case_2)
   DeleteField(game_info.field, height);
 }
 
-
-TEST_F(FullLineHandlerTest, case_3)
-{
+TEST_F(FullLineHandlerTest, case_3) {
   int width = 4;
   int height = 4;
   int **field;
@@ -90,9 +83,7 @@ TEST_F(FullLineHandlerTest, case_3)
   DeleteField(game_info.field, height);
 }
 
-
-TEST_F(FullLineHandlerTest, case_5)
-{
+TEST_F(FullLineHandlerTest, case_5) {
   int width = 4;
   int height = 4;
   int **field;
@@ -117,8 +108,7 @@ TEST_F(FullLineHandlerTest, case_5)
   DeleteField(game_info.field, height);
 }
 
-TEST_F(FullLineHandlerTest, case_6)
-{
+TEST_F(FullLineHandlerTest, case_6) {
   int width = 4;
   int height = 4;
   int **field;
@@ -141,15 +131,13 @@ TEST_F(FullLineHandlerTest, case_6)
   DeleteField(game_info.field, height);
 }
 
-TEST_F(FullLineHandlerTest, case_7)
-{
-
+TEST_F(FullLineHandlerTest, case_7) {
   int width = 10;
   int height = 10;
   int **field;
   InitField(&field, width, height);
   GameInfo game_info;
-  InitGameInfo(&game_info, field, 10, 10,RANDOM_BRICK,"test_record");
+  InitGameInfo(&game_info, field, 10, 10, RANDOM_BRICK, "test_record");
   game_info.win_info.height = height;
   game_info.win_info.width = width;
   Brick secondBrick = game_info.next_brick;
@@ -159,10 +147,8 @@ TEST_F(FullLineHandlerTest, case_7)
   ASSERT_EQ(game_info.current_brick.y, secondBrick.y);
   ASSERT_EQ(game_info.current_brick.color, secondBrick.color);
   for (int i = 0; i < 4; i++) {
-    ASSERT_EQ(game_info.current_brick.cords[i][0],
-                     secondBrick.cords[i][0]);
-    ASSERT_EQ(game_info.current_brick.cords[i][1],
-                     secondBrick.cords[i][1]);
+    ASSERT_EQ(game_info.current_brick.cords[i][0], secondBrick.cords[i][0]);
+    ASSERT_EQ(game_info.current_brick.cords[i][1], secondBrick.cords[i][1]);
   }
   ASSERT_EQ(status, 0);
 

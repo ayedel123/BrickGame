@@ -140,10 +140,16 @@ gcov_report: clean
 valgrind:
 	valgrind --tool=memcheck --leak-check=yes  ./test.out
 
-clang:
-	@cp ../../../../materials/linters/.clang-format .clang-format
-	@find .. -type f -name "*.c" -exec clang-format -n -style=Google {} \;
-	@find .. -type f -name "*.h" -exec clang-format -n -style=Google {} \;
+style_check:
+	@cp ../materials/linters/.clang-format .clang-format
+	@find .. -type f -name "*.cc" -exec clang-format -n {} \;
+	@find .. -type f -name "*.h" -exec clang-format -n {} \;
+	@rm .clang-format
+
+clang: style_check
+	@cp ../materials/linters/.clang-format .clang-format
+	@find .. -type f -name "*.cc" -exec clang-format -i {} \;
+	@find .. -type f -name "*.h" -exec clang-format -i {} \;
 	@rm .clang-format
 
 

@@ -30,11 +30,11 @@ SOURCES += \
     ../../cli/user_input/user_input.cc \
     ../../cli/window/window.cc \
     ../get_signal_desctop/get_signal_desktop.cc \
-    gamewindow.cpp \
+    gamewindow.cc \
     get_brush.cc \
-    main.cpp \
-    mainwindow.cpp \
-    next_brick_widget.cpp
+    main.cc \
+    mainwindow.cc \
+    next_brick_widget.cc
 
 HEADERS += \
     ../../../brick_game/back/back.h \
