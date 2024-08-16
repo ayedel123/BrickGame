@@ -16,7 +16,8 @@ GameForm::GameForm(QWidget *parent) : QWidget(parent), ui_(new Ui::GameForm) {
 
   game_timer_ = new QTimer(this);
   connect(game_timer_, &QTimer::timeout, this, &GameForm::UpdateCurrentState);
-  connect(ui_->exit_button, &QPushButton::clicked, this, &GameForm::OnExitButtonClicked);
+  connect(ui_->exit_button, &QPushButton::clicked, this,
+          &GameForm::OnExitButtonClicked);
 }
 
 GameForm::~GameForm() { delete ui_; }
@@ -44,7 +45,7 @@ void GameForm::UpdateCurrentState() {
     }
     ForcedUpdate();
     game_timer_->setInterval(game_info_.speed -
-                           game_info_.level * game_info_.acceleration);
+                             game_info_.level * game_info_.acceleration);
   }
   if (game_state_ == kExitState) {
     ExitHandler();
@@ -65,7 +66,7 @@ void GameForm::StartGame() {
     game_state_ = kStart;
     UpdateGameState(kStartSig);
     game_timer_->start(game_info_.speed -
-                     game_info_.level * game_info_.acceleration);
+                       game_info_.level * game_info_.acceleration);
     game_started_ = true;
     UpdateView();
   }
@@ -81,9 +82,10 @@ void GameForm::PrintGameName() {
 
 void GameForm::UpdateView() {
   ui_->lvl_label->setText(QString::number(game_info_.level) + " lvl");
-  ui_->score_label->setText("Your score: " + QString::number(game_info_.points));
+  ui_->score_label->setText("Your score: " +
+                            QString::number(game_info_.points));
   ui_->record_label->setText("Record: " +
-                            QString::number(game_info_.high_score));
+                             QString::number(game_info_.high_score));
   update();
 }
 

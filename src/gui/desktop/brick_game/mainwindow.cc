@@ -7,9 +7,12 @@ MainWindow::MainWindow(QWidget *parent)
   ui_->setupUi(this);
   game_form_ = new GameForm();
   connect(game_form_, &GameForm::MainWindow, this, &MainWindow::show);
-  connect(ui_->play_tetris_button, &QPushButton::clicked, this, &MainWindow::OnPlayTetrisButtonClicked);
-  connect(ui_->play_snake_button, &QPushButton::clicked, this, &MainWindow::OnPlaySnakeButtonClicked);
-  connect(ui_->exit_button, &QPushButton::clicked, this, &MainWindow::OnExitButtoClicked);
+  connect(ui_->play_tetris_button, &QPushButton::clicked, this,
+          &MainWindow::OnPlayTetrisButtonClicked);
+  connect(ui_->play_snake_button, &QPushButton::clicked, this,
+          &MainWindow::OnPlaySnakeButtonClicked);
+  connect(ui_->exit_button, &QPushButton::clicked, this,
+          &MainWindow::OnExitButtoClicked);
 
   QPixmap pm(":/images/res/2.png");
 
