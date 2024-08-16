@@ -15,7 +15,7 @@ TEST_F(TetrisFsmTEST, case_1)
     int x = game_info.current_brick.x;
     int y = game_info.current_brick.y;
     GameState state = kMoving;
-    TetrisUpdateCurrentState(&game_info, &state, kMoveDown);
+    TetrisUpdateCurrentState(&game_info, &state, kAction);
     ASSERT_EQ(game_info.current_brick.x, x);
     ASSERT_EQ(game_info.current_brick.y, y + 1);
     ASSERT_EQ(state, kMoving);
@@ -32,7 +32,7 @@ TEST_F(TetrisFsmTEST, case_2)
     int x = game_info.current_brick.x;
     int y = game_info.current_brick.y;
     GameState state = kMoving;
-    TetrisUpdateCurrentState(&game_info, &state, kMoveDown);
+    TetrisUpdateCurrentState(&game_info, &state, kAction);
     ASSERT_EQ(game_info.current_brick.x, x);
     ASSERT_EQ(game_info.current_brick.y, y);
     ASSERT_EQ(state, kSpawn);
@@ -49,8 +49,8 @@ TEST_F(TetrisFsmTEST, case_3)
     int x = game_info.current_brick.x;
     int y = game_info.current_brick.y;
     GameState state = kMoving;
-    TetrisUpdateCurrentState(&game_info, &state, kMoveDown);
-    TetrisUpdateCurrentState(&game_info, &state, kMoveDown);
+    TetrisUpdateCurrentState(&game_info, &state, kAction);
+    TetrisUpdateCurrentState(&game_info, &state, kAction);
     ASSERT_EQ(game_info.current_brick.x, x);
     ASSERT_EQ(game_info.current_brick.y, 0);
     ASSERT_EQ(state, kMoving);
@@ -89,7 +89,7 @@ TEST_F(TetrisFsmTEST, case_6)
     TetrisSetUp(&game_info, field);
     GameState state = kGameOver;
     TetrisUpdateCurrentState(&game_info, &state, kExit);
-    ASSERT_EQ(state, kExit);
+    ASSERT_EQ(state, kExitState);
     DeleteField(game_info.field, GAME_WINDOW_HEIGHT);
 }
 
@@ -102,7 +102,7 @@ TEST_F(TetrisFsmTEST, case_7)
     GameState state = kOnPause;
     int x = game_info.current_brick.x;
     int y = game_info.current_brick.y;
-    TetrisUpdateCurrentState(&game_info, &state, kMoveDown);
+    TetrisUpdateCurrentState(&game_info, &state, kAction);
     ASSERT_EQ(x, game_info.current_brick.x);
     ASSERT_EQ(y, game_info.current_brick.y);
     ASSERT_EQ(state, kOnPause);
@@ -143,7 +143,7 @@ TEST_F(TetrisFsmTEST, case_9)
     GameState state = kExitState;
     int x = game_info.current_brick.x;
     int y = game_info.current_brick.y;
-    TetrisUpdateCurrentState(&game_info, &state, kMoveDown);
+    TetrisUpdateCurrentState(&game_info, &state, kAction);
     ASSERT_EQ(x, game_info.current_brick.x);
     ASSERT_EQ(y, game_info.current_brick.y);
     ASSERT_EQ(state, kExitState);

@@ -1,5 +1,6 @@
 #include "gamewindow.h"
 #include "ui_gamewindow.h"
+#include <QVBoxLayout>
 
 GameForm::GameForm(QWidget *parent)
     : QWidget(parent)
@@ -8,6 +9,13 @@ GameForm::GameForm(QWidget *parent)
     ui->setupUi(this);
     InitField(&field_, GAME_WINDOW_HEIGHT, GAME_WINDOW_WIDTH);
     ClearField(field_, GAME_WINDOW_HEIGHT, GAME_WINDOW_WIDTH);
+
+    NextBrickWidget *myWidget = new NextBrickWidget(this);
+    myWidget->game_info = &game_info_;
+
+
+    ui->next_brick_layout->addWidget(myWidget);
+
     gameTimer = new QTimer(this);
     connect(gameTimer, &QTimer::timeout, this, &GameForm::UpdateCurrentState);
 
@@ -39,11 +47,15 @@ void GameForm::keyPressEvent(QKeyEvent *event){
 void GameForm::UpdateCurrentState() {
     if(game_started_){
         if(game_type_==0){
-            UpdateGameState(kMoveDown);
+            UpdateGameState(kAction);
         }else if(game_type_==1){
             UpdateGameState(snake_.last_signal);
         }
         ForcedUpdate();
+        gameTimer->setInterval(game_info_.speed-game_info_.level*game_info_.acceleration);
+    }
+    if(game_state_==kExitState){
+         ExitHandler();
     }
 }
 
@@ -63,7 +75,7 @@ void GameForm::StartGame(){
     if(!game_started_){
         game_state_ = kStart;
         UpdateGameState(kStartSig);
-        gameTimer->start(300);
+        gameTimer->start(game_info_.speed-game_info_.level*game_info_.acceleration);
         game_started_ = true;
         UpdateView();
     }
@@ -84,29 +96,24 @@ void GameForm::UpdateView(){
     update();
 }
 
+
+
 void GameForm::paintEvent(QPaintEvent *event){
     Q_UNUSED(event);
     QPainter painter(this);
 
     painter.setPen(QPen(Qt::white, 1, Qt::SolidLine, Qt::FlatCap));
-    painter.setBrush(QBrush(Qt::black, Qt::SolidPattern));
+    painter.setBrush(GetBrush(0));
     int start_x = 40;
     int start_y = 40;
     int cell_size = 40;
     if(field_){
         for(int i =0;i<game_info_.win_info.height;i++){
             for(int j=0;j<game_info_.win_info.width;j++){
-                if(field_[i][j]==1){
-                    painter.setBrush(QBrush(Qt::red, Qt::SolidPattern));
-                }else if(field_[i][j]==2){
-                    painter.setBrush(QBrush(Qt::green, Qt::SolidPattern));
-                }else if(field_[i][j]!=0){
-                    painter.setBrush(QBrush(Qt::white, Qt::SolidPattern));
-                }
-
+                 painter.setBrush(GetBrush(field_[i][j]));
 
                 painter.drawRect(start_x+j*cell_size,start_y+i*cell_size,cell_size,cell_size);
-                painter.setBrush(QBrush(Qt::black, Qt::SolidPattern));
+                painter.setBrush(GetBrush(0));
             }
         }
     }
@@ -127,14 +134,17 @@ void GameForm::SetUpTetris(){
     TetrisSetUp(&game_info_, field_);
 }
 
-
-void GameForm::on_pushButton_clicked()
-{
+void GameForm::ExitHandler(){
     UpdateGameState(kExit);
     game_state_=kGameOver;
     game_started_ = false;
     this->close();
 
     emit MainWindow();
+}
+
+void GameForm::on_pushButton_clicked()
+{
+    ExitHandler();
 }
 

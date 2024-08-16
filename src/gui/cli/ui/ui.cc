@@ -57,7 +57,7 @@ int *SetUpBrickGameWindows(WINDOW **windows, int win_count)
   return 0;
 }
 
-void initColors()
+void InitColors()
 {
   init_color(2, 0, 1000, 0);
   init_color(7, 1000, 400, 0);
@@ -81,7 +81,7 @@ void CursesSetUp()
   start_color();
   use_default_colors();
   curs_set(0);
-  initColors();
+  InitColors();
   timeout(0);
 }
 

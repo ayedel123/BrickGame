@@ -31,8 +31,10 @@ SOURCES += \
     ../../cli/window/window.cc \
     ../get_signal_desctop/get_signal_desktop.cc \
     gamewindow.cpp \
+    get_brush.cc \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    next_brick_widget.cpp
 
 HEADERS += \
     ../../../brick_game/back/back.h \
@@ -62,8 +64,10 @@ HEADERS += \
     ../../cli/user_input/user_input.h \
     ../../cli/window/window.h \
     ../get_signal_desctop/get_signal_desktop.h \
+    get_brush.h \
     gamewindow.h \
-    mainwindow.h
+    mainwindow.h \
+    next_brick_widget.h
 
 FORMS += \
     gamewindow.ui \

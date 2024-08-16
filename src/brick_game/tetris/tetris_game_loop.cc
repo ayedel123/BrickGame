@@ -35,7 +35,7 @@ int TetrisGameLoop(GameInfo *game_info, WINDOW **windows)
                 game_info->speed - game_info->level * game_info->acceleration)
         {
             startTime = GetTimeInMS();
-            TetrisUpdateCurrentState(game_info, &state, kMoveDown);
+            TetrisUpdateCurrentState(game_info, &state, kAction);
         }
         DarwTetrisStats(state, game_info, windows);
         DrawGame(state, game_info, windows);

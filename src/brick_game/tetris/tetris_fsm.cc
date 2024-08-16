@@ -9,10 +9,12 @@ void TetrisSpawHandler(GameInfo *game_info, GameState *state)
     *state = kMoving;
 }
 
-
 void TetrisMovingHandler(GameInfo *game_info, GameState *state,
                          Signal signal)
 {
+
+  signal = (signal == kAction) ? kMoveDown : (signal == kMoveDown) ? kAction
+                                                                   : signal;
 
   if (signal == kPause)
   {
@@ -20,11 +22,18 @@ void TetrisMovingHandler(GameInfo *game_info, GameState *state,
   }
   else if (signal != kExit)
   {
-    int direction = kDirState;
+    int direction = (signal == kAction) ? kDirDown : kDirState;
     int angle = 0;
     GetMoveData(signal, &direction, &angle);
     int col = MoveBrick(game_info, &game_info->current_brick, direction, angle);
     col = TetrisHandleCollision(col, direction);
+
+    while (signal == kAction && col == COL_STATE_NO)
+    {
+      col = MoveBrick(game_info, &game_info->current_brick, direction, angle);
+      col = TetrisHandleCollision(col, direction);
+    }
+
     if (col == COL_STATE_CRIT)
     {
       *state = kSpawn;
@@ -38,6 +47,8 @@ void TetrisStartHandler(GameInfo *game_info, GameState *state)
 {
   ClearField(game_info->field, game_info->win_info.height,
              game_info->win_info.width);
+  game_info->points = 0;
+  game_info->level = 0;
   *state = kSpawn;
 }
 
@@ -59,7 +70,7 @@ void TetrisGameOverHandler(GameState *state,
 void TetrisExitHandler(GameInfo *game_info, GameState *state)
 {
   ClearField(game_info->field, game_info->win_info.height, game_info->win_info.width);
-  *state = static_cast<GameState>(kExit);
+  *state = kExitState;
 }
 
 void TetrisPauseHandler(GameState *state, Signal signal)

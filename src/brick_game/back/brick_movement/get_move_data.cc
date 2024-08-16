@@ -22,7 +22,7 @@ void GetMoveData(int signal, int *direction, int *angle)
     case kRotateRight:
         *angle = 1;
         break;
-    case kNosig:
+        default:
         break;
     };
 }

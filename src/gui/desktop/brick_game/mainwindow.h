@@ -24,6 +24,8 @@ private slots:
 
     void on_playSnakeButton_clicked();
 
+    void on_exitButto_clicked();
+
 private:
     Ui::MainWindow *ui;
     GameForm *game_form;

@@ -37,3 +37,9 @@ void MainWindow::on_playSnakeButton_clicked()
 
 }
 
+
+void MainWindow::on_exitButto_clicked()
+{
+    close();
+}
+

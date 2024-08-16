@@ -33,6 +33,7 @@ typedef enum {
   kMoveLeft,
   kRotateLeft,
   kRotateRight,
+  kAction,
   kPause,
   kExit,
   kStartSig,

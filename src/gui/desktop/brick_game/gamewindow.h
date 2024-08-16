@@ -6,10 +6,15 @@
 #include <QPainter>
 #include <QTimer>
 
+#include "get_brush.h"
+
+#include "next_brick_widget.h"
+
 #include "../get_signal_desctop/get_signal_desktop.h"
 #include "../../../brick_game/tetris/tetris.h"
 #include  "../../../brick_game/snake/snake.h"
 #include  "../../../brick_game/snake/snake_game_loop.h"
+
 
 
 namespace Ui {
@@ -38,6 +43,7 @@ protected:
     void paintEvent(QPaintEvent *event) override;
     void ForcedUpdate();
     void UpdateView();
+    void ExitHandler();
 
 private slots:
     void on_pushButton_clicked();

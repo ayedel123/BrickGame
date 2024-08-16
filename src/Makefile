@@ -71,11 +71,33 @@ else
     CHECK_FLAGS = -lcheck -lm -lpthread -lrt -lsubunit
 endif
 
+QT_PRO = ./gui/desktop/brick_game/brick_game.pro
+QT_MAKEFILE_NAME = QtMakefile.mk
+
 all: gcov_report install run
+
+run_desktop:
+ifeq ($(OS), Linux)
+	./qt_calc
+else
+	brick_game.app/Contents/MacOS/brick_game
+endif
+
+run_cli:
+	./brick_game_cli.out
 
 install_cli: ${MAIN} ${BACK} $(FRONTEND) ${TETRIS} ${SNAKE}
 	$(GPP) $(CFLAGS) $^ $(LIBS) -lstdc++ -o brick_game_cli.out
 
+install_desktop:
+	qmake -o $(QT_MAKEFILE_NAME) $(QT_PRO)
+	make -f $(QT_MAKEFILE_NAME)
+	make -f $(QT_MAKEFILE_NAME) clean --silent
+	rm -rf $(QT_MAKEFILE_NAME)
+	rm -rf .qmake.stash
+
+install: uninstall install_cli install_desktop
+	
 uninstall:
 	rm -f tetris.out
 
@@ -125,7 +147,11 @@ clang:
 
 
 clean: clean_gcov clean_dist
-	rm -rf *.o *.out *_record test.out bepis report 
+	rm -rf *.o *.out *_record test.out bepis report
+	rm -rf $(QT_MAKEFILE_NAME)
+	rm -rf .qmake.stash 
+	rm -rf brick_game.app
+	rm -rf gui/desktop/brick_game/build
 
 clean_gcov: clean_record
 	rm -rf GcovReport *.gcda *.gcno *.dSYM *.info

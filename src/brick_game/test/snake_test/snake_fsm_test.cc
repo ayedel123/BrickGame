@@ -50,7 +50,7 @@ TEST_F(SnakeFSMTest, case_3)
     s21::Snake snake = s21::Snake(&game_info, field);
     GameState state = kGameOver;
     SnakeUpdateCurrentState(snake, &state, kExit);
-    ASSERT_EQ(state, kExit);
+    ASSERT_EQ(state, kExitState);
     ASSERT_EQ(snake.body.empty(), true);
     for (int i = 0; i < 4; i++)
     {
@@ -314,7 +314,7 @@ TEST_F(SnakeFSMTest, case_16)
     SnakeUpdateCurrentState(snake, &state, kPause);
     ASSERT_EQ(state, kOnPause);
     SnakeUpdateCurrentState(snake, &state, kExit);
-    ASSERT_EQ(state, kExit);
+    ASSERT_EQ(state, kExitState);
     ASSERT_EQ(snake.body.size(), 4);
 
     DeleteField(game_info.field, GAME_WINDOW_HEIGHT);
