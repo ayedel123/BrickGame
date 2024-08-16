@@ -100,7 +100,7 @@ uninstall:
 
 dist: clean_dist
 	mkdir -p ${DIST_DIR}
-	cp -rf MakeFile ${DIST_DIR}
+	cp -rf Makefile ${DIST_DIR}
 	cp -rf gui ${DIST_DIR}
 	cp -rf brick_game ${DIST_DIR}
 	cp -rf dvi_data ${DIST_DIR}
