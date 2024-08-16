@@ -70,7 +70,7 @@ int FullLineHandler(GameInfo *game_info) {
   return full_lines;
 }
 
-int resetBrick(GameInfo *game_info) {
+int ResetBrick(GameInfo *game_info) {
   int x = game_info->win_info.width / 2;
   int y = 0;
   game_info->current_brick = game_info->next_brick;

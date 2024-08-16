@@ -74,7 +74,7 @@ endif
 QT_PRO = ./gui/desktop/brick_game/brick_game.pro
 QT_MAKEFILE_NAME = QtMakefile.mk
 
-all: gcov_report install
+all: clean gcov_report install
 
 run_desktop:
 ifeq ($(OS), Linux)

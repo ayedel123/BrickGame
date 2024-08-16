@@ -21,14 +21,14 @@ class MainWindow : public QMainWindow {
 
  private slots:
 
-  void on_playTetrisButton_clicked();
+  void OnPlayTetrisButtonClicked();
 
-  void on_playSnakeButton_clicked();
+  void OnPlaySnakeButtonClicked();
 
-  void on_exitButto_clicked();
+  void OnExitButtoClicked();
 
  private:
-  Ui::MainWindow *ui;
-  GameForm *game_form;
+  Ui::MainWindow *ui_;
+  GameForm *game_form_;
 };
 #endif  // MAINWINDOW_H

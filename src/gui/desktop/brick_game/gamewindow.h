@@ -42,19 +42,19 @@ class GameForm : public QWidget {
   void ExitHandler();
 
  private slots:
-  void on_pushButton_clicked();
+  void OnExitButtonClicked();
 
  private:
-  QTimer *gameTimer;
+  QTimer *game_timer_;
   void UpdateGameState(Signal signal);
-  Ui::GameForm *ui;
+  Ui::GameForm *ui_;
   int game_type_ = 0;
   bool game_started_ = false;
   GameInfo game_info_;
   s21::Snake snake_;
   int **field_;
   GameState game_state_ = kStart;
-  int time = 0;
+  int time_ = 0;
 };
 
 #endif  // GAMEWINDOW_H

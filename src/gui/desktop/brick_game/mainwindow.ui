@@ -41,7 +41,7 @@ color:rgb(255,255,255);
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="playTetrisButton">
+   <widget class="QPushButton" name="play_tetris_button">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -54,7 +54,7 @@ color:rgb(255,255,255);
      <string>tetris</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="playSnakeButton">
+   <widget class="QPushButton" name="play_snake_button">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -67,7 +67,7 @@ color:rgb(255,255,255);
      <string>snake</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="exitButto">
+   <widget class="QPushButton" name="exit_button">
     <property name="geometry">
      <rect>
       <x>30</x>

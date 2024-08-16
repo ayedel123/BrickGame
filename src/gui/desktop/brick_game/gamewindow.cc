@@ -4,21 +4,22 @@
 
 #include "ui_gamewindow.h"
 
-GameForm::GameForm(QWidget *parent) : QWidget(parent), ui(new Ui::GameForm) {
-  ui->setupUi(this);
+GameForm::GameForm(QWidget *parent) : QWidget(parent), ui_(new Ui::GameForm) {
+  ui_->setupUi(this);
   InitField(&field_, GAME_WINDOW_HEIGHT, GAME_WINDOW_WIDTH);
   ClearField(field_, GAME_WINDOW_HEIGHT, GAME_WINDOW_WIDTH);
 
   NextBrickWidget *myWidget = new NextBrickWidget(this);
   myWidget->game_info = &game_info_;
 
-  ui->next_brick_layout->addWidget(myWidget);
+  ui_->next_brick_layout->addWidget(myWidget);
 
-  gameTimer = new QTimer(this);
-  connect(gameTimer, &QTimer::timeout, this, &GameForm::UpdateCurrentState);
+  game_timer_ = new QTimer(this);
+  connect(game_timer_, &QTimer::timeout, this, &GameForm::UpdateCurrentState);
+  connect(ui_->exit_button, &QPushButton::clicked, this, &GameForm::OnExitButtonClicked);
 }
 
-GameForm::~GameForm() { delete ui; }
+GameForm::~GameForm() { delete ui_; }
 
 void GameForm::ForcedUpdate() {
   UpdateGameState(kNosig);
@@ -29,7 +30,6 @@ void GameForm::ForcedUpdate() {
 
 void GameForm::keyPressEvent(QKeyEvent *event) {
   Signal signal = GetSignalDesktop(event);
-  uint sign = (uint)signal;
   UpdateGameState(signal);
   ForcedUpdate();
   UpdateView();
@@ -43,7 +43,7 @@ void GameForm::UpdateCurrentState() {
       UpdateGameState(snake_.last_signal);
     }
     ForcedUpdate();
-    gameTimer->setInterval(game_info_.speed -
+    game_timer_->setInterval(game_info_.speed -
                            game_info_.level * game_info_.acceleration);
   }
   if (game_state_ == kExitState) {
@@ -64,7 +64,7 @@ void GameForm::StartGame() {
   if (!game_started_) {
     game_state_ = kStart;
     UpdateGameState(kStartSig);
-    gameTimer->start(game_info_.speed -
+    game_timer_->start(game_info_.speed -
                      game_info_.level * game_info_.acceleration);
     game_started_ = true;
     UpdateView();
@@ -73,16 +73,16 @@ void GameForm::StartGame() {
 
 void GameForm::PrintGameName() {
   if (game_type_ == 0) {
-    ui->game_name_label->setText("TETRIS");
+    ui_->game_name_label->setText("TETRIS");
   } else if (game_type_ == 1) {
-    ui->game_name_label->setText("SNAKE");
+    ui_->game_name_label->setText("SNAKE");
   }
 }
 
 void GameForm::UpdateView() {
-  ui->lvl_label->setText(QString::number(game_info_.level) + " lvl");
-  ui->score_label->setText("Your score: " + QString::number(game_info_.points));
-  ui->record_label->setText("Record: " +
+  ui_->lvl_label->setText(QString::number(game_info_.level) + " lvl");
+  ui_->score_label->setText("Your score: " + QString::number(game_info_.points));
+  ui_->record_label->setText("Record: " +
                             QString::number(game_info_.high_score));
   update();
 }
@@ -127,4 +127,4 @@ void GameForm::ExitHandler() {
   emit MainWindow();
 }
 
-void GameForm::on_pushButton_clicked() { ExitHandler(); }
+void GameForm::OnExitButtonClicked() { ExitHandler(); }

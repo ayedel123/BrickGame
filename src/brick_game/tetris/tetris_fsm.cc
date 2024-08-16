@@ -2,7 +2,7 @@
 
 void TetrisSpawHandler(GameInfo *game_info, GameState *state) {
   TetrisAddPoints(game_info, FullLineHandler(game_info));
-  if (resetBrick(game_info) != COL_STATE_NO)
+  if (ResetBrick(game_info) != COL_STATE_NO)
     *state = kGameOver;
   else
     *state = kMoving;

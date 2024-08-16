@@ -16,7 +16,7 @@ void TetrisAddPoints(GameInfo *game_info, int full_lines);
 int FullLineHandler(GameInfo *game_info);
 int IsLineFull(GameInfo *game_info, int line_id);
 void DropLines(GameInfo *game_info, int last_line, int linesCount);
-int resetBrick(GameInfo *game_info);
+int ResetBrick(GameInfo *game_info);
 
 #define TETRIS_GAME_SPEED 300
 #define TETRIS_GAME_ACCELERATION 20

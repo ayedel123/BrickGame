@@ -59,7 +59,7 @@ color:rgb(255,255,255);
     <string>TextLabel</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="exit_button">
    <property name="geometry">
     <rect>
      <x>600</x>
