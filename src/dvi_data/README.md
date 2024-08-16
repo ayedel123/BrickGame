@@ -8,29 +8,14 @@ To install the game, follow these steps:
 
 1. Navigate to the `src` directory.
 2. Run the following commands:
-   - To install both desktop and console versions: 
-     ```bash
-     make install
-     ```
-   - To install only the console version:
-     ```bash
-     make install_cli
-     ```
-   - To install only the desktop version:
-     ```bash
-     make install_desktop
-     ```
-   - To start the game in desktop mode:
-     ```bash
-     make run_desktop
-     ```
-   - To start the game in console mode:
-     ```bash
-     make run_cli
-     ```
+   - `make install` To install both desktop and console versions: 
+   - `make install_cli` To install only the console version:
+   - `make install_desktop` To install only the desktop version:
+   - `make run_desktop` To start the game in desktop mode:
+   - `make run_cli` To start the game in console mode:
+
 3. To uninstall, run:
-   ```bash
-   make uninstall
+   - `make uninstall`
 
 
 # 🎮 Tetris
@@ -102,7 +87,7 @@ Earn **5 points** to level up:
 
 ### Maximum Snake Size
 
-Strive to achieve the maximum snake size of **200 blocks**!
+Try to achieve the maximum snake size of **200 blocks**!
 
 ### Record Keeping
 
