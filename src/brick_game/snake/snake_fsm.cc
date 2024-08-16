@@ -3,8 +3,15 @@
 void SpawnAppleHandler(s21::Snake &snake, GameState *state)
 {
   snake.AddPoints(1);
-  snake.SpawnApple();
-  *state = kMoving;
+  if (snake.game_info->points == 200)
+  {
+    *state = kGameOver;
+  }
+  else
+  {
+    snake.SpawnApple();
+    *state = kMoving;
+  }
 }
 
 void MovingHandler(s21::Snake &snake, GameState *state,
@@ -33,7 +40,6 @@ void MovingHandler(s21::Snake &snake, GameState *state,
     snake.game_info->current_brick = **snake.body.begin();
     *state = snake.SnakeHandleCollision(col, snake, *state);
   }
-
 }
 
 void StartHandler(s21::Snake &snake, GameState *state)
