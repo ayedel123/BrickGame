@@ -99,7 +99,11 @@ install_desktop:
 install: uninstall install_cli install_desktop
 	
 uninstall:
-	rm -f tetris.out
+	rm -f brick_game_cli.out
+	rm -rf $(QT_MAKEFILE_NAME)
+	rm -rf .qmake.stash 
+	rm -rf brick_game.app
+	rm -rf gui/desktop/brick_game/build
 
 dist: clean_dist
 	mkdir -p ${DIST_DIR}
@@ -112,9 +116,6 @@ dist: clean_dist
 
 dvi:
 	$(OPEN_COMMAND) dvi_data/README.html
-
-run: 
-	./tetris.out
 
 test: clean
 	$(GPP) $(BACK) $(FRONTEND) $(TETRIS_BASIC) $(SNAKE_BASIC) $(TEST_SOURCES) $(TESTFLAGS) $(LIBS) -lstdc++ -o test.out
@@ -146,12 +147,8 @@ clang:
 	@rm .clang-format
 
 
-clean: clean_gcov clean_dist
+clean: clean_gcov clean_dist uninstall
 	rm -rf *.o *.out *_record test.out bepis report
-	rm -rf $(QT_MAKEFILE_NAME)
-	rm -rf .qmake.stash 
-	rm -rf brick_game.app
-	rm -rf gui/desktop/brick_game/build
 
 clean_gcov: clean_record
 	rm -rf GcovReport *.gcda *.gcno *.dSYM *.info

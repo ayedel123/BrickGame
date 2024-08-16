@@ -19,6 +19,7 @@ GameForm::GameForm(QWidget *parent)
     gameTimer = new QTimer(this);
     connect(gameTimer, &QTimer::timeout, this, &GameForm::UpdateCurrentState);
 
+
 }
 
 GameForm::~GameForm()

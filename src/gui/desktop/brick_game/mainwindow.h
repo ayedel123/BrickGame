@@ -1,8 +1,9 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef CPP3_BRICKGAME_V2_0_1_SRC_GUI_DESKTOP_BRICK_GAME_MAIN_WINDOW_H_
+#define CPP3_BRICKGAME_V2_0_1_SRC_GUI_DESKTOP_BRICK_GAME_MAIN_WINDOW_H_
 
 #include <QMainWindow>
 #include "gamewindow.h"
+#include <QPixmap>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {

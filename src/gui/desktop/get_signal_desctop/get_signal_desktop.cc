@@ -29,7 +29,7 @@ Signal GetSignalDesktop(QKeyEvent *event)
     case Qt::Key_Space:
         signal = kPause;
         break;
-    case Qt::Key_1:
+    case Qt::Key_Enter:
         signal = kStartSig;
         break;
     default:

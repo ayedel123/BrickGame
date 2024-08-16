@@ -6,12 +6,24 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>304</width>
-    <height>436</height>
+    <width>700</width>
+    <height>600</height>
    </rect>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>700</width>
+    <height>600</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>700</width>
+    <height>600</height>
+   </size>
+  </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>BrickGame</string>
   </property>
   <property name="styleSheet">
    <string notr="true">MainWindow{background:rgb(0, 0, 0);} 
@@ -34,7 +46,7 @@ color:rgb(255,255,255);
      <rect>
       <x>20</x>
       <y>30</y>
-      <width>121</width>
+      <width>111</width>
       <height>56</height>
      </rect>
     </property>
@@ -46,8 +58,8 @@ color:rgb(255,255,255);
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>110</y>
-      <width>121</width>
+      <y>90</y>
+      <width>111</width>
       <height>56</height>
      </rect>
     </property>
@@ -58,14 +70,27 @@ color:rgb(255,255,255);
    <widget class="QPushButton" name="exitButto">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>190</y>
-      <width>121</width>
+      <x>30</x>
+      <y>470</y>
+      <width>111</width>
       <height>56</height>
      </rect>
     </property>
     <property name="text">
      <string>exit</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="img_label">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>40</y>
+      <width>451</width>
+      <height>441</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
     </property>
    </widget>
   </widget>
@@ -74,7 +99,7 @@ color:rgb(255,255,255);
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>304</width>
+     <width>700</width>
      <height>24</height>
     </rect>
    </property>

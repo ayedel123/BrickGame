@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -8,6 +9,11 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     game_form = new GameForm();
     connect(game_form, &GameForm::MainWindow, this, &MainWindow::show);
+    QPixmap pm(":/images/res/2.png");
+
+    ui->img_label->setPixmap(pm);
+    ui->img_label->setScaledContents(true);
+
 }
 
 MainWindow::~MainWindow()
