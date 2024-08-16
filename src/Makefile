@@ -43,7 +43,6 @@ TEST_SOURCES = brick_game/test/brick_game_test.cc \
 MAIN = brick_game/main.cc
 
 CURSES = -lncurses
-CHECK_FLAGS = -lcheck
 LIBS = $(CURSES)
 GCOV = -lgcov --coverage -fprofile-arcs -ftest-coverage
 DIST_DIR = game_archive
@@ -52,9 +51,11 @@ OPEN_COMMAND = open
 UNAME := $(shell uname)
 
 ifeq ($(UNAME), Linux)
+GCOV_FIX =
 TESTFLAGS=-lgtest -lgtest_main -lrt -lstdc++ -pthread -lm -g
 endif
 ifeq ($(UNAME), Darwin)
+GCOV_FIX = --ignore-errors inconsistent
 TESTFLAGS=-lgtest -lgtest_main -lstdc++ -pthread -lm -g
 endif
 
@@ -62,14 +63,6 @@ endif
 DVI = dvi/README.html
 
 OS := $(shell uname)
-
-ifeq ($(OS),Darwin)
-    OPEN_COMMAND= open
-    CHECK_FLAGS = -lcheck
-else
-    OPEN_COMMAND= xdg-open
-    CHECK_FLAGS = -lcheck -lm -lpthread -lrt -lsubunit
-endif
 
 QT_PRO = ./gui/desktop/brick_game/brick_game.pro
 QT_MAKEFILE_NAME = QtMakefile.mk
@@ -124,9 +117,9 @@ test: clean
 gcov_report: clean
 	$(GPP) $(BACK) $(TETRIS_BASIC) $(SNAKE_BASIC) $(TEST_SOURCES) $(TESTFLAGS) $(GCOV) $(FRONTEND) $(LIBS)  -lstdc++  -o gcov_report.out
 	./gcov_report.out
-	@lcov -t "gcov_report" -o coverage.info --ignore-errors inconsistent --no-external -c -d .
+	@lcov -t "gcov_report" -o coverage.info $(GCOV_FIX) --no-external -c -d .
 	@lcov -r coverage.info -o report.info \
-		--ignore-errors inconsistent --no-external \
+		$(GCOV_FIX) --no-external \
 		gui/cli/user_input/user_input.cc \
 		gui/cli/stats/stats.cc \
 		gui/cli/timer/timer.cc \

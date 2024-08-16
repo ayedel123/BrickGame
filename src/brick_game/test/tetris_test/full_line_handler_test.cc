@@ -142,7 +142,7 @@ TEST_F(FullLineHandlerTest, case_7) {
   game_info.win_info.width = width;
   Brick secondBrick = game_info.next_brick;
 
-  int status = resetBrick(&game_info);
+  int status = ResetBrick(&game_info);
   ASSERT_EQ(game_info.current_brick.x, secondBrick.x);
   ASSERT_EQ(game_info.current_brick.y, secondBrick.y);
   ASSERT_EQ(game_info.current_brick.color, secondBrick.color);
