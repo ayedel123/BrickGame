@@ -1,0 +1,8 @@
+#ifndef CPP3_BRICKGAME_V2_0_1_SRC_GUI_DESKTOP_BRICK_GAME_GET_BRUSH_H_
+#define CPP3_BRICKGAME_V2_0_1_SRC_GUI_DESKTOP_BRICK_GAME_GET_BRUSH_H_
+
+#include <QPainter>
+
+QBrush GetBrush(int color);
+
+#endif  // GET_BRUSH_H

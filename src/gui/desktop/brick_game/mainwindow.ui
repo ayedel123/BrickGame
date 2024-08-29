@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>700</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>700</width>
+    <height>600</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>700</width>
+    <height>600</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>BrickGame</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">MainWindow{background:rgb(0, 0, 0);} 
+            QPushButton{background: rgb(0, 0, 0);border-style: outset;border-width: 2px;border-radius: 10px;border-color: rgb(255,255,255); 
+                min-width:40;min-height:40;font: bold 18px;padding: 6px;color:rgb(255,255,255);text-align: top,left;} 
+            QLineEdit{font: bold 16px;background: rgb(0, 0, 0);border-style: outset; 
+             border-width: 2px;border-radius: 10px;border-color: rgb(255,255,255);color:rgb(255,255,255);}
+            QLabel{font: bold 16px;color:rgb(255,255,255);}
+QCustomPlot{
+background: rgb(0, 0, 0);
+}
+QRadioButton{
+color:rgb(255,255,255);
+
+}</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QPushButton" name="play_tetris_button">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>30</y>
+      <width>111</width>
+      <height>56</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>tetris</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="play_snake_button">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>90</y>
+      <width>111</width>
+      <height>56</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>snake</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="exit_button">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>470</y>
+      <width>111</width>
+      <height>56</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>exit</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="img_label">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>40</y>
+      <width>451</width>
+      <height>441</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>700</width>
+     <height>24</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

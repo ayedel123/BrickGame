@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brick Game: Tetris & Snake</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        ul {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>🕹️ Brick Game: Tetris & Snake</h1>
+<p>This project implements classic brick games: Tetris and Snake. 🧱💥</p>
+
+<h2>Installation</h2>
+<p>To install the game, follow these steps:</p>
+<ol>
+    <li>Navigate to the <code>src</code> directory.</li>
+    <li>Run the following commands:
+        <ul>
+            <li>To install both desktop and console versions:
+                <pre><code>make install</code></pre>
+            </li>
+            <li>To install only the console version:
+                <pre><code>make install_cli</code></pre>
+            </li>
+            <li>To install only the desktop version:
+                <pre><code>make install_desktop</code></pre>
+            </li>
+            <li>To start the game in desktop mode:
+                <pre><code>make run_desktop</code></pre>
+            </li>
+            <li>To start the game in console mode:
+                <pre><code>make run_cli</code></pre>
+            </li>
+        </ul>
+    </li>
+    <li>To uninstall, run:
+        <pre><code>make uninstall</code></pre>
+    </li>
+</ol>
+
+<h2>🎮 Tetris</h2>
+
+<h3>Finite State Machine Diagram</h3>
+<img src="./tetris_fsm.png" alt="Tetris FSM Diagram">
+
+<h3>Features</h3>
+<ul>
+    <li>Move blocks right, left, and down.</li>
+    <li>Rotate blocks to fit into lines.</li>
+    <li>Clear full lines when completed.</li>
+    <li>6 different types of blocks.</li>
+    <li>Display the next block that will appear.</li>
+    <li>Game over occurs when a block reaches the top of the game field.</li>
+    <li>Game field size: <strong>10x20</strong>.</li>
+</ul>
+
+<h3>Controls</h3>
+<ul>
+    <li>Exit: <code>0</code></li>
+    <li>Pause: <code>Spacebar</code></li>
+    <li>Move Right: <code>Right Arrow Key</code></li>
+    <li>Move Left: <code>Left Arrow Key</code></li>
+    <li>Drop Tetromino: <code>Down Arrow Key</code></li>
+</ul>
+
+<h3>Scoring and Leveling Up</h3>
+<p>Earn points for clearing full lines:</p>
+<ul>
+    <li><strong>1 line cleared</strong> - 100 points</li>
+    <li><strong>2 lines cleared</strong> - 300 points</li>
+    <li><strong>3 lines cleared</strong> - 700 points</li>
+    <li><strong>4 lines cleared</strong> - 1500 points</li>
+</ul>
+<p><strong>Climb through the levels:</strong></p>
+<ul>
+    <li>Earn <strong>600 points</strong> to achieve the next level.</li>
+    <li>Maximum level: <strong>10</strong>.</li>
+</ul>
+
+<h2>🐍 Snake</h2>
+
+<h3>Finite State Machine Diagram</h3>
+<img src="./snake_fsm.png" alt="Snake FSM Diagram">
+
+<h3>Features</h3>
+<ul>
+    <li>Move in any direction to collect green apples.</li>
+    <li>Avoid hitting borders or yourself.</li>
+    <li>The snake starts with <strong>4 red blocks</strong>.</li>
+    <li>Aim to achieve <strong>200 points</strong>.</li>
+    <li><strong>10 levels</strong> with varying speeds.</li>
+</ul>
+
+<h3>Controls</h3>
+<ul>
+    <li>Exit: <code>0</code> in console or <code>Esc</code> in desktop.</li>
+    <li>Pause: <code>Spacebar</code></li>
+    <li>Move Right: <code>Right Arrow Key</code></li>
+    <li>Move Left: <code>Left Arrow Key</code></li>
+    <li>Move Down: <code>Down Arrow Key</code></li>
+    <li>Move Up: <code>Up Arrow Key</code></li>
+</ul>
+
+<h3>Scoring and Leveling Up</h3>
+<p>Earn <strong>5 points</strong> to level up:</p>
+<ul>
+    <li>Maximum level: <strong>10</strong>.</li>
+</ul>
+
+<h3>Maximum Snake Size</h3>
+<p>Try to achieve the maximum snake size of <strong>200 blocks</strong>!</p>
+
+<h3>Record Keeping</h3>
+<p>The highest score is saved between game sessions for each game.</p>
+
+</body>
+</html>

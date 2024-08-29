@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>GameForm</class>
+ <widget class="QWidget" name="GameForm">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>760</width>
+    <height>900</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>760</width>
+    <height>900</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>760</width>
+    <height>900</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>BrickGame</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">GameForm{background:rgb(0, 0, 0);} 
+            QPushButton{background: rgb(0, 0, 0);border-style: outset;border-width: 2px;border-radius: 10px;border-color: rgb(255,255,255); 
+                min-width:40;min-height:40;font: bold 18px;padding: 6px;color:rgb(255,255,255);text-align: top,left;} 
+            QLineEdit{font: bold 16px;background: rgb(0, 0, 0);border-style: outset; 
+             border-width: 2px;border-radius: 10px;border-color: rgb(255,255,255);color:rgb(255,255,255);}
+            QLabel{font: bold 16px;color:rgb(255,255,255);}
+QCustomPlot{
+background: rgb(0, 0, 0);
+}
+QRadioButton{
+color:rgb(255,255,255);
+
+}</string>
+  </property>
+  <widget class="QLabel" name="game_name_label">
+   <property name="geometry">
+    <rect>
+     <x>170</x>
+     <y>10</y>
+     <width>58</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="exit_button">
+   <property name="geometry">
+    <rect>
+     <x>600</x>
+     <y>10</y>
+     <width>100</width>
+     <height>56</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>exit</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="score_label">
+   <property name="geometry">
+    <rect>
+     <x>560</x>
+     <y>130</y>
+     <width>171</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="record_label">
+   <property name="geometry">
+    <rect>
+     <x>560</x>
+     <y>150</y>
+     <width>161</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lvl_label">
+   <property name="geometry">
+    <rect>
+     <x>560</x>
+     <y>170</y>
+     <width>161</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QWidget" name="verticalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>560</x>
+     <y>260</y>
+     <width>161</width>
+     <height>121</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="next_brick_layout"/>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
